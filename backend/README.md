@@ -19,18 +19,18 @@
         "landmark": <landmark>
     }
 }
+```
 
 * Response (STATUS 201)
   
   On successful submission
-  ```
+```
   { 
     msg: 'new user created', 
     success: true 
   }
-  ```
-
 ```
+
 ### Login Route
 
 ```POST /api/auth/login```
