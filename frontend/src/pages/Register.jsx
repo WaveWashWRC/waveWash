@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import loginImg from "/images/login.jpg";
-
+import { Link } from "react-router-dom";
 const Register = () => {
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -11,18 +11,19 @@ const Register = () => {
   const [city, setCity] = useState("");
   const [address, setAddress] = useState("");
 
+
   const handleRegister = async (e) => {
     e.preventDefault();
 
     const newUser = {
       name,
       phoneNumber,
-      emailID,
+      emailId:emailID,
       password,
       location: { pincode, state, city, address },
     };
 
-    const response = await fetch("/api/auth/register", {
+    const response = await fetch("http://localhost:8000/api/auth/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -32,18 +33,6 @@ const Register = () => {
 
     const data = await response.json();
     console.log(data);
-    // .then((response) => {
-    //   if (!response.ok) {
-    //     throw new Error("Network response was not ok");
-    //   }
-    //   return response.json();
-    // })
-    // .then((data) => {
-    //   console.log("Registration successful: ", data);
-    // })
-    // .catch((error) => {
-    //   console.error("Registration error: ", error);
-    // });
   };
 
   return (
@@ -67,7 +56,7 @@ const Register = () => {
             </h1>
           </div>
         </div>
-        <div className="bg-base-400 flex items-center justify-center">
+        <div className="bg-base-400 flex-wrap flex items-center justify-center">
           <form
             action=""
             onSubmit={handleRegister}

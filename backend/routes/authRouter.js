@@ -6,12 +6,6 @@ const cors = require("cors");
 const { registerUser, loginUser, getUser } = require("../controllers/auth");
 const authenticate = require("../middleware/authenticate");
 
-router.use(
-  cors({
-    credentials: true,
-    origin: "http://localhost:5173",
-  })
-);
 
 router.get("/", (req, res) => {
   res.json({ msg: "Get all apis" });

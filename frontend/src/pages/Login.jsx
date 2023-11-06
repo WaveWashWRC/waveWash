@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import loginImg from "/images/login.jpg";
 import { Link } from "react-router-dom";
+import { useCookies } from 'react-cookie'
 // import { useUsersContext } from "../hooks/useUserContext";
 
 const Login = () => {
@@ -8,13 +9,13 @@ const Login = () => {
   const [emailId, setEmailId] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
-
+  const [cookie, setCookie] = useCookies(["session"])
   const handleLogin = async (e) => {
     e.preventDefault(); // prevent refresh of the pageBreakAfter:
 
     const user = { emailId, password };
 
-    const response = await fetch("/api/auth/login", {
+    const response = await fetch("http://localhost:8000/api/auth/login", {
       method: "POST",
       body: JSON.stringify(user),
 
@@ -29,6 +30,11 @@ const Login = () => {
       setError(json.error);
     }
     if (response.ok) {
+      setCookie("session", json.token, {
+        path: "/",
+        maxAge: 3600*24*30, // Expires after 30d
+        sameSite: true,
+      })
       setEmailId("");
       setPassword("");
       setError(null);
@@ -58,7 +64,7 @@ const Login = () => {
             </h1>
           </div>
         </div>
-        <div className="bg-base-400 py-8 flex items-center justify-center">
+        <div className="bg-base-400 py-8 flex items-center flex-wrap justify-center">
           <form
             action=""
             className="max-w-[700px] w-full mx-auto bg-base-400 p-8 px-16 rounded-lg"
