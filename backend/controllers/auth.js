@@ -2,6 +2,7 @@ const userModel = require("../database/UserModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
+
 //register new users
 async function registerUser(req, res) {
   const { name, phoneNumber, emailId, location, password } = req.body;
@@ -82,6 +83,7 @@ function getUser(req, res) {
     })
     .catch((error) => res.sendStatus(404));
 }
+
 module.exports = {
   registerUser,
   loginUser,

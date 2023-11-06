@@ -1,7 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
 import loginImg from "/images/login.jpg";
 
 const Register = () => {
+  const [name, setName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [emailID, setEmailID] = useState("");
+  const [password, setPassword] = useState("");
+  const [pincode, setPincode] = useState("");
+  const [state, setState] = useState("");
+  const [city, setCity] = useState("");
+  const [address, setAddress] = useState("");
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+
+    const newUser = {
+      name,
+      phoneNumber,
+      emailID,
+      password,
+      location: { pincode, state, city, address },
+    };
+
+    const response = await fetch("/api/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newUser),
+    });
+
+    const data = await response.json();
+    console.log(data);
+    // .then((response) => {
+    //   if (!response.ok) {
+    //     throw new Error("Network response was not ok");
+    //   }
+    //   return response.json();
+    // })
+    // .then((data) => {
+    //   console.log("Registration successful: ", data);
+    // })
+    // .catch((error) => {
+    //   console.error("Registration error: ", error);
+    // });
+  };
+
   return (
     <div className="bg-gradient-to-br from-base-100 to-gray-400 w-full h-screen relative flex items-center justify-center">
       <div
@@ -26,6 +70,7 @@ const Register = () => {
         <div className="bg-base-400 flex items-center justify-center">
           <form
             action=""
+            onSubmit={handleRegister}
             className="max-w-[700px] w-full mx-auto bg-base-400 p-8 px-16 rounded-lg"
           >
             <h2 className="text-2xl dark:text-gray-200 font-bold text-left">
@@ -33,11 +78,13 @@ const Register = () => {
             </h2>
             <div className="flex flex-row items-center justify-between space-x-2  pt-2 text-lg">
               <label htmlFor="name" className="text-gray-200">
-                Full Name
+                Name
               </label>
               <input
                 type="text"
                 id="name"
+                onChange={(e) => setName(e.target.value)}
+                value={name}
                 className="rounded-sm text-base w-[13.8rem] bg-gray-300 mt-2 px-2 py-3 h-8 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
               />
             </div>
@@ -48,6 +95,8 @@ const Register = () => {
               <input
                 type="number"
                 id="number"
+                onChange={(e) => setPhoneNumber(e.target.value)}
+                value={phoneNumber}
                 className="rounded-sm text-base w-[13.8rem] bg-gray-300 mt-2 px-2 py-3 h-8 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
               />
             </div>
@@ -58,6 +107,8 @@ const Register = () => {
               <input
                 type="email"
                 id="email"
+                onChange={(e) => setEmailID(e.target.value)}
+                value={emailID}
                 className="rounded-sm text-base w-[13.8rem] bg-gray-300 mt-2 px-2 py-3 h-8 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
               />
             </div>
@@ -66,7 +117,9 @@ const Register = () => {
                 Address
               </label>
               <textarea
-                id="email"
+                id="address"
+                onChange={(e) => setAddress(e.target.value)}
+                value={address}
                 className="rounded-sm text-base bg-gray-300 mt-2 px-2 py-3 w-[13.8rem] overflow-hidden resize-none h-12 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
               />
             </div>
@@ -78,6 +131,8 @@ const Register = () => {
                 <input
                   type="number"
                   id="pincode"
+                  onChange={(e) => setPincode(e.target.value)}
+                  value={pincode}
                   className="rounded-sm text-base bg-gray-300 mt-2 px-2 py-3 h-8 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
                 />
               </div>
@@ -88,6 +143,8 @@ const Register = () => {
                 <input
                   type="text"
                   id="state"
+                  onChange={(e) => setState(e.target.value)}
+                  value={state}
                   className="rounded-sm text-base bg-gray-300 mt-2 px-2 py-3 h-8 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
                 />
               </div>
@@ -98,6 +155,8 @@ const Register = () => {
                 <input
                   type="text"
                   id="city"
+                  onChange={(e) => setCity(e.target.value)}
+                  value={city}
                   className="rounded-sm text-base bg-gray-300 mt-2 px-2 py-3 h-8 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
                 />
               </div>
@@ -110,6 +169,8 @@ const Register = () => {
               <input
                 type="password"
                 id="password"
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
                 className="rounded-sm bg-gray-300 mt-2 px-2 py-3 h-8 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
               />
             </div>
@@ -131,11 +192,13 @@ const Register = () => {
                 SIGN UP
               </button>
             </div>
-            <div className="flex justify-center text-gray-300 text-sm space-x-1">
-              <p>Already have an account?</p>
-              <a className="hover:underline hover:cursor-pointer">LOGIN!</a>
-            </div>
           </form>
+          <div className="flex justify-center text-gray-300 text-sm space-x-1">
+            <p>Already have an account?</p>
+            <Link to="/login" className="hover:underline hover:cursor-pointer">
+              LOGIN!
+            </Link>
+          </div>
         </div>
       </div>
     </div>

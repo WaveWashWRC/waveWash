@@ -1,7 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import loginImg from "/images/login.jpg";
+import { Link } from "react-router-dom";
+// import { useUsersContext } from "../hooks/useUserContext";
 
 const Login = () => {
+  // const { dispatch } = useUsersContext;
+  const [emailId, setEmailId] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+
+  const handleLogin = async (e) => {
+    e.preventDefault(); // prevent refresh of the pageBreakAfter:
+
+    const user = { emailId, password };
+
+    const response = await fetch("/api/auth/login", {
+      method: "POST",
+      body: JSON.stringify(user),
+
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const json = await response.json();
+
+    if (!response.ok) {
+      setError(json.error);
+    }
+    if (response.ok) {
+      setEmailId("");
+      setPassword("");
+      setError(null);
+      console.log("New user added", json);
+      // dispatch({ type: "LOGIN_USER", payload: json });
+    }
+  };
+
   return (
     <div className="bg-gradient-to-br from-base-100 to-gray-400 w-full h-screen relative flex items-center justify-center">
       <div
@@ -27,17 +62,20 @@ const Login = () => {
           <form
             action=""
             className="max-w-[700px] w-full mx-auto bg-base-400 p-8 px-16 rounded-lg"
+            onSubmit={handleLogin}
           >
             <h2 className="text-2xl dark:text-gray-200 font-bold text-left">
               LOGIN
             </h2>
             <div className="flex flex-row items-center justify-between space-x-2  pt-2 text-lg">
-              <label htmlFor="name" className="text-gray-200">
-                User Name
+              <label htmlFor="emailid" className="text-gray-200">
+                Email ID
               </label>
               <input
                 type="text"
-                id="password"
+                id="emailid"
+                onChange={(e) => setEmailId(e.target.value)}
+                value={emailId}
                 className="rounded-sm text-base w-[13.8rem] bg-gray-300 mt-2 px-2 py-3 h-8 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
               />
             </div>
@@ -48,6 +86,8 @@ const Login = () => {
               <input
                 type="password"
                 id="password"
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
                 className="rounded-sm text-base w-[13.8rem] bg-gray-300 mt-2 px-2 py-3 h-8 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
               />
             </div>
@@ -65,15 +105,23 @@ const Login = () => {
               </a>
             </div>
             <div className="flex">
-              <button className="w-44 mx-auto py-2 my-3 text-gray-300 text-xl bg-base-600 rounded-lg shadow-lg hover:bg-base-600/80">
+              <button
+                className="w-44 mx-auto py-2 my-3 text-gray-300 text-xl bg-base-600 rounded-lg shadow-lg hover:bg-base-600/80"
+                type="submit"
+              >
                 SIGN IN
               </button>
             </div>
-            <div className="flex justify-center text-gray-300 text-sm space-x-1">
-              <p>Don't have an account?</p>
-              <a className="hover:underline hover:cursor-pointer">SIGN UP!</a>
-            </div>
           </form>
+          <div className="flex justify-center text-gray-300 text-sm space-x-1">
+            <p>Don't have an account?</p>
+            <Link
+              to="/register"
+              className="hover:underline hover:cursor-pointer"
+            >
+              SIGN UP!
+            </Link>
+          </div>
         </div>
       </div>
     </div>
