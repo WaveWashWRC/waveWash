@@ -14,6 +14,7 @@ app.use(
     origin: ["http://localhost:5173"],
     methods: ["GET", "POST"],
     credentials: true,
+    exposedHeaders: ["set-cookie"],
   })
 );
 
@@ -48,8 +49,8 @@ app.post("/login", async (req, res) => {
       const passwordMatch = bcrypt.compareSync(password, user.password);
       if (passwordMatch) {
         const token = jwt.sign({ email: user.email }, "jwt-secret-key");
-        res.cookie("token", token, { path: "/" });
-        res.json("success");
+        res.cookie("token", token);
+        res.json("Success");
       } else {
         res.json("Password is incorrect");
       }

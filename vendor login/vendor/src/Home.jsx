@@ -19,16 +19,13 @@ function Home() {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
-        if (data === "success") {
-          console.log("Login successful");
-        } else {
-          console.log("Login failed. Redirecting to /login");
+        if (data !== "success" && data !== "Success") {
+          console.log(data);
           navigate("/login");
         }
       })
       .catch((error) => {
-        console.error("Fetch error:", error.message);
+        console.error("Fetch error:", error);
       });
   }, [navigate]);
 

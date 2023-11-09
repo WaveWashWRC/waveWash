@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import limg from "./assets/login.jpg";
-import axios from "axios";
+// import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
@@ -9,7 +9,7 @@ function Login() {
   const [password, setPassword] = useState();
 
   const navigate = useNavigate();
-  axios.defaults.withCredentials = true;
+  // axios.defaults.withCredentials = true;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -24,6 +24,7 @@ function Login() {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify(requestData),
     })
       .then((response) => {
@@ -34,7 +35,7 @@ function Login() {
       })
       .then((data) => {
         console.log(data);
-        if (data === "success") {
+        if (data === "Success") {
           navigate("/home");
         }
       })
