@@ -1,22 +1,18 @@
 module.exports = {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
       colors: {
-        "base-100": "#F5F5F5",
-        "base-200": "#C3D6CE",
-        "base-300": "#A18A5C",
-        "base-400": "#008C89",
-        "base-500": "#216A66",
-        "base-600": "#023138",
+        "base-100": "#ECF0F1",
+        "base-200": "#17e9e1",
+        "base-300": "#007fFf",
+        "base-400": "#17224D",
       },
       backgroundColor: {
-        "base-100": "#F5F5F5",
-        "base-200": "#C3D6CE",
-        "base-300": "#A18A5C",
-        "base-400": "#008C89",
-        "base-500": "#216A66",
-        "base-600": "#023138",
+        "base-100": "#ECF0F1",
+        "base-200": "#17e9e1",
+        "base-300": "#007fFf",
+        "base-400": "#17224D",
       },
     },
   },
