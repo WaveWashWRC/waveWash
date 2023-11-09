@@ -1,3 +1,43 @@
+# File Structure
+
+```
+
+├── controllers
+│   ├── User
+│   │   └── userAuth.js
+│   └── Vendor
+│       └── vendorAuth.js
+├── database
+│   ├── connect.js
+│   ├── UserModel.js
+│   └── VendorModel.js
+├── middleware
+│   └── authenticate.js
+├── package.json
+├── package-lock.json
+├── README.md
+├── routes
+│   ├── User
+│   │   └── auth.js
+│   └── Vendor
+│       └── auth.js
+└── server.js
+
+```
+
+# Environment variables
+
+```
+PORT = <PORT NUMBER>
+DB_URI = <MongoDB URI>
+JWT_SECRET_KEY = <JWT KEY>
+```
+# Setup 
+
+```
+npm install
+npm start
+```
 # API Endpoints
 
 # USERS
@@ -106,30 +146,3 @@
         "token": <JSON WEB TOKEN>
     }
     ```
-
-# File Structure
-
-```
-
-├── controllers
-│   ├── User
-│   │   └── userAuth.js
-│   └── Vendor
-│       └── vendorAuth.js
-├── database
-│   ├── connect.js
-│   ├── UserModel.js
-│   └── VendorModel.js
-├── middleware
-│   └── authenticate.js
-├── package.json
-├── package-lock.json
-├── README.md
-├── routes
-│   ├── User
-│   │   └── auth.js
-│   └── Vendor
-│       └── auth.js
-└── server.js
-
-```
