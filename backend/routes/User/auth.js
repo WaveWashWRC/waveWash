@@ -3,8 +3,8 @@ const router = express.Router();
 
 const cors = require("cors");
 
-const { registerUser, loginUser, getUser } = require("../controllers/auth");
-const authenticate = require("../middleware/authenticate");
+const { registerUser, loginUser, getUser } = require("../../controllers/User/userAuth");
+const authenticate = require("../../middleware/authenticate");
 
 
 router.get("/", (req, res) => {

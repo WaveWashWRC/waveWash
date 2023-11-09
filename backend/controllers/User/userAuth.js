@@ -1,4 +1,4 @@
-const userModel = require("../database/UserModel");
+const userModel = require("../../database/UserModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
@@ -47,8 +47,8 @@ async function loginUser(req, res) {
     const token = jwt.sign(
       {
         emailId: emailId,
-        userId: userData._id,
-        time: Date.now(),
+        id: userData._id,
+        type:'user'
       },
       process.env.JWT_SECRET_KEY,
       {
@@ -73,7 +73,9 @@ function getUser(req, res) {
   const { userId } = req.user;
 
   userModel
-    .findById(userId)
+    .findById(userId,{
+      $unset:'password'
+    })
     .then((data) => {
       res.status(200).json({
         username: data?.name,

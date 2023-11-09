@@ -1,6 +1,8 @@
 # API Endpoints
 
-### Registeration Route
+# USERS
+
+### Registeration Route 
 
 ```POST /api/auth/register```
 * Send HTTP Request with the following JSON format
@@ -53,3 +55,82 @@
         "token": <JSON WEB TOKEN>
     }
     ```
+
+    # VENDORS
+
+    ```POST /api/vendor/auth/register```
+* Send HTTP Request with the following JSON format
+```
+{
+    "emailId":<email>,
+    "password": <password>,
+    "phoneNumber":<phn>,
+    "ownerName":"Vishwas R",
+    "companyName":"Smooth Mechanix",
+    "location":{
+        "pincode":"562652",
+        "city":"Bengaluru",
+        "state":"Karnataka",
+        "address":"BMS Road, Basavanagudi",
+        "landmark":"Temple"
+    }
+}
+```
+* Response (STATUS 200)
+
+```
+{
+  "success" : true,
+  "msg":  "new vendor created"
+}
+```
+### Login Route
+
+```POST /api/vendor/auth/login```
+* Send HTTP Request with the following JSON format
+
+```
+{
+    "emailId": <email id>,
+    "password": <password>
+}
+```
+* Response format on success (STATUS 200)
+
+    ```
+    {
+        "success": true,
+        "msg": "authenticated",
+        "companyName": "Smooth Mechaniz",
+        "vendorId": <_id>,
+        "token": <JSON WEB TOKEN>
+    }
+    ```
+
+    # File Structure
+
+    ```
+    .
+├── controllers
+│   ├── User
+│   │   └── userAuth.js
+│   └── Vendor
+│       └── vendorAuth.js
+├── database
+│   ├── connect.js
+│   ├── UserModel.js
+│   └── VendorModel.js
+├── middleware
+│   └── authenticate.js
+├── package.json
+├── package-lock.json
+├── README.md
+├── routes
+│   ├── User
+│   │   └── auth.js
+│   └── Vendor
+│       └── auth.js
+└── server.js
+
+    ```
+    

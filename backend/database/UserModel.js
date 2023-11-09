@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema(
       city: String,
       address: String,
       landmark: String,
-    },
+    }
   },
   { timestamps: true }
 );
