@@ -107,10 +107,10 @@
     }
     ```
 
-    # File Structure
+# File Structure
 
-    ```
-    .
+```
+
 ├── controllers
 │   ├── User
 │   │   └── userAuth.js
@@ -132,5 +132,4 @@
 │       └── auth.js
 └── server.js
 
-    ```
-    
+```
