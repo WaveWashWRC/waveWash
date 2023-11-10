@@ -30,11 +30,11 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
-          <Route path="/user" element={<User />}>
-            <Route path="dashboard" element={<UserDashboard />} />
-            <Route path="book-service" element={<BookService />} />
-            <Route path="post-an-ad" element={<PostAd />} />
-          </Route>
+          <Route path="/user" element={<User />} />
+          <Route path="/dashboard" element={<UserDashboard />} />
+          <Route path="/book-service" element={<BookService />} />
+          <Route path="/post-an-ad" element={<PostAd />} />
+
         </Routes>
       </Router>
     </authContext.Provider>

@@ -46,28 +46,14 @@ const Login = () => {
   return (
     <div className="bg-gradient-to-br from-base-100 to-gray-400 w-full h-screen relative flex items-center justify-center">
       <div
-        className="grid grid-cols-1 sm:grid-cols-2 h-[500px] w-[1000px] mx-auto overflow-hidden rounded-lg shadow-2xl"
+        className="flex justify-center sm:grid-cols-2 h-[500px] w-[1000px] mx-auto overflow-hidden rounded-lg "
         id="login-card"
       >
-        <div className="relative col-span-1">
-          <img
-            src={loginImg}
-            alt="Login Wash Image"
-            className="w-full h-full object-cover"
-          />
-          <div className="flex justify-center items-center">
-            <h1 className="absolute top-96 left-8 text-5xl text-white font-bold">
-              Welcome Back!
-            </h1>
-            <h1 className="absolute top-[440px] left-9 text-2xl text-white font-semibold">
-              Please log in to your account.
-            </h1>
-          </div>
-        </div>
-        <div className="bg-base-400 py-8 flex items-center flex-wrap justify-center">
+        
+        <div className=" py-8 flex items-center flex-wrap justify-center">
           <form
             action=""
-            className="max-w-[700px] w-full mx-auto bg-base-400 p-8 px-16 rounded-lg"
+            className="max-w-[600px] w-full mx-auto bg-base-400 p-8 px-16 rounded-lg"
             onSubmit={handleLogin}
           >
             <h2 className="text-2xl dark:text-gray-200 font-bold text-left">
@@ -80,6 +66,7 @@ const Login = () => {
               <input
                 type="text"
                 id="emailid"
+                placeholder="johndoe@gmail.com"
                 onChange={(e) => setEmailId(e.target.value)}
                 value={emailId}
                 className="rounded-sm text-base w-[13.8rem] bg-gray-300 mt-2 px-2 py-3 h-8 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
@@ -92,6 +79,7 @@ const Login = () => {
               <input
                 type="password"
                 id="password"
+                placeholder="*********"
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
                 className="rounded-sm text-base w-[13.8rem] bg-gray-300 mt-2 px-2 py-3 h-8 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
@@ -112,7 +100,7 @@ const Login = () => {
             </div>
             <div className="flex">
               <button
-                className="w-44 mx-auto py-2 my-3 text-gray-300 text-xl bg-base-600 rounded-lg shadow-lg hover:bg-base-600/80"
+                className="w-44 border border-white hover:bg-cyan-500 hover:text-cyan-950 mx-auto py-2 my-3 text-gray-300 text-xl bg-base-600 rounded-lg shadow-lg hover:bg-base-600/80"
                 type="submit"
               >
                 SIGN IN
