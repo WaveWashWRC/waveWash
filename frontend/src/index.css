@@ -6,3 +6,32 @@
 :root {
   font-family: "Inter", sans-serif;
 }
+
+.btn-primary {
+  background-color: #17224d;
+  width: 15rem;
+}
+
+.btn-primary:hover {
+  background-color: #007fff;
+  border: 0;
+}
+
+.file-input-primary {
+  border-color: #17224d;
+}
+
+.file-input-primary::file-selector-button {
+  background-color: #17224d;
+  border-color: #17224d;
+  outline-color: #17224d;
+  color: white;
+}
+
+.checkbox-primary,
+.checkbox-primary:checked {
+  background-color: #17224d;
+  border-color: #17224d;
+  outline-color: #17224d;
+  color: white;
+}

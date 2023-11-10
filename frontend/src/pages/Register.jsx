@@ -11,14 +11,13 @@ const Register = () => {
   const [city, setCity] = useState("");
   const [address, setAddress] = useState("");
 
-
   const handleRegister = async (e) => {
     e.preventDefault();
 
     const newUser = {
       name,
       phoneNumber,
-      emailId:emailID,
+      emailId: emailID,
       password,
       location: { pincode, state, city, address },
     };
@@ -56,11 +55,11 @@ const Register = () => {
             </h1>
           </div>
         </div>
-        <div className="bg-base-400 flex-wrap flex items-center justify-center">
+        <div className="bg-base-500 flex-wrap flex items-center justify-center">
           <form
             action=""
             onSubmit={handleRegister}
-            className="max-w-[700px] w-full mx-auto bg-base-400 p-8 px-16 rounded-lg"
+            className="max-w-[700px] w-full mx-auto bg-base-500 p-8 px-16 rounded-lg"
           >
             <h2 className="text-2xl dark:text-gray-200 font-bold text-left">
               REGISTER

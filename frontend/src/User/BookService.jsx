@@ -1,25 +1,25 @@
-import React from "react";
-import { HiOutlineSearch } from "react-icons/hi";
+import React, { useState } from "react";
 import VendorCard from "../components/VendorCard";
+import ServicesDropdown from "../components/ServicesDropdown";
 
 const BookService = () => {
+  const [selectedService, setSelectedService] = useState("");
+
+  const handleServiceChange = (selectedValue) => {
+    setSelectedService(selectedValue);
+  };
   return (
-    <div className="p-5">
+    <div className="px-24 py-12 bg-base-100 w-full h-screen text-base-400">
       <h1 className="text-2xl font-bold">Schedule a service.</h1>
-      <div className="flex my-4 justify-center items-center gap-x-2 mx-20">
-        <input
-          type="text"
-          className="text-xl py-2 px-3 border-base-200 border-2 rounded-md w-full"
-          placeholder="Search for a wash around me"
-        />
-        <HiOutlineSearch
-          className="text-base-200 border-base-200 border-2 hover:border-0 hover:text-white transition-colors duration-75 cursor-pointer hover:bg-gray-200 rounded-full p-2"
-          size={40}
-        />
+      <div className="my-5 items-center">
+        <ServicesDropdown onSelectChange={handleServiceChange} />
       </div>
-      <div className="my-4 mx-20">
-        <h1 className="text-2xl font-bold text-center">Car Wash</h1>
-        <div>
+      <hr className="bg-base-400/60 h-0.5" />
+      <div className="my-4 mx-5">
+        <h1 className="text-2xl font-bold text-center mt-5 uppercase">
+          {selectedService}
+        </h1>
+        <div className="w-full px-24 py-4 mx-auto">
           <VendorCard />
         </div>
       </div>

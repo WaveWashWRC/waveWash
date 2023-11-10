@@ -7,12 +7,12 @@ import "swiper/css/navigation";
 
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
-import bathroomwash from "/images/bathroomwash.jpg";
-import bikewash from "/images/bikewash.jpg";
-import carpetcleaning from "/images/carpetcleaning.jpg";
-import carwash from "/images/carwash.jpg";
-import gardening from "/images/gardening.jpg";
-import petwash from "/images/petwash.jpg";
+import bathroomwash from "/images/User/bathroomwash.jpg";
+import bikewash from "/images/User/bikewash.jpg";
+import carpetcleaning from "/images/User/carpetcleaning.jpg";
+import carwash from "/images/User/carwash.jpg";
+import gardening from "/images/User/gardening.jpg";
+import petwash from "/images/User/petwash.jpg";
 
 const images = [
   bathroomwash,
@@ -25,7 +25,7 @@ const images = [
 
 const Carousel = () => {
   return (
-    <div className="w-96">
+    <div className="w-[700px]">
       <Swiper
         spaceBetween={30}
         centeredSlides={true}
