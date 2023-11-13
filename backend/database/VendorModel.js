@@ -10,16 +10,6 @@ const VendorSchema = new mongoose.Schema(
         type:String,
         required:true
     },
-    services:[
-        {
-            category: {
-                type:String
-            },
-            pricing:{
-                type: mongoose.Types.Decimal128,
-            } 
-        }
-    ],
     password: {
       type: String,
       required: true,
