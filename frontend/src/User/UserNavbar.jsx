@@ -87,9 +87,12 @@ const UserNavbar = () => {
             />
           </div>
           <div className="border-l-2 border-base-400">
-            <button className="border-base-400 px-5 py-2 border rounded-md transition-all hover:transition-colors hover:bg-base-400 hover:text-base-100 ml-3">
+            <Link
+              to="/login"
+              className="border-base-400 px-5 py-2 border rounded-md transition-all hover:transition-colors hover:bg-base-400 hover:text-base-100 ml-3"
+            >
               Logout
-            </button>
+            </Link>
           </div>
         </div>
       </div>

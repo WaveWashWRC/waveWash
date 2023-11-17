@@ -2,23 +2,21 @@ import React, { useState } from "react";
 import loginImg from "/images/login.jpg";
 import { Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
-// import { useUsersContext } from "../hooks/useUserContext";
 
 const Login = () => {
-  // const { dispatch } = useUsersContext;
   const [emailId, setEmailId] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [cookie, setCookie] = useCookies(["session"]);
+
   const handleLogin = async (e) => {
-    e.preventDefault(); // prevent refresh of the pageBreakAfter:
+    e.preventDefault();
 
     const user = { emailId, password };
 
     const response = await fetch("http://localhost:8000/api/auth/login", {
       method: "POST",
       body: JSON.stringify(user),
-
       headers: {
         "Content-Type": "application/json",
       },
@@ -32,49 +30,50 @@ const Login = () => {
     if (response.ok) {
       setCookie("session", json.token, {
         path: "/",
-        maxAge: 3600 * 24 * 30, // Expires after 30d
+        maxAge: 3600 * 24 * 30,
         sameSite: true,
       });
       setEmailId("");
       setPassword("");
       setError(null);
       console.log("New user added", json);
-      // dispatch({ type: "LOGIN_USER", payload: json });
     }
   };
 
   return (
     <div className="bg-gradient-to-br from-base-100 to-gray-400 w-full h-screen relative flex items-center justify-center">
       <div
-        className="grid grid-cols-1 sm:grid-cols-2 h-[500px] w-[1000px] mx-auto overflow-hidden rounded-lg shadow-2xl"
+        className="grid grid-cols-1 sm:grid-cols-2 h-[500px] sm:w-[80%] md:w-[60%] mx-auto overflow-hidden rounded-lg shadow-2xl"
         id="login-card"
       >
-        <div className="relative col-span-1">
+        <div className="relative">
           <img
             src={loginImg}
             alt="Login Wash Image"
             className="w-full h-full object-cover"
           />
-          <div className="flex justify-center items-center">
-            <h1 className="absolute top-96 left-8 text-5xl text-white font-bold">
+          <div className="flex flex-col justify-center items-center text-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <h1 className="text-xl md:text-5xl font-bold sm:mb-0 md:mb-4">
               Welcome Back!
             </h1>
-            <h1 className="absolute top-[440px] left-9 text-2xl text-white font-semibold">
+            <h1 className="text-base md:text-2xl font-semibold">
               Please log in to your account.
             </h1>
           </div>
         </div>
-        <div className="bg-base-500 py-8 flex items-center flex-wrap justify-center">
+        <div className="bg-base-500 m-2 md:m-0 p-2 md:py-8 flex items-center flex-wrap justify-center">
           <form
-            action=""
-            className="max-w-[700px] w-full mx-auto bg-base-500 p-8 px-16 rounded-lg"
+            className="max-w-[700px] w-full mx-auto bg-base-500 md:py-8 px-4 py-2 md:px-16 rounded-lg"
             onSubmit={handleLogin}
           >
-            <h2 className="text-2xl dark:text-gray-200 font-bold text-left">
+            <h2 className="text-lg md:text-2xl dark:text-gray-200 font-bold text-left mb-1 md:mb-4">
               LOGIN
             </h2>
-            <div className="flex flex-row items-center justify-between space-x-2  pt-2 text-lg">
-              <label htmlFor="emailid" className="text-gray-200">
+            <div className="flex flex-col mb-2 md:mb-4">
+              <label
+                htmlFor="emailid"
+                className="sm:text-base md:text-base text-gray-200 mb-1 md:mb-2"
+              >
                 Email ID
               </label>
               <input
@@ -82,11 +81,14 @@ const Login = () => {
                 id="emailid"
                 onChange={(e) => setEmailId(e.target.value)}
                 value={emailId}
-                className="rounded-sm text-base w-[13.8rem] bg-gray-300 mt-2 px-2 py-3 h-8 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
+                className="rounded-sm text-base bg-gray-300 md:py-2 md:px-3 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
               />
             </div>
-            <div className="flex flex-row items-center justify-between space-x-2 pt-2 text-lg">
-              <label htmlFor="password" className="text-gray-200">
+            <div className="flex flex-col mb-2 md:mb-4">
+              <label
+                htmlFor="password"
+                className="sm:text-base md:text-base text-gray-200 mb-1 md:mb-2"
+              >
                 Password
               </label>
               <input
@@ -94,15 +96,15 @@ const Login = () => {
                 id="password"
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
-                className="rounded-sm text-base w-[13.8rem] bg-gray-300 mt-2 px-2 py-3 h-8 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
+                className="rounded-sm text-base bg-gray-300 md:py-2 md:px-3 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
               />
             </div>
 
-            <div className="flex justify-between text-gray-200 my-3">
+            <div className="flex justify-between text-gray-200 my-3 md:text-sm text-xs">
               <p className="flex items-center">
                 <input
                   type="checkbox"
-                  className="form-checkbox mr-2 text-blue-500 h-5 w-5"
+                  className="form-checkbox md:mr-1 text-blue-500 w-4 md:w-5"
                 />
                 Remember Me
               </p>
@@ -110,20 +112,20 @@ const Login = () => {
                 Forgot Password?
               </a>
             </div>
-            <div className="flex">
+            <div className="flex justify-center">
               <button
-                className="w-44 mx-auto py-2 my-3 text-gray-300 text-xl bg-base-600 rounded-lg shadow-lg hover:bg-base-600/80"
+                className="md:w-44 px-4 py-2 md:py-2 text-gray-300 text-sm md:text-xl bg-base-600 rounded-lg shadow-lg hover:bg-base-600/80"
                 type="submit"
               >
                 SIGN IN
               </button>
             </div>
           </form>
-          <div className="flex justify-center text-gray-300 text-sm space-x-1">
+          <div className="flex justify-center text-gray-300 text-xs md:text-sm md:mt-4">
             <p>Don't have an account?</p>
             <Link
               to="/register"
-              className="hover:underline hover:cursor-pointer"
+              className="hover:underline hover:cursor-pointer ml-1"
             >
               SIGN UP!
             </Link>
