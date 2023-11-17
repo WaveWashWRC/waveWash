@@ -1,10 +1,10 @@
 const ads = require('../../database/AdModal');
 const createAd = async (req,res)=>{
-    const vendorId = req.user.id;
+    const customerId = req.user.id;
     const {desc, location, services} = req.body;
     try{
         const newAd = new ads({
-            vendorId,desc,location,services
+            customerId,desc,location,services
         });
         const savedAd = await newAd.save();
         res.status(201).json({
@@ -26,11 +26,20 @@ const getAllAds = async (req,res)=>{
     res.json(allAds)
 
 };
+const getFilteredAds = async (req,res)=>{
+    
+}
 const updateAd = async (req,res)=>{
-    const vendorId = req.user.id;
-    const {_id,desc, location, services} = req.body;
+    const _id = req.params.id;
+    const customerId = req.user.id;
+    const {desc, location, services} = req.body;
     try{
-        await ads.updateOne({_id,vendorId},
+        await ads.updateOne({
+            $and:[
+                {customerId},
+                {_id}
+            ]
+        },
             {desc, location, services}
         );
         res.status(200).json({
@@ -65,8 +74,14 @@ const deleteAd = async (req,res)=>{
     }
 };
 
-module.export = {
+module.exports = {
     createAd,
     updateAd,
-    deleteAd
+    deleteAd,
+    getAllAds
 }
+
+//profile completion
+//history of jobs
+//current booking appointment 
+//admin superadmin - login page and dashboard
