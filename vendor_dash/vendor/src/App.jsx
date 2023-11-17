@@ -1,17 +1,20 @@
-import { useState } from "react";
-import Signup from "./Signup";
-import Login from "./Login";
-import Home from "./Home";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Signup from "./pages/Signup";
+import Login from "./pages/Login";
+import Home from "./v_components/Home";
+import V_Products from "./v_components/V_Products";
 
 function App() {
   return (
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/signup" element={<Signup />}></Route>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/home" element={<Home />}></Route>
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/home" element={<Home />}>
+            {/* Nested Route for Products */}
+            <Route path="product" element={<V_Products />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </div>

@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Home() {
   const navigate = useNavigate();
@@ -29,7 +31,20 @@ function Home() {
       });
   }, [navigate]);
 
-  return <h2>Dashboard</h2>;
+  return (
+    <div>
+      <h1>Welcome to the Home Page!</h1>
+      <nav>
+        <ul>
+          <li>
+            <Link to="product">Products</Link> {/* Nested Link */}
+          </li>
+          {/* Add other nested links here if needed */}
+        </ul>
+      </nav>
+      <Outlet /> {/* Renders nested components */}
+    </div>
+  );
 }
 
 export default Home;
