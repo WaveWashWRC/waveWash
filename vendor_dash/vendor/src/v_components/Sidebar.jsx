@@ -1,0 +1,57 @@
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
+import { FcAreaChart, FcBullish } from "react-icons/fc";
+import { HiOutlineLogout } from "react-icons/hi";
+import {
+  DASHBOARD_SIDEBAR_BOTTOM_LINKS,
+  DASHBOARD_SIDEBAR_LINKS,
+} from "../lib/constants/navigation";
+import classNames from "classnames";
+
+const linkClass =
+  "flex items-center gap-2 font-light px-3 py-2 hover:no-underline rounded-sm text-base";
+
+export default function Sidebar() {
+  const { pathname } = useLocation();
+  function SidebarLink({ item }) {
+    return (
+      <Link
+        to={item.path}
+        className={classNames(
+          pathname === item.path ? "text-white" : "",
+          classNames(linkClass)
+        )}
+      >
+        <span className="text-xl">{item.icon}</span>
+        {item.label}
+      </Link>
+    );
+  }
+
+  return (
+    <div className="bg-teal-600 w-60 p-3 flex flex-col">
+      <div className="flex items-center gap-2">
+        <FcAreaChart fontSize={24} />
+        <span className="text-white text-lg">WaveWash</span>
+      </div>
+      <div className="flex-1 py-8 flex flex-col gap-0.5">
+        {DASHBOARD_SIDEBAR_LINKS.map((item) => (
+          <SidebarLink key={item.key} item={item} />
+        ))}
+      </div>
+      <div className="flex-1 py-8 flex flex-col gap-0.5">
+        {DASHBOARD_SIDEBAR_BOTTOM_LINKS.map((item) => (
+          <SidebarLink className={linkClass} key={item.key} item={item} />
+        ))}
+        <div className={classNames("text-red-800", linkClass)}>
+          <Link to={"/"}>
+            <span className="text-xl">
+              <HiOutlineLogout />
+            </span>
+            Logout
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}

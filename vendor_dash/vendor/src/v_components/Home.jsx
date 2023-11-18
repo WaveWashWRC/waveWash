@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import { Link } from "react-router-dom";
+import Sidebar from "./Sidebar";
 
 function Home() {
   const navigate = useNavigate();
@@ -32,17 +33,15 @@ function Home() {
   }, [navigate]);
 
   return (
-    <div>
-      <h1>Welcome to the Home Page!</h1>
-      <nav>
-        <ul>
-          <li>
-            <Link to="product">Products</Link> {/* Nested Link */}
-          </li>
-          {/* Add other nested links here if needed */}
-        </ul>
-      </nav>
-      <Outlet /> {/* Renders nested components */}
+    <div className="flex flex-row bg-neutral-100 h-screen w-screen overflow-hidden">
+      <Sidebar />
+      <div className="p-4">
+        <div className="bg-teal-200">Header</div>
+        <div>
+          <Outlet />
+        </div>
+        {/* <p>flooter</p> */}
+      </div>
     </div>
   );
 }
