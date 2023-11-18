@@ -1,6 +1,8 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
+import LoginVendor from "./Vendor/LoginVendor";
+import RegisterVendor from "./Vendor/RegisterVendor";
 import Register from "./pages/Register";
 import User from "./pages/User";
 import { useCookies } from "react-cookie";
@@ -25,17 +27,22 @@ function App() {
 
   return (
     <authContext.Provider value={user}>
+
       <Router>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-
-          <Route path="/user" element={<User />} />
-          <Route path="/dashboard" element={<UserDashboard />} />
-          <Route path="/book-service" element={<BookService />} />
-          <Route path="/post-an-ad" element={<PostAd />} />
-
-        </Routes>
+        {(window.location.host.split(".")[0] == "service") ?
+          <Routes>
+            <Route path="/login" element={<LoginVendor />}/>
+            <Route path="/register" element={<RegisterVendor />} />
+          </Routes>
+          : <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/user" element={<User />}>
+              <Route path="dashboard" element={<UserDashboard />} />
+              <Route path="book-service" element={<BookService />} />
+              <Route path="post-an-ad" element={<PostAd />} />
+            </Route>
+          </Routes>}
       </Router>
     </authContext.Provider>
   );
