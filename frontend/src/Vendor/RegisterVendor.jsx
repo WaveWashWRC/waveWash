@@ -29,7 +29,7 @@ const RegisterVendor = () => {
       location: { pincode, state, city, address },
     };
 
-    const response = await fetch("http://localhost:8000/api/vendor/auth/register", {
+    const response = await fetch("http://localhost:8000/api/auth/vendor/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

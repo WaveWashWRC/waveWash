@@ -19,7 +19,7 @@ const LoginVendor = () => {
       password
     };
 
-    const response = await fetch("http://localhost:8000/api/vendor/auth/register", {
+    const response = await fetch("http://localhost:8000/api/auth/vendor/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
