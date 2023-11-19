@@ -35,9 +35,9 @@ const Register = () => {
   };
 
   return (
-    <div className="bg-gradient-to-br from-base-100 to-gray-400 w-full h-screen relative flex items-center justify-center">
+    <div className="bg-gradient-to-br  from-base-100 to-gray-400 w-full h-screen relative flex items-center justify-center">
       <div
-        className="grid grid-cols-1 sm:grid-cols-2 h-[600px] w-[1000px] mx-auto overflow-hidden rounded-lg shadow-2xl"
+        className=" h-[600px] w-[1000px] mx-auto overflow-hidden rounded-lg l"
         id="login-card"
       >
         <div className="relative col-span-1">
@@ -55,11 +55,11 @@ const Register = () => {
             </h1>
           </div>
         </div>
-        <div className="bg-base-500 flex-wrap flex items-center justify-center">
+        <div className="bg-base-400 flex-wrap flex items-center justify-center">
           <form
             action=""
             onSubmit={handleRegister}
-            className="max-w-[700px] w-full mx-auto bg-base-500 p-8 px-16 rounded-lg"
+            className="max-w-[700px] w-full mx-auto bg-base-400 p-8 px-16 rounded-lg"
           >
             <h2 className="text-2xl dark:text-gray-200 font-bold text-left">
               REGISTER
@@ -176,17 +176,20 @@ const Register = () => {
               </a>
             </div> */}
             <div className="flex">
-              <button className="w-44 mx-auto py-2 my-4 text-gray-300 text-xl bg-base-600 rounded-lg shadow-lg hover:bg-base-600/80">
+              <button className="w-44 border border-white hover:bg-cyan-800 mx-auto py-2 my-4  text-gray-300 text-xl bg-base-600 rounded-lg shadow-lg hover:bg-base-600/80">
                 SIGN UP
               </button>
             </div>
+            <div className="flex justify-center text-gray-300 text-sm space-x-1">
+              <p>Already have an account?</p>
+              <Link
+                to="/login"
+                className="hover:underline hover:cursor-pointer"
+              >
+                LOGIN!
+              </Link>
+            </div>
           </form>
-          <div className="flex justify-center text-gray-300 text-sm space-x-1">
-            <p>Already have an account?</p>
-            <Link to="/login" className="hover:underline hover:cursor-pointer">
-              LOGIN!
-            </Link>
-          </div>
         </div>
       </div>
     </div>
