@@ -79,6 +79,7 @@ const Login = () => {
               <input
                 type="text"
                 id="emailid"
+                placeholder="johndoe@gmail.com"
                 onChange={(e) => setEmailId(e.target.value)}
                 value={emailId}
                 className="rounded-sm text-base bg-gray-300 md:py-2 md:px-3 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
@@ -94,6 +95,7 @@ const Login = () => {
               <input
                 type="password"
                 id="password"
+                placeholder="*********"
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
                 className="rounded-sm text-base bg-gray-300 md:py-2 md:px-3 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"

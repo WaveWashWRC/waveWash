@@ -55,6 +55,7 @@ const Register = () => {
             </h1>
           </div>
         </div>
+
         <div className="bg-base-500 m-2 md:m-0 p-2 md:py-8 flex items-center flex-wrap justify-center">
           <form
             action=""
@@ -188,17 +189,20 @@ const Register = () => {
             </div>
 
             <div className="flex">
-              <button className="w-44 mx-auto py-2 my-4 text-gray-300 text-xl bg-base-600 rounded-lg shadow-lg hover:bg-base-600/80">
+              <button className="w-44 border border-white hover:bg-cyan-800 mx-auto py-2 my-4  text-gray-300 text-xl bg-base-600 rounded-lg shadow-lg hover:bg-base-600/80">
                 SIGN UP
               </button>
             </div>
+            <div className="flex justify-center text-gray-300 text-sm space-x-1">
+              <p>Already have an account?</p>
+              <Link
+                to="/login"
+                className="hover:underline hover:cursor-pointer"
+              >
+                LOGIN!
+              </Link>
+            </div>
           </form>
-          <div className="flex justify-center text-gray-300 text-sm space-x-1">
-            <p>Already have an account?</p>
-            <Link to="/login" className="hover:underline hover:cursor-pointer">
-              LOGIN!
-            </Link>
-          </div>
         </div>
       </div>
     </div>
