@@ -25,7 +25,7 @@ const ServicesDropdown = ({ onSelectChange }) => {
   return (
     <div>
       <div className="form-control">
-        <div className="input-group flex space-x-4">
+        <div className="input-group input-group-vertical">
           <select
             className="select select-bordered border-base-400 bg-base-100 md:w-96"
             onChange={handleSelectChange}
@@ -38,7 +38,7 @@ const ServicesDropdown = ({ onSelectChange }) => {
             {washes.map((wash) => (
               <option
                 key={wash}
-                className="text-base py-2 px-4 border-base-200 border-b-2 rounded-md w-full"
+                className="text-sm md:text-base md:py-2 md:px-4 border-base-200 border-b-2 rounded-md w-full"
                 value={wash}
               >
                 {wash}

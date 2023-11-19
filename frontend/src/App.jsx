@@ -9,6 +9,8 @@ import { useContext, useState } from "react";
 import UserDashboard from "./User/UserDashboard";
 import BookService from "./User/BookService";
 import PostAd from "./User/PostAd";
+import History from "./User/History";
+import EditProfile from "./User/EditProfile";
 
 function App() {
   const [user, setUser] = useState({
@@ -34,6 +36,8 @@ function App() {
             <Route path="dashboard" element={<UserDashboard />} />
             <Route path="book-service" element={<BookService />} />
             <Route path="post-an-ad" element={<PostAd />} />
+            <Route path="edit-profile" element={<EditProfile />} />
+            <Route path="history" element={<History />} />
           </Route>
         </Routes>
       </Router>
