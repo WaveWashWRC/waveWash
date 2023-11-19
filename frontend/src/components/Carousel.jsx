@@ -25,7 +25,7 @@ const images = [
 
 const Carousel = () => {
   return (
-    <div className="w-[700px]">
+    <div className=" z-[0]">
       <Swiper
         spaceBetween={30}
         centeredSlides={true}

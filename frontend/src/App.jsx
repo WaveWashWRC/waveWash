@@ -11,6 +11,8 @@ import { useContext, useState } from "react";
 import UserDashboard from "./User/UserDashboard";
 import BookService from "./User/BookService";
 import PostAd from "./User/PostAd";
+import History from "./User/History";
+import EditProfile from "./User/EditProfile";
 
 function App() {
   const [user, setUser] = useState({
@@ -27,6 +29,7 @@ function App() {
 
   return (
     <authContext.Provider value={user}>
+
 
       <Router>
         {(window.location.host.split(".")[0] == "service") ?
