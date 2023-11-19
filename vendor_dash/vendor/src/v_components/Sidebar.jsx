@@ -13,6 +13,7 @@ const linkClass =
 
 export default function Sidebar() {
   const { pathname } = useLocation();
+
   function SidebarLink({ item }) {
     return (
       <Link
@@ -39,16 +40,16 @@ export default function Sidebar() {
           <SidebarLink key={item.key} item={item} />
         ))}
       </div>
-      <div className="flex-1 py-8 flex flex-col gap-0.5">
-        {DASHBOARD_SIDEBAR_BOTTOM_LINKS.map((item) => (
-          <SidebarLink className={linkClass} key={item.key} item={item} />
-        ))}
-        <div className={classNames("text-red-800", linkClass)}>
-          <Link to={"/"}>
+      <div className="flex-1 flex flex-col justify-end">
+        <div className="flex flex-col gap-0.5">
+          {DASHBOARD_SIDEBAR_BOTTOM_LINKS.map((item) => (
+            <SidebarLink className={linkClass} key={item.key} item={item} />
+          ))}
+          <Link to={"/"} className={classNames("text-red-800", linkClass)}>
             <span className="text-xl">
               <HiOutlineLogout />
             </span>
-            Logout
+            <span>Logout</span>
           </Link>
         </div>
       </div>
