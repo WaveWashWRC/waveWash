@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import loginImg from "/images/login.jpg";
 import { Link } from "react-router-dom";
+import { useCookies } from "react-cookie";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import service from '../assets/service.jpg'
 const RegisterVendor = () => {
   const [companyName, setCompanyName] = useState("");
@@ -12,7 +15,7 @@ const RegisterVendor = () => {
   const [state, setState] = useState("");
   const [city, setCity] = useState("");
   const [address, setAddress] = useState("");
-
+  const [cookies, setCookie, removeCookie] = useCookies(['session']);
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -37,6 +40,13 @@ const RegisterVendor = () => {
     const data = await response.json();
     
     console.log(data);
+    if (data.err) {
+      toast.error(data.msg, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    }
+    else
+      setCookie('session', data?.token)
   };
 
   return (
@@ -198,7 +208,7 @@ const RegisterVendor = () => {
             </Link>
           </div>
           </form>
-          
+          <ToastContainer/>
         </div>
       </div>
     </div>
