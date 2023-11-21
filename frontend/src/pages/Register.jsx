@@ -35,9 +35,9 @@ const Register = () => {
   };
 
   return (
-    <div className="bg-gradient-to-br from-base-100 to-gray-400 h-screen relative flex items-center justify-center">
+    <div className="bg-gradient-to-br from-base-100 to-gray-400 h-full relative flex items-center justify-center md:p-10">
       <div
-        className="grid grid-cols-1 sm:grid-cols-2 h-[550px] sm:w-[80%] md:w-[70%] mx-auto overflow-hidden rounded-lg shadow-2xl"
+        className="grid grid-cols-1 sm:grid-cols-2 h-[800px] sm:w-[80%] md:w-[70%] mx-auto overflow-hidden rounded-lg shadow-2xl"
         id="login-card"
       >
         <div className="relative col-span-1">
@@ -46,7 +46,7 @@ const Register = () => {
             alt="Login Wash Image"
             className="w-full h-full object-cover"
           />
-          <div className="flex flex-col justify-center text-left text-white absolute top-2/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          <div className="flex flex-col justify-center items-center text-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
             <h1 className="text-xl md:text-5xl font-bold sm:mb-0 md:mb-4">
               Hello There!
             </h1>
@@ -55,11 +55,11 @@ const Register = () => {
             </h1>
           </div>
         </div>
-        <div className="bg-base-500 m-2 md:m-0 p-2 md:py-8 flex items-center flex-wrap justify-center">
+        <div className="bg-base-500 m-2 md:m-0 p-2 md:py-2 flex items-center flex-wrap justify-center">
           <form
             action=""
             onSubmit={handleRegister}
-            className="max-w-[700px] w-full mx-auto bg-base-500 md:py-8 px-4 py-2 md:px-16 rounded-lg"
+            className="md:max-w-[700px] w-full mx-auto bg-base-500 md:py-8 px-4 py-2 md:px-16 rounded-lg"
           >
             <h2 className="text-lg md:text-2xl dark:text-gray-200 font-bold text-left mb-1 md:mb-4">
               REGISTER
@@ -171,10 +171,10 @@ const Register = () => {
               </div>
             </div>
 
-            <div className="flex flex-row items-center justify-between space-x-2 pt-2 text-lg">
+            <div className="flex flex-col pt-2 text-lg">
               <label
                 htmlFor="password"
-                className="sm:text-sm md:text-base text-gray-200 mb-1 md:mb-2"
+                className="sm:text-sm md:text-base text-gray-200 md:mb-2"
               >
                 Password
               </label>
@@ -183,7 +183,7 @@ const Register = () => {
                 id="password"
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
-                className="rounded-sm bg-gray-300 mt-2 md:px-2 md:py-3 p-2 h-8 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
+                className="rounded-sm bg-gray-300 md:px-2 md:py-3 p-2 h-8 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
               />
             </div>
 
