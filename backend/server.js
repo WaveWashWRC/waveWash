@@ -1,7 +1,7 @@
 require("dotenv").config();
 
 const { mongoConnect } = require("./database/connect");
-const cors  = require('cors')
+const cors = require('cors')
 const express = require("express");
 const mongoose = require("mongoose");
 
@@ -15,16 +15,16 @@ const app = express();
 
 app.use(express.json());
 
-/* app.use(
-  cors(/* {
-    credentials: true,
-    origin: "http://localhost:5173",
-  } )
-); */
+app.use(
+  cors({
+    origin: ["http://service.localhost:5173",
+            "http://localhost:5173"],
+  })
+);
 app.use("/api/auth/", userAuthRouter);
-app.use("/api/vendor/auth",vendorAuthRouter);
+app.use("/api/auth/vendor", vendorAuthRouter);
 
-app.use("/api/ad/",adRouter);
+app.use("/api/ad/", adRouter);
 
 app.listen(port, () => {
   console.log("Server is live at port " + port);
