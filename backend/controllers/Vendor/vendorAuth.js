@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 //register new users
-async function registerVendor(req, res) {
+async function registerVendor(req, res,next) {
   const { companyName, ownerName, phoneNumber, emailId, location, password } = req.body;
   //generates a random username from the email id
   let vendor = await vendorModel.findOne({ emailId });
@@ -26,7 +26,7 @@ async function registerVendor(req, res) {
   newVendor
     .save()
     .then(() =>
-      res.status(200).json({ msg: "new vendor created", success: true })
+      next()
     )
     .catch((err) =>
       res.status(400).json({ msg: "something went wrong", err, success: false })
@@ -72,16 +72,15 @@ async function loginVendor(req, res) {
 //identifies the current user
 function getAuthenticatedVendor(req, res) {
   const { id } = req.user;
-
-  vendorModel.findById(
-      id,
-        {
-            $unset : 'password'
-        })
+  console.log(id,req.user)
+  let vendor = vendorModel.findById(id)
     .then((data) => {
       res.status(200).json(data);
     })
-    .catch((error) => res.sendStatus(404));
+    .catch((error) => {
+      console.log(error);
+      res.sendStatus(404);
+    });
 }
 
 module.exports = {

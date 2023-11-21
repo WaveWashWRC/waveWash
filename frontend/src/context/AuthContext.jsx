@@ -1,4 +1,4 @@
-import {createContext, useReducer } from "react";
+import {createContext } from "react";
 
 const authContext = createContext({
   isAuthenticated : false,

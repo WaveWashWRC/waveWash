@@ -1,12 +1,10 @@
 import React from "react";
 import UserNavbar from "../User/UserNavbar";
-import UserDashboard from "../User/UserDashboard";
 import { Outlet } from "react-router-dom";
-import Carousel from "../components/Carousel";
 
 const User = () => {
   return (
-    <div>
+    <div className="bg-base-100">
       <UserNavbar />
       <Outlet />
     </div>

@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 
 const serviceCategory = [
     "Car wash - Hatchback",
-    "Car wash - Sedan)",
-    "Car wash - SUV)",
+    "Car wash - Sedan",
+    "Car wash - SUV",
     "Bike wash",
     "Tank and Sump wash",
     "Aquarium wash",
@@ -11,13 +11,13 @@ const serviceCategory = [
     "Bathroom and Tiles cleaning",
     "Carpet, Sofa, and curtain cleaning",
     "Gardening"
-    ]
+    ];
 const AdSchema = new mongoose.Schema(
   {
-    vendorId: {
+    customerId: {
       type: mongoose.Types.ObjectId,
       required: true,
-      ref:'Vendors'
+      ref:'User'
     },
     desc:{
         type:String
@@ -32,20 +32,19 @@ const AdSchema = new mongoose.Schema(
     images:[{
         type:String
     }],
-    services:[
-        {
+    services:{
             category: {
                 type:String,
                 enum:serviceCategory
             },
-            price:{
+            expectedPrice:{
                 type: mongoose.Types.Decimal128,
             }
         }
-    ]
   },
   { timestamps: true }
 );
 
 const ads = mongoose.model("Ads", AdSchema);
+/* ads.createIndex( { location.city: "text", desc: "text" } ) */
 module.exports = ads;

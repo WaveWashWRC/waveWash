@@ -6,7 +6,7 @@ const authenticate = require("../../middleware/authenticate");
 
 router.get("/", authenticate, getAuthenticatedVendor); //responds with json only when Status is OK
 
-router.post("/register", registerVendor); //post with body --> email & password
+router.post("/register", registerVendor,loginVendor); //post with body --> email & password
 
 router.post("/login", loginVendor); //post with body --> email & password
 

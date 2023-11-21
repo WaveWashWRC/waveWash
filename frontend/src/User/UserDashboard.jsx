@@ -3,7 +3,7 @@ import Carousel from "../components/Carousel";
 
 const UserDashboard = () => {
   return (
-    <div className="p-5 bg-base-100 w-full h-screen">
+    <div className="p-5 bg-base-100 hidden">
       <div>
         <Carousel />
       </div>
