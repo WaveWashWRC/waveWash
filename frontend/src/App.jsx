@@ -5,17 +5,13 @@ import Register from "./pages/Register";
 import User from "./pages/User";
 import { useCookies } from "react-cookie";
 import authContext from "./context/AuthContext";
-import { useContext, useState } from "react";
+import { useContext, useState,useEffect } from "react";
+import LoginVendor from "./Vendor/LoginVendor";
 import UserDashboard from "./User/UserDashboard";
 import BookService from "./User/BookService";
 import PostAd from "./User/PostAd";
-<<<<<<< Updated upstream
-=======
-import { useCookies } from "react-cookie";
-import History from "./User/History";
-import EditProfile from "./User/EditProfile";
 import VendorDashboard from "./Vendor/VendorDashboard";
->>>>>>> Stashed changes
+
 
 function App() {
   const [user, setUser] = useState({
@@ -26,11 +22,7 @@ function App() {
     email: undefined,
     token: undefined,
   });
-<<<<<<< Updated upstream
 
-  const [cookies, setCookie] = useCookies(["session"]);
-  const token = cookies["session"];
-=======
   const api = "http://localhost:8000";
   const [cookies, setCookie] = useCookies(["session"]);
   const token = cookies["session"];
@@ -55,22 +47,12 @@ function App() {
           });
         });
   }, []);
->>>>>>> Stashed changes
 
   return (
     <authContext.Provider value={user}>
       <Router>
         <Routes>
-<<<<<<< Updated upstream
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
 
-          <Route path="/user" element={<User />} />
-          <Route path="/dashboard" element={<UserDashboard />} />
-          <Route path="/book-service" element={<BookService />} />
-          <Route path="/post-an-ad" element={<PostAd />} />
-
-=======
           {window.location.host.split(".")[0] === "service" ? (
             <>
               <Route path="/login" element={<LoginVendor />} />
@@ -88,7 +70,6 @@ function App() {
               </Route>
             </>
           )}
->>>>>>> Stashed changes
         </Routes>
       </Router>
     </authContext.Provider>

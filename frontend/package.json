@@ -12,12 +12,9 @@
   "dependencies": {
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
-<<<<<<< Updated upstream
-=======
     "classnames": "^2.3.2",
     "dotenv": "^16.3.1",
     "icons": "^1.0.0",
->>>>>>> Stashed changes
     "react": "^18.2.0",
     "react-cookie": "^6.1.1",
     "react-dom": "^18.2.0",
