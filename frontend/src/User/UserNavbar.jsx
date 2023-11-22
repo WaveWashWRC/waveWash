@@ -14,7 +14,7 @@ const UserNavbar = () => {
     <div>
       <div className="navbar bg-gradient-to-r from-base-200 to-base-300 shadow-lg md:px-10 text-base-400  z-1">
         <div className="navbar-start">
-          <div className="dropdown">
+          <div className="dropdown z-10">
             <label
               tabIndex={0}
               className="btn btn-ghost lg:hidden"
@@ -94,7 +94,7 @@ const UserNavbar = () => {
             </Link>
           </ul>
         </div>
-        <div className="navbar-end">
+        <div className="navbar-end z-10">
           <div className="dropdown dropdown-end">
             <label
               tabIndex={0}
