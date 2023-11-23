@@ -30,10 +30,10 @@ export default function VendorSidebar() {
   }
 
   return (
-    <div className="bg-teal-600 w-60 p-3 flex flex-col text-black">
+    <div className="bg-cyan-400 w-60 p-3 flex flex-col text-black">
       <div className="flex items-center gap-2">
         <FcAreaChart fontSize={24} />
-        <span className="text-white text-lg">WaveWash</span>
+        <span className="text-white text-lg font-bold">WaveWash</span>
       </div>
       <div className="flex-1 py-8 flex flex-col gap-0.5">
         {DASHBOARD_SIDEBAR_LINKS.map((item) => (

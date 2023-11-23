@@ -14,12 +14,6 @@ const VendorDashboard = () => {
       <div className="p-4 flex-1 flex flex-col">
         <VendorHeader />
         <div className="flex-1 overflow-y-auto">
-          <div className="text-black">
-            <h1>{`CompanyName : ${vendor.companyName}`}</h1>
-            <h1>{`ownerName : ${vendor.ownerName}`}</h1>
-            <h1>{`emailId : ${vendor.emailId}`}</h1>
-            <h1>{`PhoneNo. : ${vendor.phoneNumber}`}</h1>
-          </div>
           <Outlet />
         </div>
       </div>

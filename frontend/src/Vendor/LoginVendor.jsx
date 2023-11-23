@@ -39,7 +39,8 @@ const LoginVendor = () => {
     }
     else
       {setCookie('session', data?.token);
-      window.location.replace('/dashboard')}
+      window.location.replace('/profile')}
+  }
    return (
     <div className="bg-gradient-to-br flex-wrap  from-cyan-400 to-base-400  h-screen relative flex items-center w-full justify-between">
       <div className="flex justify-center  ">

@@ -14,7 +14,8 @@ import { useCookies } from "react-cookie";
 import History from "./User/History";
 import EditProfile from "./User/EditProfile";
 import VendorDashboard from "./Vendor/VendorDashboard";
-import Profile from "./Vendor/Proflie";
+import Profile from "./Vendor/Profile";
+import Ads from "./Vendor/Ads";
 
 function App() {
   const [user, setUser] = useState({
@@ -26,8 +27,7 @@ function App() {
   useEffect(() => {
     (token !== "undefined" || null) &&
       fetch(
-        `${api}/api/auth/${
-          window.location.host.split(".")[0] == "service" ? "vendor" : "user"
+        `${api}/api/auth/${window.location.host.split(".")[0] == "service" ? "vendor" : "user"
         }`,
         {
           method: "GET",
@@ -48,20 +48,22 @@ function App() {
   return (
     <authContext.Provider value={user}>
       <Router>
-        {window.location.host.split(".")[0] == "service" ? (
+        {window.location.host.split(".")[0] === "service" ? (
           <Routes>
             <Route path="/login" element={<LoginVendor />} />
             <Route path="/register" element={<RegisterVendor />} />
-            <Route path="/dashboard" element={<VendorDashboard />}>
-              <Route path="profile" element={<Profile />} />
-              {/* <Route path="dashboard" element={<V_Dashboard />} /> */}
+            <Route path='/' element={<VendorDashboard />}>
+            <Route path="/ads" element={<Ads/>} />
+              <Route path="/profile" element={<Profile />} />
             </Route>
+            {/* <Route path="dashboard" element={<V_Dashboard />} /> */}
+
           </Routes>
         ) : (
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/user" element={<User />}>
+            <Route path="/" element={<User />}>
               <Route path="dashboard" element={<UserDashboard />} />
               <Route path="book-service" element={<BookService />} />
               <Route path="post-an-ad" element={<PostAd />} />
