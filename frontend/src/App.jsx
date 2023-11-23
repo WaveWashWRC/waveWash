@@ -41,24 +41,26 @@ function App() {
 
   return (
     <authContext.Provider value={user}>
-
-
       <Router>
-        {(window.location.host.split(".")[0] == "service") ?
+        {window.location.host.split(".")[0] == "service" ? (
           <Routes>
-            <Route path="/login" element={<LoginVendor />}/>
+            <Route path="/login" element={<LoginVendor />} />
             <Route path="/register" element={<RegisterVendor />} />
             <Route path="/dashboard" element={<VendorDashboard/>} />
           </Routes>
-          : <Routes>
+        ) : (
+          <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/user" element={<User />}>
               <Route path="dashboard" element={<UserDashboard />} />
               <Route path="book-service" element={<BookService />} />
               <Route path="post-an-ad" element={<PostAd />} />
+              <Route path="edit-profile" element={<EditProfile />} />
+              <Route path="history" element={<History />} />
             </Route>
-          </Routes>}
+          </Routes>
+        )}
       </Router>
     </authContext.Provider>
   );
