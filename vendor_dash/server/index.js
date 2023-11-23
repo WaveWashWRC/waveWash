@@ -5,6 +5,9 @@ const bcrypt = require("bcrypt");
 const VendorModel = require("./models/Vendormodel");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 //new auth code
 const app = express();
@@ -20,14 +23,14 @@ app.use(
 
 app.use(cookieParser());
 
-mongoose.connect("mongodb://127.0.0.1:27017/Vendor");
+mongoose.connect(process.env.DB_CONNECTION_STRING);
 
 const verifyUser = (req, res, next) => {
   const token = req.cookies.token;
   if (!token) {
     return res.json("token is not available");
   } else {
-    jwt.verify(token, "jwt-secret-key", (err, decoded) => {
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
       if (err) return res.json("token is wrong");
       next();
     });
@@ -48,7 +51,7 @@ app.post("/login", async (req, res) => {
     if (user) {
       const passwordMatch = bcrypt.compareSync(password, user.password);
       if (passwordMatch) {
-        const token = jwt.sign({ email: user.email }, "jwt-secret-key");
+        const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET);
         res.cookie("token", token);
         res.json("Success");
       } else {
@@ -78,6 +81,7 @@ app.post("/signup", async (req, res) => {
 
 app.options("/signup", cors());
 
-app.listen(3001, () => {
-  console.log("Server is running on port 3001");
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
