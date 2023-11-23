@@ -13,34 +13,27 @@ export const DASHBOARD_SIDEBAR_LINKS = [
   {
     key: "dashboard",
     label: "Dashboard",
-    path: "/dashboard",
+    path: "/home/dashboard",
     icon: <HiOutlineViewGrid />,
   },
   {
     key: "profile",
     label: "Profile",
-    path: "/profile",
+    path: "/home/profile",
     icon: <HiOutlineCube />,
   },
   {
     key: "orders",
     label: "Orders",
-    path: "/orders",
+    path: "/home/orders",
     icon: <HiOutlineShoppingCart />,
   },
   {
     key: "transactions",
     label: "Transactions",
-    path: "/transactions",
+    path: "/home/transactions",
     icon: <HiOutlineDocumentText />,
   },
-  {
-    key: "ads",
-    label: "Ads",
-    path: "/ads",
-    icon: <HiOutlineAnnotation />,
-  },
-
   //   {
   //     key: "messages",
   //     label: "Messages",

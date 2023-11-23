@@ -72,7 +72,7 @@ const Login = () => {
             <div className="flex flex-col mb-2 md:mb-4">
               <label
                 htmlFor="emailid"
-                className="sm:text-base md:text-base text-gray-200 mb-1 md:mb-2"
+                className="text-sm md:text-base text-gray-200 mb-1 md:mb-2"
               >
                 Email ID
               </label>
@@ -82,13 +82,13 @@ const Login = () => {
                 placeholder="johndoe@gmail.com"
                 onChange={(e) => setEmailId(e.target.value)}
                 value={emailId}
-                className="rounded-sm text-base bg-gray-300 md:py-2 md:px-3 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
+                className="rounded-sm p-2 text-xs md:text-base bg-gray-300 md:py-2 md:px-3 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
               />
             </div>
             <div className="flex flex-col mb-2 md:mb-4">
               <label
                 htmlFor="password"
-                className="sm:text-base md:text-base text-gray-200 mb-1 md:mb-2"
+                className="text-sm md:text-base text-gray-200 mb-1 md:mb-2"
               >
                 Password
               </label>
@@ -98,11 +98,11 @@ const Login = () => {
                 placeholder="*********"
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
-                className="rounded-sm text-base bg-gray-300 md:py-2 md:px-3 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
+                className="rounded-sm p-2 text-xs md:text-base bg-gray-300 md:py-2 md:px-3 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
               />
             </div>
 
-            <div className="flex justify-between text-gray-200 my-3 md:text-sm text-xs">
+            <div className="flex justify-between text-gray-200 my-3 text-[0.5rem] md:text-sm">
               <p className="flex items-center">
                 <input
                   type="checkbox"
@@ -123,7 +123,7 @@ const Login = () => {
               </button>
             </div>
           </form>
-          <div className="flex justify-center text-gray-300 text-xs md:text-sm md:mt-4">
+          <div className="flex justify-center text-gray-300 text-[0.6rem] md:text-sm md:mt-4">
             <p>Don't have an account?</p>
             <Link
               to="/register"

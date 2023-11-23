@@ -12,9 +12,9 @@ const UserNavbar = () => {
 
   return (
     <div>
-      <div className="navbar bg-gradient-to-r from-base-200 to-base-300 shadow-lg md:px-10 text-base-400">
+      <div className="navbar bg-gradient-to-r from-base-200 to-base-300 shadow-lg md:px-10 text-base-400  z-1">
         <div className="navbar-start">
-          <div className="dropdown z-2">
+          <div className="dropdown z-10">
             <label
               tabIndex={0}
               className="btn btn-ghost lg:hidden"
@@ -37,7 +37,7 @@ const UserNavbar = () => {
             </label>
             {isDropdownVisible && (
               <ul
-                className="px-1 flex text-base items-center menu menu-sm dropdown-content mt-3 z-[1] py-2 shadow bg-base-100 rounded-box w-40"
+                className="px-1 flex text-sm items-center menu menu-sm dropdown-content mt-3 z-[1] py-2 shadow bg-base-100 rounded-box w-40"
                 tabIndex={0}
               >
                 <Link
@@ -94,11 +94,11 @@ const UserNavbar = () => {
             </Link>
           </ul>
         </div>
-        <div className="navbar-end">
-          <div className="dropdown">
+        <div className="navbar-end z-10">
+          <div className="dropdown dropdown-end">
             <label
               tabIndex={0}
-              className="flex items-center cursor-pointer"
+              className="flex items-center cursor-pointer m-1"
               onClick={toggleDropdown}
             >
               <img
@@ -109,7 +109,7 @@ const UserNavbar = () => {
             </label>
             {isDropdownVisible && (
               <ul
-                className="px-1 flex text-base items-center menu menu-sm dropdown-content mt-3 z-[1] py-2 shadow bg-base-100 rounded-box w-40"
+                className="flex text-sm items-center menu menu-sm dropdown-content mt-3 z-[1] py-2 shadow bg-base-100 rounded-box w-44"
                 tabIndex={0}
               >
                 <Link

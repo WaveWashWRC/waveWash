@@ -36,11 +36,11 @@ const LoginVendor = () => {
       toast.error(data.msg, {
         position: toast.POSITION.TOP_RIGHT,
       });
-    } else setCookie("session", data?.token);
-    navigate("/dashboard");
-  };
-
-  return (
+    }
+    else
+      {setCookie('session', data?.token);
+      window.location.replace('/dashboard')}
+   return (
     <div className="bg-gradient-to-br flex-wrap  from-cyan-400 to-base-400  h-screen relative flex items-center w-full justify-between">
       <div className="flex justify-center  ">
         <div>

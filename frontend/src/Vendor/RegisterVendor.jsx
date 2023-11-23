@@ -46,7 +46,8 @@ const RegisterVendor = () => {
       });
     }
     else
-      setCookie('session', data?.token)
+      {setCookie('session', data?.token)
+       window.location.replace('/dashboard')}
   };
 
   return (

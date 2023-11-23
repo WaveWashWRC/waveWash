@@ -35,9 +35,9 @@ const Register = () => {
   };
 
   return (
-    <div className="bg-gradient-to-br from-base-100 to-gray-400 h-screen relative flex items-center justify-center">
+    <div className="bg-gradient-to-br from-base-100 to-gray-400 h-full relative flex items-center justify-center md:p-10">
       <div
-        className="grid grid-cols-1 sm:grid-cols-2 h-[550px] sm:w-[80%] md:w-[70%] mx-auto overflow-hidden rounded-lg shadow-2xl"
+        className="grid grid-cols-1 sm:grid-cols-2 h-[800px] sm:w-[80%] md:w-[70%] mx-auto overflow-hidden rounded-lg shadow-2xl"
         id="login-card"
       >
         <div className="relative col-span-1">
@@ -46,7 +46,7 @@ const Register = () => {
             alt="Login Wash Image"
             className="w-full h-full object-cover"
           />
-          <div className="flex flex-col justify-center text-left text-white absolute top-2/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          <div className="flex flex-col justify-center items-center text-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
             <h1 className="text-xl md:text-5xl font-bold sm:mb-0 md:mb-4">
               Hello There!
             </h1>
@@ -55,12 +55,11 @@ const Register = () => {
             </h1>
           </div>
         </div>
-
-        <div className="bg-base-500 m-2 md:m-0 p-2 md:py-8 flex items-center flex-wrap justify-center">
+        <div className="bg-base-500 m-2 md:m-0 p-2 md:py-2 flex items-center flex-wrap justify-center">
           <form
             action=""
             onSubmit={handleRegister}
-            className="max-w-[700px] w-full mx-auto bg-base-500 md:py-8 px-4 py-2 md:px-16 rounded-lg"
+            className="md:max-w-[700px] w-full mx-auto bg-base-500 md:py-8 px-4 py-2 md:px-16 rounded-lg"
           >
             <h2 className="text-lg md:text-2xl dark:text-gray-200 font-bold text-left mb-1 md:mb-4">
               REGISTER
@@ -77,7 +76,7 @@ const Register = () => {
                 id="name"
                 onChange={(e) => setName(e.target.value)}
                 value={name}
-                className="rounded-sm md:text-base text-sm bg-gray-300 p-2 md:py-2 md:px-3 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
+                className="rounded-sm md:text-base p-2 text-xs bg-gray-300 md:py-2 md:px-3 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
               />
             </div>
             <div className="flex flex-col md:flex-row md:items-center justify-between md:space-x-2 md:pt-2 text-sm md:text-lg mt-1">
@@ -92,7 +91,7 @@ const Register = () => {
                 id="number"
                 onChange={(e) => setPhoneNumber(e.target.value)}
                 value={phoneNumber}
-                className="rounded-sm md:text-base text-sm bg-gray-300 p-2 md:py-2 md:px-3 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
+                className="rounded-sm md:text-base text-xs bg-gray-300 p-2 md:py-2 md:px-3 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
               />
             </div>
             <div className="flex flex-col md:flex-row md:items-center justify-between md:space-x-2 md:pt-2 text-sm md:text-lg mt-1">
@@ -107,7 +106,7 @@ const Register = () => {
                 id="email"
                 onChange={(e) => setEmailID(e.target.value)}
                 value={emailID}
-                className="rounded-sm md:text-base text-sm bg-gray-300 p-2 md:py-2 md:px-3 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
+                className="rounded-sm md:text-base text-xs bg-gray-300 p-2 md:py-2 md:px-3 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
               />
             </div>
             <div className="flex flex-col md:flex-row md:items-center justify-between md:space-x-2 md:pt-2 text-sm md:text-lg mt-1">
@@ -137,7 +136,7 @@ const Register = () => {
                   id="pincode"
                   onChange={(e) => setPincode(e.target.value)}
                   value={pincode}
-                  className="rounded-sm md:text-base text-sm bg-gray-300 p-2 md:py-2 md:px-3 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
+                  className="rounded-sm md:text-base text-xs bg-gray-300 p-2 md:py-2 md:px-3 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
                 />
               </div>
               <div className="flex flex-col items-left justify-between pt-2 text-lg">
@@ -152,7 +151,7 @@ const Register = () => {
                   id="state"
                   onChange={(e) => setState(e.target.value)}
                   value={state}
-                  className="rounded-sm md:text-base text-sm bg-gray-300 p-2 md:py-2 md:px-3 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
+                  className="rounded-sm md:text-base text-xs bg-gray-300 p-2 md:py-2 md:px-3 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
                 />
               </div>
               <div className="flex flex-col items-left justify-between pt-2 text-lg">
@@ -167,15 +166,15 @@ const Register = () => {
                   id="city"
                   onChange={(e) => setCity(e.target.value)}
                   value={city}
-                  className="rounded-sm md:text-base text-sm bg-gray-300 p-2 md:py-2 md:px-3 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
+                  className="rounded-sm md:text-base text-xs bg-gray-300 p-2 md:py-2 md:px-3 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
                 />
               </div>
             </div>
 
-            <div className="flex flex-row items-center justify-between space-x-2 pt-2 text-lg">
+            <div className="flex flex-col pt-2 text-lg">
               <label
                 htmlFor="password"
-                className="sm:text-sm md:text-base text-gray-200 mb-1 md:mb-2"
+                className="text-xs md:text-base text-gray-200 mb-2 md:mb-2"
               >
                 Password
               </label>
@@ -184,25 +183,22 @@ const Register = () => {
                 id="password"
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
-                className="rounded-sm bg-gray-300 mt-2 md:px-2 md:py-3 p-2 h-8 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
+                className="rounded-sm md:text-base text-xs bg-gray-300 p-2 md:py-2 md:px-3 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
               />
             </div>
 
             <div className="flex">
-              <button className="w-44 border border-white hover:bg-cyan-800 mx-auto py-2 my-4  text-gray-300 text-xl bg-base-600 rounded-lg shadow-lg hover:bg-base-600/80">
+              <button className="w-44 mx-auto py-2 my-4 text-gray-300 text-sm md:text-xl bg-base-600 rounded-lg shadow-lg hover:bg-base-600/80">
                 SIGN UP
               </button>
             </div>
-            <div className="flex justify-center text-gray-300 text-sm space-x-1">
-              <p>Already have an account?</p>
-              <Link
-                to="/login"
-                className="hover:underline hover:cursor-pointer"
-              >
-                LOGIN!
-              </Link>
-            </div>
           </form>
+          <div className="flex justify-center text-gray-300 md:text-sm text-[0.6rem] space-x-1">
+            <p>Already have an account?</p>
+            <Link to="/login" className="hover:underline hover:cursor-pointer">
+              LOGIN!
+            </Link>
+          </div>
         </div>
       </div>
     </div>

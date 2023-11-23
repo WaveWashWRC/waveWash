@@ -65,6 +65,8 @@ function App() {
               <Route path="dashboard" element={<UserDashboard />} />
               <Route path="book-service" element={<BookService />} />
               <Route path="post-an-ad" element={<PostAd />} />
+              <Route path="edit-profile" element={<EditProfile />} />
+              <Route path="history" element={<History />} />
             </Route>
           </Routes>
         )}
