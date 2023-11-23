@@ -14,7 +14,7 @@ import { useCookies } from "react-cookie";
 import History from "./User/History";
 import EditProfile from "./User/EditProfile";
 import VendorDashboard from "./Vendor/VendorDashboard";
-import ProfileEdit from "./Vendor/ProfileEdit";
+import Profile from "./Vendor/Proflie";
 
 function App() {
   const [user, setUser] = useState({
@@ -52,10 +52,19 @@ function App() {
           <Routes>
             <Route path="/login" element={<LoginVendor />} />
             <Route path="/register" element={<RegisterVendor />} />
-            <Route path="/dashboard" element={<VendorDashboard />} />
-            <Route path="/profile" element={<ProfileEdit />} />
+            <Route path="/dashboard" element={<VendorDashboard />}>
+              <Route path="profile" element={<Profile />} />
+              {/* <Route path="dashboard" element={<V_Dashboard />} /> */}
+            </Route>
           </Routes>
         ) : (
+          // <Routes>
+          //   <Route path="/login" element={<LoginVendor />} />
+          //   <Route path="/register" element={<RegisterVendor />} />
+          //   <Route path="/dashboard" element={<VendorDashboard />} />
+          // {/* nested routes */}
+          //   <Route path="/profile" element={<Profile />} />
+          // </Routes>
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
