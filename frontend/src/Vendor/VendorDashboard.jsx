@@ -20,10 +20,8 @@ const VendorDashboard = () => {
             <h1>{`emailId : ${vendor.emailId}`}</h1>
             <h1>{`PhoneNo. : ${vendor.phoneNumber}`}</h1>
           </div>
-
           <Outlet />
         </div>
-        {/* <p>flooter</p> */}
       </div>
     </div>
   );
