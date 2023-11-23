@@ -19,7 +19,7 @@ export const DASHBOARD_SIDEBAR_LINKS = [
   {
     key: "profile",
     label: "Profile",
-    path: "/profile",
+    path: "/dashboard/profile",
     icon: <HiOutlineCube />,
   },
   {

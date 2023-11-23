@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useContext } from "react";
+import authContext from "../context/AuthContext";
 
 const Profile = () => {
   const [profileData, setProfileData] = useState({
@@ -8,7 +10,7 @@ const Profile = () => {
     pincode: "",
     image: null,
   });
-
+  const vendor = useContext(authContext);
   useEffect(() => {
     fetchProfileData();
   }, []);
@@ -70,6 +72,12 @@ const Profile = () => {
 
   return (
     <div className="p-4">
+      <div className="text-black">
+        <h1>{`CompanyName : ${vendor.companyName}`}</h1>
+        <h1>{`ownerName : ${vendor.ownerName}`}</h1>
+        <h1>{`emailId : ${vendor.emailId}`}</h1>
+        <h1>{`PhoneNo. : ${vendor.phoneNumber}`}</h1>
+      </div>
       <h2>Profile</h2>
       <form>
         <div>

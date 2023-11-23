@@ -58,13 +58,6 @@ function App() {
             </Route>
           </Routes>
         ) : (
-          // <Routes>
-          //   <Route path="/login" element={<LoginVendor />} />
-          //   <Route path="/register" element={<RegisterVendor />} />
-          //   <Route path="/dashboard" element={<VendorDashboard />} />
-          // {/* nested routes */}
-          //   <Route path="/profile" element={<Profile />} />
-          // </Routes>
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
