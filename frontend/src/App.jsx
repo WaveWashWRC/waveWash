@@ -24,25 +24,28 @@ function App() {
   const api = "http://localhost:8000";
   const [cookies, setCookie] = useCookies(["session"]);
   const token = cookies["session"];
+  if (token === null || token === undefined)
+    window.location.replace('/login')
   useEffect(() => {
-    (token !== "undefined" || null) &&
+    (token !== undefined || token !== null) &&
       fetch(
-        `${api}/api/auth/${window.location.host.split(".")[0] == "service" ? "vendor" : "user"
-        }`,
+        `${api}/api/auth/${window.location.host.split(".")[0] === "service" ? "vendor" : "user"}`,
         {
           method: "GET",
           headers: {
-            authorization: `Bearer ${token}`,
+            authorization: `Bearer ${cookies['session']}`,
           },
         }
       )
         .then((res) => res.json())
         .then((data) => {
+          console.log(data);
           setUser({
             isAuthenticated: true,
             ...data,
           });
-        });
+        })
+        .catch(error => console.log(error))
   }, []);
 
   return (
@@ -50,12 +53,12 @@ function App() {
       <Router>
         {window.location.host.split(".")[0] === "service" ? (
           <Routes>
-            <Route path="/login" element={<LoginVendor />} />
-            <Route path="/register" element={<RegisterVendor />} />
             <Route path='/' element={<VendorDashboard />}>
-            <Route path="/ads" element={<Ads/>} />
+              <Route path="/ads" element={<Ads />} />
               <Route path="/profile" element={<Profile />} />
             </Route>
+            <Route path="/login" element={<LoginVendor />} />
+            <Route path="/register" element={<RegisterVendor />} />
             {/* <Route path="dashboard" element={<V_Dashboard />} /> */}
 
           </Routes>

@@ -8,6 +8,7 @@ import { Outlet } from "react-router-dom";
 const VendorDashboard = () => {
   const vendor = useContext(authContext);
   console.log("vendor", vendor);
+  if(vendor.isAuthenticated)
   return (
     <div className="flex flex-row bg-neutral-100 h-screen w-screen overflow-hidden">
       <VendorSidebar />
