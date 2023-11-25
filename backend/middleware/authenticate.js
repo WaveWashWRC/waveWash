@@ -7,10 +7,12 @@ function authenticateToken(req, res, next) {
     
     const token = authHeader && authHeader.split(' ')[1];
     
-    if (token == null) return res.sendStatus(401);//unauthorized
+    if (token == null || token === undefined) return res.sendStatus(401);//unauthorized
     
+
     jwt.verify(token, process.env.JWT_SECRET_KEY, (err,data) => { 
-        console.log(data);
+        console.log('data',data);
+        if(err)console.log(err);
         req.user = data;
         next();
     });
