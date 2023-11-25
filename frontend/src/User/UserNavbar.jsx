@@ -41,19 +41,19 @@ const UserNavbar = () => {
                 tabIndex={0}
               >
                 <Link
-                  to="/user/dashboard"
+                  to="/dashboard"
                   className="hover:text-base-300 transition-colors px-4 py-2 rounded-md hover:bg-base-400/10"
                 >
                   Dashboard
                 </Link>
                 <Link
-                  to="/user/book-service"
+                  to="/book-service"
                   className="hover:text-base-300 transition-colors px-4 py-2 rounded-md hover:bg-base-400/10"
                 >
                   Book a Service
                 </Link>
                 <Link
-                  to="/user/post-an-ad"
+                  to="/post-an-ad"
                   className="hover:text-base-300 transition-colors px-4 py-2 rounded-md hover:bg-base-400/10"
                 >
                   Post an Ad
@@ -62,7 +62,7 @@ const UserNavbar = () => {
             )}
           </div>
           <div className="flex text-2xl cursor-pointer items-center md:gap-2">
-            <Link to="/user/dashboard">
+            <Link to="/dashboard">
               <img
                 src={logo}
                 alt="Logo"
@@ -75,19 +75,19 @@ const UserNavbar = () => {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1 flex text-lg items-center gap-10">
             <Link
-              to="/user/dashboard"
+              to="/dashboard"
               className="hover:text-base-100 transition-colors px-4 py-2 rounded-md hover:bg-base-400/20"
             >
               Dashboard
             </Link>
             <Link
-              to="/user/book-service"
+              to="/book-service"
               className="hover:text-base-100 transition-colors px-4 py-2 rounded-md hover:bg-base-400/20"
             >
               Book a Service
             </Link>
             <Link
-              to="/user/post-an-ad"
+              to="/post-an-ad"
               className="hover:text-base-100 transition-colors px-4 py-2 rounded-md hover:bg-base-400/20"
             >
               Post an Ad
@@ -113,13 +113,13 @@ const UserNavbar = () => {
                 tabIndex={0}
               >
                 <Link
-                  to="/user/edit-profile"
+                  to="/edit-profile"
                   className="hover:text-base-300 transition-colors px-4 py-2 rounded-md hover:bg-base-400/10"
                 >
                   Edit Profile
                 </Link>
                 <Link
-                  to="/user/history"
+                  to="/history"
                   className="hover:text-base-300 transition-colors px-4 py-2 rounded-md hover:bg-base-400/10"
                 >
                   History
