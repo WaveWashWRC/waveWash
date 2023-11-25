@@ -19,15 +19,20 @@ const Profile = () => {
 
   const vendor = useContext(authContext);
   const [profile, setProfile] = useState(vendor);
+  const [services, setServices] = useState(profile?.services);
+
   console.log(profile);
   function handleServiceSelection(e) {
     setProfile(prev => {
       if (!prev.services.includes(e.target.innerText))
-        prev.services.push(e.target.innerText);
+        prev.services = [...prev.services, e.target.innerText];
       return prev;
-    })
+    });
     console.log(profile);
   }
+  useEffect(() => {
+    setServices(profile.services)
+  }, [profile])
   function handleChanges(e) {
     if (e.target.name.split('.')[0] === 'location') {
       let loc = profile.location;
@@ -167,17 +172,24 @@ const Profile = () => {
             <h1>
               Services
             </h1>
-            {profile.services.map((elem, key) => {
-              return <span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
+            {(profile.services.length === 0) && (
+              <span
+                onClick={handleServiceSelection}
+                className="cursor-pointer bg-gray-100 text-grey-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-purple-900 dark:text-purple-300">
+                None⊘
+              </span>)}
+            {services.map((elem, key) => {
+              return (<span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
                 {elem}
-              </span>
+              </span>)
             })}
             <div className="border p-2">
 
               <h1>Pick services</h1>
+
+
               {
                 serviceCategory.map((elem, key) => {
-
                   return (
                     <span
                       onClick={handleServiceSelection}
