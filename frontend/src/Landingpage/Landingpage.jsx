@@ -7,7 +7,7 @@ import Footer from "./Footer";
 
 export const Landingpage = () => {
   return (
-    <div style={{ backgroundColor: "white" }}>
+    <div className="bg-green-100">
       <div>
         <Navbar />
       </div>

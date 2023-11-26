@@ -1,5 +1,5 @@
 import React from "react";
-import car from "../assets/car.jpg";
+import car from "../assets/car.png";
 import Button from "./layout/Button";
 import { Link } from "react-scroll";
 

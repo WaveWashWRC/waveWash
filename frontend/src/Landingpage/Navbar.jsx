@@ -11,7 +11,7 @@ const Navbar = () => {
 
   return (
     <div>
-      <div className="flex flex-row justify-between p-5 px-5 md:px-32 bg-white text-gray-950 ">
+      <div className="flex flex-row justify-between p-5 px-5 md:px-32  text-gray-950 ">
         <div>
           <Link
             to="/"
@@ -49,7 +49,7 @@ const Navbar = () => {
       <div
         className={` ${
           menu ? "translate-x-0" : "-translate-x-full"
-        } md:hidden flex flex-col absolute bg-[#ffffff] left-0 top-20 font-medium text-2xl text-center pt-8 pb-4 gap-8 w-full h-fit transition-transform duration-300 `}
+        } md:hidden flex flex-col absolute bg-[#fdfdfd] left-0 top-20 font-medium text-2xl text-center pt-8 pb-4 gap-8 w-full h-fit transition-transform duration-300 `}
       >
         <button className="hover:text-teal-600 transition-all cursor-pointer">
           Be a Vendor
