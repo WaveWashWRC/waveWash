@@ -31,6 +31,11 @@ const Profile = () => {
     }
     console.log(profile);
   }
+  function removeService(key){
+    let newProfile = {...profile};
+    newProfile.services = newProfile.services.filter((elem,index) =>index !== key )
+    setProfile(newProfile);
+  }
   useEffect(() => {
     setServices(profile.services)
   }, [profile])
@@ -180,8 +185,13 @@ const Profile = () => {
                 None⊘
               </span>)}
             {services.map((elem, key) => {
-              return (<span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
+              return (
+                <span 
+                className="bg-green-100 text-green-800 text-xs font-medium me-2 pl-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
                 {elem}
+                <button className="ml-2 border border-green-600 text-xsm rounded-full px-1" onClick={()=>removeService(key)}>
+                  x
+                </button>
               </span>)
             })}
             <div className="border p-2">
