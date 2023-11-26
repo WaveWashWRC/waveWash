@@ -23,11 +23,12 @@ const Profile = () => {
 
   console.log(profile);
   function handleServiceSelection(e) {
-    setProfile(prev => {
-      if (!prev.services.includes(e.target.innerText))
-        prev.services = [...prev.services, e.target.innerText];
-      return prev;
-    });
+    let newProfile = {...profile};
+    if (!profile.services.includes(e.target.innerText))
+    {
+      newProfile.services.push(e.target.innerText);
+      setProfile(newProfile)
+    }
     console.log(profile);
   }
   useEffect(() => {
@@ -35,9 +36,9 @@ const Profile = () => {
   }, [profile])
   function handleChanges(e) {
     if (e.target.name.split('.')[0] === 'location') {
-      let loc = profile.location;
-      loc[e.target.name.split('.')[1]] = e.target.value;
-      setProfile({ ...profile, loc });
+      let {location} = profile;
+      location[e.target.name.split('.')[1]] = e.target.value;
+      setProfile({ ...profile, location });
     }
     else
       setProfile({
@@ -85,7 +86,7 @@ const Profile = () => {
                     Email address
                   </dt>
                   <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    <input onChange={handleChanges} name={"emailId"} className="p-1 border" value={profile.emailId} />
+                    <input disabled onChange={handleChanges} name={"emailId"} className="p-1 border text-gray-500" value={profile.emailId} />
                   </dd>
                 </div>
                 <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
