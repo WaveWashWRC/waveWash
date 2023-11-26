@@ -16,6 +16,7 @@ import EditProfile from "./User/EditProfile";
 import VendorDashboard from "./Vendor/VendorDashboard";
 import Profile from "./Vendor/Profile";
 import Ads from "./Vendor/Ads";
+import AdDetails from "./Vendor/AdDetails";
 
 function App() {
   const [user, setUser] = useState({
@@ -26,14 +27,15 @@ function App() {
   const token = cookies["session"];
 
   useEffect(() => {
-   
     !(token === undefined || token === null) &&
       fetch(
-        `${api}/api/auth/${window.location.host.split(".")[0] === "service" ? "vendor" : "user"}`,
+        `${api}/api/auth/${
+          window.location.host.split(".")[0] === "service" ? "vendor" : "user"
+        }`,
         {
           method: "GET",
           headers: {
-            authorization: `Bearer ${cookies['session']}`,
+            authorization: `Bearer ${cookies["session"]}`,
           },
         }
       )
@@ -45,7 +47,7 @@ function App() {
             ...data,
           });
         })
-        .catch(error => console.log(error))
+        .catch((error) => console.log(error));
   }, []);
 
   return (
@@ -53,14 +55,14 @@ function App() {
       <Router>
         {window.location.host.split(".")[0] === "service" ? (
           <Routes>
-            <Route path='/' element={<VendorDashboard />}>
+            <Route path="/" element={<VendorDashboard />}>
               <Route path="/ads" element={<Ads />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/addetails" element={<AdDetails />} />
             </Route>
             <Route path="/login" element={<LoginVendor />} />
             <Route path="/register" element={<RegisterVendor />} />
             {/* <Route path="dashboard" element={<V_Dashboard />} /> */}
-
           </Routes>
         ) : (
           <Routes>
