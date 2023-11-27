@@ -12,6 +12,6 @@ const upload = multer({ storage });
 router.get("/", authenticateToken,getAuthenticatedVendor);
 
 // PUT update user profile - Update profile data for the authenticated user
-router.put("/",authenticateToken, updateProfile);
+router.put("/",authenticateToken,upload.array('image',3), updateProfile);
 
 module.exports = router;

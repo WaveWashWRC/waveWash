@@ -10,8 +10,6 @@ const upload = multer({ storage });
 
 // GET user profile - Fetch profile data for the authenticated user
 router.get("/", authenticateToken,getUser);
-
-// PUT update user profile - Update profile data for the authenticated user
 router.put("/",authenticateToken, updateProfile);
 
 module.exports = router;
