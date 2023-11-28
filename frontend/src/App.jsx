@@ -17,6 +17,7 @@ import VendorDashboard from "./Vendor/VendorDashboard";
 import Profile from "./Vendor/Profile";
 import Ads from "./Vendor/Ads";
 import AdDetails from "./Vendor/AdDetails";
+import { Landingpage } from "./Landingpage/Landingpage";
 
 function App() {
   const [user, setUser] = useState({
@@ -58,11 +59,10 @@ function App() {
             <Route path="/" element={<VendorDashboard />}>
               <Route path="/ads" element={<Ads />} />
               <Route path="/profile" element={<Profile />} />
-              <Route path="/addetails" element={<AdDetails />} />
+              <Route path="/addetails/:category" element={<AdDetails />} />
             </Route>
             <Route path="/login" element={<LoginVendor />} />
             <Route path="/register" element={<RegisterVendor />} />
-            {/* <Route path="dashboard" element={<V_Dashboard />} /> */}
           </Routes>
         ) : (
           <Routes>
@@ -75,6 +75,7 @@ function App() {
               <Route path="edit-profile" element={<EditProfile />} />
               <Route path="history" element={<History />} />
             </Route>
+            <Route path="/landingpage" element={<Landingpage />} />
           </Routes>
         )}
       </Router>

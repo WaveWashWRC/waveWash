@@ -11,12 +11,6 @@ import {
 
 export const DASHBOARD_SIDEBAR_LINKS = [
   {
-    key: "dashboard",
-    label: "Dashboard",
-    path: "/dashboard",
-    icon: <HiOutlineViewGrid />,
-  },
-  {
     key: "profile",
     label: "Profile",
     path: "/profile",
@@ -41,12 +35,12 @@ export const DASHBOARD_SIDEBAR_LINKS = [
     icon: <HiOutlineAnnotation />,
   },
 
-  //   {
-  //     key: "messages",
-  //     label: "Messages",
-  //     path: "/messages",
-  //     icon: <HiOutlineAnnotation />,
-  //   },
+  {
+    key: "messages",
+    label: "Messages",
+    path: "/messages",
+    icon: <HiOutlineAnnotation />,
+  },
 ];
 
 export const DASHBOARD_SIDEBAR_BOTTOM_LINKS = [
