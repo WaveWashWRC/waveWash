@@ -59,7 +59,7 @@ function App() {
             <Route path="/" element={<VendorDashboard />}>
               <Route path="/ads" element={<Ads />} />
               <Route path="/profile" element={<Profile />} />
-              <Route path="/addetails" element={<AdDetails />} />
+              <Route path="/addetails/:category" element={<AdDetails />} />
             </Route>
             <Route path="/login" element={<LoginVendor />} />
             <Route path="/register" element={<RegisterVendor />} />
