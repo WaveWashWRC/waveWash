@@ -9,7 +9,9 @@ const port = process.env.PORT || 3300;
 
 const userAuthRouter = require("./routes/User/auth");
 const vendorAuthRouter = require("./routes/Vendor/auth");
+const vendorProfileRouter = require('./routes/Vendor/profile')
 const adRouter = require("./routes/Ads/index");
+const cloudRouter = require('./routes/imageUploading')
 const app = express();
 
 app.use(express.json());
@@ -21,8 +23,9 @@ app.use(
 );
 app.use("/api/auth/", userAuthRouter);
 app.use("/api/auth/vendor", vendorAuthRouter);
-
+app.use("/api/profile",vendorProfileRouter);
 app.use("/api/ad/", adRouter);
+app.use("/api/upload",cloudRouter)
 
 app.listen(port, () => {
   console.log("Server is live at port " + port);
