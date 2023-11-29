@@ -27,7 +27,7 @@ function App() {
   const api = "http://localhost:8000";
   const [cookies, setCookie] = useCookies(["session"]);
   const token = cookies["session"];
-  if (token === null || token === undefined) window.location.replace("/login");
+  //if (token === null || token === undefined) window.location.replace("/login");
   useEffect(() => {
     !(token === undefined || token === null) &&
       fetch(
