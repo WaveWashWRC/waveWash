@@ -16,7 +16,6 @@ const uploadImageToCloud = (req, res) => {
   if (!req.file) {
     return res.status(400).json({ msg: 'No file uploaded.' });
   }
-
   // Upload image to Cloudinary
   cloudinary.uploader.upload_stream({ resource_type: 'image' }, (error, result) => {
     if (error) {
@@ -30,6 +29,8 @@ const uploadImageToCloud = (req, res) => {
 }
 const uploadImageToCloud3 = async (req, res) => {
   let results = [];
+  
+  console.log('received',req.files);
   const {type,id} = req.user
   if (!req.files)
     return res.json({ msg: 'nothing uploaded' })
@@ -53,7 +54,7 @@ const uploadImageToCloud3 = async (req, res) => {
       if(key === promises.length - 1){
         
             type === 'vendor' && vendor.updateOne({_id:id},{ 
-              $set:{
+              $push:{
                 images:results
               }
             }).then(()=> res.json({success:true,results}))

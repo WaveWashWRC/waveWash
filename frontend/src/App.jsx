@@ -13,6 +13,7 @@ import PostAd from "./User/PostAd";
 import { useCookies } from "react-cookie";
 import History from "./User/History";
 import EditProfile from "./User/EditProfile";
+import CheckServices from "./User/CheckServices";
 import VendorDashboard from "./Vendor/VendorDashboard";
 import Profile from "./Vendor/Profile";
 import Ads from "./Vendor/Ads";
@@ -26,7 +27,7 @@ function App() {
   const api = "http://localhost:8000";
   const [cookies, setCookie] = useCookies(["session"]);
   const token = cookies["session"];
-
+  //if (token === null || token === undefined) window.location.replace("/login");
   useEffect(() => {
     !(token === undefined || token === null) &&
       fetch(
@@ -63,6 +64,7 @@ function App() {
             </Route>
             <Route path="/login" element={<LoginVendor />} />
             <Route path="/register" element={<RegisterVendor />} />
+            {/* <Route path="dashboard" element={<V_Dashboard />} /> */}
           </Routes>
         ) : (
           <Routes>
@@ -70,6 +72,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/" element={<User />}>
               <Route path="dashboard" element={<UserDashboard />} />
+              <Route path="services" element={<CheckServices />} />
               <Route path="book-service" element={<BookService />} />
               <Route path="post-an-ad" element={<PostAd />} />
               <Route path="edit-profile" element={<EditProfile />} />

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import ServicesDropdown from "../components/ServicesDropdown";
+import ImageUpload from "../components/ImageUpload";
 
 const PostAd = () => {
   const [selectedService, setSelectedService] = useState("");
@@ -99,6 +100,168 @@ const PostAd = () => {
           <p className="text-xs md:text-base p-1">
             Upload a max of 3 related photos.
           </p>
+        </div>
+        <ImageUpload
+          preSetImages={profile.images}
+          className="block"
+          maxNumber={3}
+        />
+        <div className="flex justify-end">
+          <button
+            className=" block bg-cyan-500 m-6 hover:bg-cyan-800 px-4 py-2 rounded-md  text-white"
+            onClick={handleSubmit}
+          >
+            Save
+          </button>
+        </div>
+        <div className="p-4 flex justify-evenly flex-wrap">
+          <div className="bg-white max-w-2xl shadow overflow-hidden sm:rounded-lg">
+            <div className="px-4 py-5 sm:px-6">
+              <h3 className="text-lg leading-6 font-medium text-gray-900">
+                Contact Information
+              </h3>
+              <p className="mt-1 max-w-2xl text-sm text-gray-500">
+                Details and information about the services.
+              </p>
+            </div>
+            <div className="border-t border-gray-200">
+              <dl>
+                <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                  <dt className="text-sm font-medium text-gray-500">
+                    Company Name
+                  </dt>
+                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    <input
+                      onChange={handleChanges}
+                      name={"companyName"}
+                      className="p-1 border"
+                      value={profile.companyName}
+                    />
+                  </dd>
+                </div>
+                <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                  <dt className="text-sm font-medium text-gray-500">
+                    Owner Name
+                  </dt>
+                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    <input
+                      onChange={handleChanges}
+                      name={"ownerName"}
+                      className="p-1 border"
+                      value={profile.ownerName}
+                    />
+                  </dd>
+                </div>
+                <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                  <dt className="text-sm font-medium text-gray-500">
+                    Email address
+                  </dt>
+                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    <input
+                      disabled
+                      onChange={handleChanges}
+                      name={"emailId"}
+                      className="p-1 border text-gray-500"
+                      value={profile.emailId}
+                    />
+                  </dd>
+                </div>
+                <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                  <dt className="text-sm font-medium text-gray-500">Contact</dt>
+                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    <input
+                      onChange={handleChanges}
+                      name="phoneNumber"
+                      className="p-1 border"
+                      value={profile.phoneNumber}
+                    />
+                  </dd>
+                </div>
+
+                <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                  <dt className="text-sm font-medium text-gray-500">
+                    Verification Status
+                  </dt>
+                  <dd
+                    className={`mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 ${
+                      profile.verified ? "text-green-400" : "text-red-600"
+                    }`}
+                  >
+                    {profile.verified ? "Verified" : "Pending"}
+                  </dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+
+          <div className="bg-white max-w-2xl shadow overflow-hidden sm:rounded-lg">
+            <div className="px-4 py-5 sm:px-6">
+              <h3 className="text-lg leading-6 font-medium text-gray-900">
+                Location
+              </h3>
+              <p className="mt-1 max-w-2xl text-sm text-gray-500">
+                Make your services visible to customers
+              </p>
+            </div>
+            <div className="border-t border-gray-200">
+              <dl>
+                <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                  <dt className="text-sm font-medium text-gray-500">
+                    Street Address
+                  </dt>
+                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    <input
+                      onChange={handleChanges}
+                      name="location.address"
+                      className="p-1 border"
+                      value={profile.location.address}
+                    />
+                  </dd>
+                </div>
+                <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                  <dt className="text-sm font-medium text-gray-500">City</dt>
+                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    <input
+                      onChange={handleChanges}
+                      name="location.city"
+                      className="p-1 border"
+                      value={profile.location.city}
+                    />
+                  </dd>
+                </div>
+                <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                  <dt className="text-sm font-medium text-gray-500">State</dt>
+                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    <input
+                      onChange={handleChanges}
+                      name="location.state"
+                      className="p-1 border"
+                      value={profile.location.state}
+                    />
+                  </dd>
+                </div>
+                <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                  <dt className="text-sm font-medium text-gray-500">Pincode</dt>
+                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    <input
+                      onChange={handleChanges}
+                      name="location.pincode"
+                      className="p-1 border"
+                      value={profile.location.pincode}
+                    />
+                  </dd>
+                </div>
+                <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                  <dt className="text-sm font-medium text-gray-500">
+                    Created at
+                  </dt>
+                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    {moment(profile.createdAt).format("LL")}
+                  </dd>
+                </div>
+              </dl>
+            </div>
+          </div>
         </div>
         <div className="w-full my-3">
           <div className="flex flex-col text-sm md:text-lg">
