@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ServicesDropdown from "../components/ServicesDropdown";
+import ServicesDropdown from "./components/ServicesDropdown";
 import ImageUpload from "../components/ImageUpload";
 
 const PostAd = () => {
@@ -101,7 +101,7 @@ const PostAd = () => {
             Upload a max of 3 related photos.
           </p>
         </div>
-        <ImageUpload
+        {/* <ImageUpload
           preSetImages={profile.images}
           className="block"
           maxNumber={3}
@@ -262,7 +262,7 @@ const PostAd = () => {
               </dl>
             </div>
           </div>
-        </div>
+        </div> */}
         <div className="w-full my-3">
           <div className="flex flex-col text-sm md:text-lg">
             <label

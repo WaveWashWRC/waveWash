@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import VendorCard from "../components/VendorCard";
-import ServicesDropdown from "../components/ServicesDropdown";
+import ServicesDropdown from "./components/ServicesDropdown";
 
 const BookService = () => {
   const [selectedService, setSelectedService] = useState("");
