@@ -1,7 +1,7 @@
 import React from "react";
 import CustomButton from "./components/CustomButton";
 
-const AdDetails = ({ service, location, description, name }) => {
+const AdDetails = ({ service, location, description, name, bidders }) => {
   const handleButtonClick = () => {
     alert("Bid posted!");
   };
@@ -31,6 +31,9 @@ const AdDetails = ({ service, location, description, name }) => {
       <div className="mb-4">
         <span className="font-semibold text-gray-700">Description:</span>{" "}
         {description}
+      </div>
+      <div className="mb-4">
+        <span className="font-semibold text-gray-700">Bidders:</span> {bidders}
       </div>
       <div className="mb-4">
         <input
