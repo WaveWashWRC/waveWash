@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import loginImg from "/images/login.jpg";
+import loginImg from "../assets/loginimg.jpg";
 import { Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import service from '../assets/service.jpg'
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import service from "../assets/service.jpg";
+
 const RegisterVendor = () => {
   const [companyName, setCompanyName] = useState("");
   const [ownerName, setOwnerName] = useState("");
@@ -15,7 +16,7 @@ const RegisterVendor = () => {
   const [state, setState] = useState("");
   const [city, setCity] = useState("");
   const [address, setAddress] = useState("");
-  const [cookies, setCookie, removeCookie] = useCookies(['session']);
+  const [cookies, setCookie, removeCookie] = useCookies(["session"]);
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -24,69 +25,85 @@ const RegisterVendor = () => {
       companyName,
       ownerName,
       phoneNumber,
-      emailId:emailID,
+      emailId: emailID,
       password,
       location: { pincode, state, city, address },
     };
 
-    const response = await fetch("http://localhost:8000/api/auth/vendor/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newUser),
-    });
+    const response = await fetch(
+      "http://localhost:8000/api/auth/vendor/register",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newUser),
+      }
+    );
 
     const data = await response.json();
-    
+
     console.log(data);
     if (data.err) {
       toast.error(data.msg, {
         position: toast.POSITION.TOP_RIGHT,
       });
+    } else {
+      setCookie("session", data?.token);
+      window.location.replace("/register");
     }
-    else
-      {setCookie('session', data?.token)
-       window.location.replace('/register')}
   };
 
   return (
-    <div className="bg-gradient-to-br flex-wrap  from-cyan-400 to-base-400  h-screen relative flex items-center w-full justify-between">
-      <div className="flex justify-center  ">
-        <div >
-        <h1 className="font-extrabold text-white  text-6xl p-4">WaveWash for Vendors</h1>
-        {/* <p className="font-bold m-2 text-2xl">Get Started in few steps</p> */}
-        <img className="shadow-lg md:block hidden rounded-lg m-2 w-[600px]" src={service} alt="loading.."/>
-        </div>
-      </div>
+    <div className="bg-gradient-to-br flex-wrap  from-cyan-600 to-base-400 h-full relative flex items-center justify-center md:p-10">
       <div
-        className=" h-[600px]  mx-auto overflow-hidden rounded-lg l"
+        className="grid grid-cols-1 sm:grid-cols-2 h-[650px] sm:w-[80%] md:w-[75%] mx-auto overflow-hidden rounded-lg shadow-2xl"
         id="login-card"
       >
-        
-        <div >
+        <div className="relative col-span-1">
+          <img
+            src={loginImg}
+            alt="Login Wash Image"
+            className="w-full h-full object-cover"
+          />
+          <div className="flex flex-col justify-center items-center text-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <h1 className="text-xl md:text-5xl font-bold sm:mb-0 md:mb-4">
+              Hello There!
+            </h1>
+            <h1 className="text-base md:text-2xl font-semibold ">
+              Register to become a vendor
+            </h1>
+          </div>
+        </div>
+        <div className="bg-base-400 m-2 md:m-0 p-2 md:py-2 flex items-center flex-wrap justify-center">
           <form
             action=""
             onSubmit={handleRegister}
-            className="border-2 border-blue-400 max-w-[600px] w-full mx-auto bg-base-400 p-8 px-16 rounded-lg"
+            className="md:max-w-[700px] w-full mx-auto bg-base-400 md:py-8 px-2 py-2 md:px-16 rounded-lg"
           >
-            <h2 className="text-2xl text-gray-200 font-bold text-left">
+            <h2 className="text-lg md:text-2xl dark:text-gray-200 font-bold text-left mb-1 md:mb-4">
               REGISTER
             </h2>
-            <div className="flex  flex-row items-center justify-between space-x-2  pt-2 text-lg">
-              <label htmlFor="name" className="text-gray-200">
+            <div className="flex flex-col md:flex-row md:items-center justify-between md:space-x-2 md:pt-2 text-sm md:text-lg mt-1">
+              <label
+                htmlFor="companyName"
+                className="text-sm md:text-base text-gray-200 mb-1 md:mb-2"
+              >
                 Company Name
               </label>
               <input
                 type="text"
-                id="companyName"
+                id="ownerName"
                 onChange={(e) => setCompanyName(e.target.value)}
                 value={companyName}
-                className="rounded-sm  text-base w-[13.8rem] bg-gray-300 mt-2 px-2 py-3 h-8 focus:text-gray-300 border focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
+                className="rounded-sm md:text-base p-2 text-xs bg-gray-300 md:py-2 md:px-3 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
               />
             </div>
-            <div className="flex flex-row items-center justify-between space-x-2  pt-2 text-lg">
-              <label htmlFor="ownerName" className="text-gray-200">
+            <div className="flex flex-col md:flex-row md:items-center justify-between md:space-x-2 md:pt-2 text-sm md:text-lg mt-1">
+              <label
+                htmlFor="ownerName"
+                className="text-sm md:text-base text-gray-200 mb-1 md:mb-2"
+              >
                 Owner Name
               </label>
               <input
@@ -94,23 +111,29 @@ const RegisterVendor = () => {
                 id="ownerName"
                 onChange={(e) => setOwnerName(e.target.value)}
                 value={ownerName}
-                className="rounded-sm border text-base w-[13.8rem] bg-gray-300 mt-2 px-2 py-3 h-8 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
+                className="rounded-sm md:text-base p-2 text-xs bg-gray-300 md:py-2 md:px-3 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
               />
             </div>
-            <div className="flex flex-row items-center justify-between space-x-2  pt-2 text-lg">
-              <label htmlFor="number" className="text-gray-200">
+            <div className="flex flex-col md:flex-row md:items-center justify-between md:space-x-2 md:pt-2 text-sm md:text-lg mt-1">
+              <label
+                htmlFor="number"
+                className="text-sm md:text-base text-gray-200 mb-1 md:mb-2"
+              >
                 Phone Number
               </label>
               <input
-                type="text"
+                type="number"
                 id="number"
                 onChange={(e) => setPhoneNumber(e.target.value)}
                 value={phoneNumber}
-                className="rounded-sm  border text-base w-[13.8rem] bg-gray-300 mt-2 px-2 py-3 h-8 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
+                className="rounded-sm md:text-base text-xs bg-gray-300 p-2 md:py-2 md:px-3 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
               />
             </div>
-            <div className="flex flex-row items-center justify-between space-x-2  pt-2 text-lg">
-              <label htmlFor="email" className="text-gray-200">
+            <div className="flex flex-col md:flex-row md:items-center justify-between md:space-x-2 md:pt-2 text-sm md:text-lg mt-1">
+              <label
+                htmlFor="email"
+                className="text-sm md:text-base text-gray-200 mb-1 md:mb-2"
+              >
                 Email ID
               </label>
               <input
@@ -118,23 +141,29 @@ const RegisterVendor = () => {
                 id="email"
                 onChange={(e) => setEmailID(e.target.value)}
                 value={emailID}
-                className="rounded-sm border text-base w-[13.8rem] bg-gray-300 mt-2 px-2 py-3 h-8 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
+                className="rounded-sm md:text-base text-xs bg-gray-300 p-2 md:py-2 md:px-3 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
               />
             </div>
-            <div className="flex flex-row items-center justify-between space-x-2  pt-2 text-lg">
-              <label htmlFor="address" className="text-gray-200">
+            <div className="flex flex-col md:flex-row md:items-center justify-between md:space-x-2 md:pt-2 text-sm md:text-lg mt-1">
+              <label
+                htmlFor="address"
+                className="text-sm md:text-base text-gray-200 mb-1 md:mb-2"
+              >
                 Street Address
               </label>
               <textarea
                 id="address"
                 onChange={(e) => setAddress(e.target.value)}
                 value={address}
-                className="rounded-sm border text-base bg-gray-300 mt-2 px-2 py-3 w-[13.8rem] overflow-hidden resize-none h-12 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
+                className="rounded-sm text-xs md:text-base bg-gray-300 p-2 md:mt-2 md:px-2 md:py-3 overflow-hidden resize-none h-12 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
               />
             </div>
-            <div className="grid grid-cols-3 gap-3 mt-1">
+            <div className="grid grid-cols-3 gap-3 md:mt-1">
               <div className="flex flex-col items-left justify-between pt-2 text-lg">
-                <label htmlFor="pincode" className="text-gray-200">
+                <label
+                  htmlFor="pincode"
+                  className="text-sm md:text-base text-gray-200 mb-1 md:mb-2"
+                >
                   Pincode
                 </label>
                 <input
@@ -142,11 +171,14 @@ const RegisterVendor = () => {
                   id="pincode"
                   onChange={(e) => setPincode(e.target.value)}
                   value={pincode}
-                  className="rounded-sm border text-base bg-gray-300 mt-2 px-2 py-3 h-8 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
+                  className="rounded-sm md:text-base text-xs bg-gray-300 p-2 md:py-2 md:px-3 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
                 />
               </div>
               <div className="flex flex-col items-left justify-between pt-2 text-lg">
-                <label htmlFor="state" className="text-gray-200">
+                <label
+                  htmlFor="state"
+                  className="text-sm md:text-base text-gray-200 mb-1 md:mb-2"
+                >
                   State
                 </label>
                 <input
@@ -154,11 +186,14 @@ const RegisterVendor = () => {
                   id="state"
                   onChange={(e) => setState(e.target.value)}
                   value={state}
-                  className="rounded-sm border text-base bg-gray-300 mt-2 px-2 py-3 h-8 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
+                  className="rounded-sm md:text-base text-xs bg-gray-300 p-2 md:py-2 md:px-3 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
                 />
               </div>
               <div className="flex flex-col items-left justify-between pt-2 text-lg">
-                <label htmlFor="city" className="text-gray-200">
+                <label
+                  htmlFor="city"
+                  className="text-sm md:text-base text-gray-200 mb-1 md:mb-2"
+                >
                   City
                 </label>
                 <input
@@ -166,13 +201,16 @@ const RegisterVendor = () => {
                   id="city"
                   onChange={(e) => setCity(e.target.value)}
                   value={city}
-                  className="rounded-sm border text-base bg-gray-300 mt-2 px-2 py-3 h-8 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
+                  className="rounded-sm md:text-base text-xs bg-gray-300 p-2 md:py-2 md:px-3 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
                 />
               </div>
             </div>
 
-            <div className="flex flex-row items-center justify-between space-x-2 pt-2 text-lg">
-              <label htmlFor="password" className="text-gray-200">
+            <div className="flex flex-col pt-2 text-lg">
+              <label
+                htmlFor="password"
+                className="text-xs md:text-base text-gray-200 mb-2 md:mb-2"
+              >
                 Password
               </label>
               <input
@@ -180,12 +218,11 @@ const RegisterVendor = () => {
                 id="password"
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
-                className="rounded-sm border bg-gray-300 mt-2 px-2 py-3 h-8 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
+                className="rounded-sm md:text-base text-xs bg-gray-300 p-2 md:py-2 md:px-3 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
               />
             </div>
-
-            {/* <div className="flex justify-between text-gray-200 my-3">
-              <p className="flex items-center">
+            {/* <div className="flex flex-col pt-2 text-lg">
+              <p className="text-xs md:text-base text-gray-200 mb-2 md:mb-2">
                 <input
                   type="checkbox"
                   className="form-checkbox mr-2 text-blue-500 h-5 w-5"
@@ -197,19 +234,17 @@ const RegisterVendor = () => {
               </a>
             </div> */}
             <div className="flex">
-              <button className="w-44 border border-white hover:bg-cyan-800 mx-auto py-2 my-4  text-gray-300 text-xl bg-base-600 rounded-lg shadow-lg hover:bg-base-600/80">
+              <button className="w-44 mx-auto py-2 my-4 text-gray-300 text-sm md:text-xl bg-blue-600 rounded-lg shadow-lg hover:bg-base-600/80">
                 SIGN UP
               </button>
-              
             </div>
-            <div className="flex justify-center text-gray-300 text-sm space-x-1">
+          </form>
+          <div className="flex justify-center text-gray-300 md:text-sm text-[0.6rem] space-x-1">
             <p>Already have an account?</p>
             <Link to="/login" className="hover:underline hover:cursor-pointer">
               LOGIN!
             </Link>
           </div>
-          </form>
-          <ToastContainer/>
         </div>
       </div>
     </div>

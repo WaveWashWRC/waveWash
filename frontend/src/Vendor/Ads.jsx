@@ -23,9 +23,12 @@ const Ads = () => {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 ">
               {ads.map((Element, key) => {
                 return (
-                  <div className="flex justify-center ">
+                  <div
+                    className="flex justify-center "
+                    key={String(Element._id)}
+                  >
                     <Card
-                      key={key}
+                      key={Element._id}
                       desc={Element.desc}
                       images={Element.images}
                       category={Element.services.category}
