@@ -56,6 +56,26 @@ const VendorSchema = new mongoose.Schema(
         }
       }
     ],
+
+    reviews: [ //they provide
+      {
+        comment: {
+          type: String,
+          enum: serviceCategory
+        },
+        author: {
+          type: mongoose.Schema.ObjectId,
+          ref:'User'
+        },
+        rating:{
+          type:Number,
+          enums:[1,2,3,4,5]
+        }        
+      },
+    ],
+    rating:{
+      type:Number
+    },
     verified: {
       type: Boolean,
       default: false

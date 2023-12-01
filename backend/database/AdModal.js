@@ -19,6 +19,9 @@ const AdSchema = new mongoose.Schema(
       required: true,
       ref:'User'
     },
+    expiresAt:{
+        type: Date
+    },
     desc:{
         type:String
     },
@@ -26,8 +29,7 @@ const AdSchema = new mongoose.Schema(
         pincode: Number,
         state: String,
         city: String,
-        address: String,
-        landmark: String,
+        address: String
     },
     images:[{
         type:String
@@ -40,7 +42,20 @@ const AdSchema = new mongoose.Schema(
             expectedPrice:{
                 type: mongoose.Types.Decimal128,
             }
+        },
+    bidders:[
+        {
+            vendor : {
+                type:mongoose.Schema.ObjectId,
+                ref:'Vendor'
+            },
+            cost:{
+                type: mongoose.Types.Decimal128,
+                required:true
+            },
+            
         }
+    ]
   },
   { timestamps: true }
 );

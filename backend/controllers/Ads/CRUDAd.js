@@ -1,10 +1,10 @@
 const ads = require('../../database/AdModal');
 const createAd = async (req,res)=>{
     const customerId = req.user.id;
-    const {desc, location, services} = req.body;
+    const {desc, location, services,expiresAt} = req.body;
     try{
         const newAd = new ads({
-            customerId,desc,location,services
+            customerId,desc,location,services,expiresAt
         });
         const savedAd = await newAd.save();
         res.status(201).json({
@@ -14,6 +14,7 @@ const createAd = async (req,res)=>{
         })    
     }
     catch(error){
+      console.log(error)
         res.status(500).json({
             msg:'Error',
             success:false,

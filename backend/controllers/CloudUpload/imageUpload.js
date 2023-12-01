@@ -1,6 +1,8 @@
+
 require('dotenv').config()
 const cloudinary = require('cloudinary').v2;
 const vendor = require('../../database/VendorModel')
+const ads = require('../../database/AdModal')
 require('dotenv').config();
 
 // Configure Cloudinary with your credentials
@@ -29,9 +31,9 @@ const uploadImageToCloud = (req, res) => {
 }
 const uploadImageToCloud3 = async (req, res) => {
   let results = [];
-  
-  console.log('received',req.files);
-  const {type,id} = req.user
+
+  console.log('received', req.files);
+  const { type, id } = req.user
   if (!req.files)
     return res.json({ msg: 'nothing uploaded' })
   try {
@@ -48,24 +50,67 @@ const uploadImageToCloud3 = async (req, res) => {
       })
     );
 
-    promises.map((promise,key) => promise.then(data => {
+    promises.map((promise, key) => promise.then(data => {
       results.push(data.secure_url)
-      console.log(key,results);
-      if(key === promises.length - 1){
-        
-            type === 'vendor' && vendor.updateOne({_id:id},{ 
-              $push:{
-                images:results
-              }
-            }).then(()=> res.json({success:true,results}))
-              .catch(error => {
-                throw error;
-              })
+      console.log(key, results);
+      if (key === promises.length - 1) {
 
-        
+        type === 'vendor' && vendor.updateOne({ _id: id }, {
+          $push: {
+            images: results
+          }
+        }).then(() => res.json({ success: true, results }))
+          .catch(error => {
+            throw error;
+          })
+
+
       }
     }))
-    
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, error: 'Internal Server Error' });
+  }
+}
+const uploadAdPoster = (req, res) => {
+  const id = req.params.id;
+  let results = [];
+  if (!req.files)
+    return res.json({ msg: 'nothing uploaded' })
+  try {
+    const promises = req.files.map((file) =>
+      new Promise((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream({ resource_type: 'auto' }, (error, result) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(result);
+          }
+        });
+        stream.end(file.buffer);
+      })
+    );
+
+    promises.map((promise, key) => promise.then(data => {
+      results.push(data.secure_url)
+      console.log(key, results);
+      if (key === promises.length - 1) {
+
+          ads.updateOne({ _id: id }, {
+          $push: {
+            images: results
+          }
+        }).then(() => res.json({ success: true, results }))
+          .catch(error => {
+            console.log(error);
+            throw error;
+          })
+
+
+      }
+    }))
+
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, error: 'Internal Server Error' });
@@ -73,6 +118,7 @@ const uploadImageToCloud3 = async (req, res) => {
 }
 module.exports = {
   uploadImageToCloud,
-  uploadImageToCloud3
+  uploadImageToCloud3,
+  uploadAdPoster
 }
 

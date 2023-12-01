@@ -51,7 +51,6 @@ function App() {
         })
         .catch((error) => console.log(error));
   }, []);
-
   return (
     <authContext.Provider value={user}>
       <Router>

@@ -70,18 +70,12 @@ async function loginUser(req, res) {
 }
 //identifies the current user
 function getUser(req, res) {
-  const { userId } = req.user;
+  const { id } = req.user;
 
   userModel
-    .findById(userId,{
-      $unset:'password'
-    })
+    .findById(id)
     .then((data) => {
-      res.status(200).json({
-        username: data?.name,
-        userId,
-        emailId: data?.emailId,
-      });
+      res.status(200).json(data);
     })
     .catch((error) => res.sendStatus(404));
 }

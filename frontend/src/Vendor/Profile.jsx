@@ -62,7 +62,7 @@ const Profile = () => {
       <div>
         
 
-        <ImageUpload preSetImages={profile.images} className='block' maxNumber={3} />
+        <ImageUpload preSetImages={profile.images} hitUrl={'/api/upload/image'} className='block' maxNumber={3} />
         <div className="flex justify-end">
           <button className=" block bg-cyan-500 m-6 hover:bg-cyan-800 px-4 py-2 rounded-md  text-white" onClick={handleSubmit}>Save</button>
         </div>

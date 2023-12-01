@@ -4,7 +4,7 @@ import def from '../assets/defaultimg.png'
 import bin from '../assets/bin.png'
 import PerformRequest from "../api/axios";
 import uploadMultimedia from "../api/axios/multimedia";
-function ImageUpload({ maxNumber, preSetImages }) {
+function ImageUpload({ maxNumber, preSetImages,hitUrl }) {
   let arrObjs = []
   preSetImages.map((elem) => {
     arrObjs.push({
@@ -19,7 +19,7 @@ function ImageUpload({ maxNumber, preSetImages }) {
         formdata.append("images", image.file);
     });
     console.log(formdata);
-    uploadMultimedia(`/api/upload/image/${maxNumber}`, 'POST', formdata)
+    uploadMultimedia(`${hitUrl}/${maxNumber}`, 'POST', formdata)
       .then(data => {
         if (data.success) {
           console.log('upload', data);
