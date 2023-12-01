@@ -76,7 +76,7 @@ function App() {
               <Route path="book-service" element={<BookService />} />
               <Route path="post-an-ad" element={<PostAd />} />
               <Route path="edit-profile" element={<EditProfile />} />
-              <Route path="history" element={<History />} />
+              <Route path="services" element={<History />} />
             </Route>
             <Route path="/landingpage" element={<Landingpage />} />
           </Routes>
