@@ -7,10 +7,10 @@ const authenticate = require("../../middleware/authenticate");
 const { createAd, updateAd, deleteAd, getAllAds,getAdById } = require("../../controllers/Ads/CRUDAd");
 
 router.post("/create", authenticate, createAd);
-
+router.get("/get/all",getAllAds);
 router.get("/get/:id",getAdById);
 
-router.get("/get/all",getAllAds);
+
 
 router.put("/update/:id",authenticate, updateAd);
 
