@@ -27,6 +27,11 @@ const getAllAds = async (req,res)=>{
     res.json(allAds)
 
 };
+const getAdById = async (req,res)=>{
+    const ad = await ads.find({_id:req.params.id});
+    res.json(ad)
+
+};
 const getFilteredAds = async (req,res)=>{
     
 }
@@ -79,7 +84,8 @@ module.exports = {
     createAd,
     updateAd,
     deleteAd,
-    getAllAds
+    getAllAds,
+    getAdById
 }
 
 //profile completion

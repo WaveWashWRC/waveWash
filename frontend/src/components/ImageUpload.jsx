@@ -6,7 +6,8 @@ import PerformRequest from "../api/axios";
 import uploadMultimedia from "../api/axios/multimedia";
 function ImageUpload({ maxNumber, preSetImages,hitUrl }) {
   let arrObjs = []
-  preSetImages.map((elem) => {
+  preSetImages &&
+  preSetImages?.map((elem) => {
     arrObjs.push({
       data_url: elem
     })

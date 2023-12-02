@@ -8,7 +8,7 @@ const storage = multer.memoryStorage();
 
 const upload = multer({ storage: storage });
 
-router.post("/image/1", authenticate,upload.single('image'),uploadImageToCloud);
+router.post("/image/1", authenticate,upload.single('images'),uploadImageToCloud);
 router.post("/image/3", authenticate,upload.array('images',3),uploadImageToCloud3);
 router.patch("/ad/:id", authenticate,upload.array('images',3),uploadAdPoster);
 

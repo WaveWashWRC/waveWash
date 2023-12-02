@@ -4,9 +4,11 @@ const router = express.Router();
 
 const authenticate = require("../../middleware/authenticate");
 
-const { createAd, updateAd, deleteAd, getAllAds } = require("../../controllers/Ads/CRUDAd");
+const { createAd, updateAd, deleteAd, getAllAds,getAdById } = require("../../controllers/Ads/CRUDAd");
 
 router.post("/create", authenticate, createAd);
+
+router.get("/get/:id",getAdById);
 
 router.get("/get/all",getAllAds);
 

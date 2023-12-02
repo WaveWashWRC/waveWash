@@ -17,17 +17,16 @@ function addHours(date, hours) {
 const PostAd = () => {
   const maxNumber = 3;
   const currentUser = useContext(authContext);
-  console.log(currentUser);
   const [images, setImages] = useState([])
   const [selectedService, setSelectedService] = useState("");
   const [adDescription, setAdDescription] = useState("");
   const [expiry, setExpiry] = useState("30min");
   const [file, setFile] = useState(null);
-  const [pincode, setPincode] = useState(currentUser.location.pincode);
-  const [state, setState] = useState(currentUser.location.state);
+  const [pincode, setPincode] = useState(currentUser?.location?.pincode);
+  const [state, setState] = useState(currentUser?.location?.state);
   const [price, setPrice] = useState();
-  const [city, setCity] = useState(currentUser.location.city);
-  const [address, setAddress] = useState(currentUser.location.address);
+  const [city, setCity] = useState(currentUser.location?.city);
+  const [address, setAddress] = useState(currentUser.location?.address);
 
   const duration = ["0.5", "1", "2", "4", "6", "12"];
 
@@ -87,7 +86,7 @@ const PostAd = () => {
       .catch(err => console.log(err))
 
   };
-  if (currentUser?.isAuthenticated === true)
+  if (currentUser?.isAuthenticated === true && currentUser)
     return (
       <div className="">
 
