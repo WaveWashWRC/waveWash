@@ -5,6 +5,8 @@ import { useCookies } from "react-cookie";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import service from "../assets/service.jpg";
+import Statedropdown from "./components/Statedropdown";
+import Citydropdown from "./components/Citydropdown";
 
 const RegisterVendor = () => {
   const [companyName, setCompanyName] = useState("");
@@ -17,6 +19,14 @@ const RegisterVendor = () => {
   const [city, setCity] = useState("");
   const [address, setAddress] = useState("");
   const [cookies, setCookie, removeCookie] = useCookies(["session"]);
+
+  const handleStateChange = (selectedState) => {
+    setState(selectedState); // Update state value in RegisterVendor component
+  };
+
+  const handleCityChange = (selectedCity) => {
+    setCity(selectedCity); // Update city value in RegisterVendor component
+  };
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -57,7 +67,7 @@ const RegisterVendor = () => {
   return (
     <div className="bg-gradient-to-br flex-wrap  from-cyan-600 to-base-400 h-full relative flex items-center justify-center md:p-10">
       <div
-        className="grid grid-cols-1 sm:grid-cols-2 h-[650px] sm:w-[80%] md:w-[75%] mx-auto overflow-hidden rounded-lg shadow-2xl"
+        className="grid grid-cols-1 sm:grid-cols-2 h-[666px] sm:w-[80%] md:w-[75%] mx-auto overflow-hidden rounded-lg shadow-2xl"
         id="login-card"
       >
         <div className="relative col-span-1">
@@ -79,7 +89,7 @@ const RegisterVendor = () => {
           <form
             action=""
             onSubmit={handleRegister}
-            className="md:max-w-[700px] w-full mx-auto bg-base-400 md:py-8 px-2 py-2 md:px-16 rounded-lg"
+            className="md:max-w-[700px] w-full mx-auto md:py-8 px-2 py-2 md:px-16 rounded-lg text-gray-900"
           >
             <h2 className="text-lg md:text-2xl dark:text-gray-200 font-bold text-left mb-1 md:mb-4">
               REGISTER
@@ -93,7 +103,7 @@ const RegisterVendor = () => {
               </label>
               <input
                 type="text"
-                id="ownerName"
+                id="companyname"
                 onChange={(e) => setCompanyName(e.target.value)}
                 value={companyName}
                 className="rounded-sm md:text-base p-2 text-xs bg-gray-300 md:py-2 md:px-3 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
@@ -181,13 +191,14 @@ const RegisterVendor = () => {
                 >
                   State
                 </label>
-                <input
+                <Statedropdown onSelectChange={handleStateChange} />
+                {/* <input
                   type="text"
                   id="state"
                   onChange={(e) => setState(e.target.value)}
                   value={state}
                   className="rounded-sm md:text-base text-xs bg-gray-300 p-2 md:py-2 md:px-3 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
-                />
+                /> */}
               </div>
               <div className="flex flex-col items-left justify-between pt-2 text-lg">
                 <label
@@ -196,13 +207,14 @@ const RegisterVendor = () => {
                 >
                   City
                 </label>
-                <input
+                <Citydropdown onSelectChange={handleCityChange} />
+                {/* <input
                   type="text"
                   id="city"
                   onChange={(e) => setCity(e.target.value)}
                   value={city}
                   className="rounded-sm md:text-base text-xs bg-gray-300 p-2 md:py-2 md:px-3 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
-                />
+                /> */}
               </div>
             </div>
 
