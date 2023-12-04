@@ -56,7 +56,6 @@ function App() {
       <Router>
         {window.location.host.split(".")[0] === "service" ? (
           <Routes>
-            
             <Route path="/" element={<VendorDashboard />}>
               <Route path="/ads" element={<Ads />} />
               <Route path="/profile" element={<Profile />} />
@@ -70,15 +69,16 @@ function App() {
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            {user.isAuthenticated && 
-            <Route path="/" element={<User />}>
-              <Route path="dashboard" element={<UserDashboard />} />
-              <Route path="services" element={<CheckServices />} />
-              <Route path="book-service" element={<BookService />} />
-              <Route path="post-an-ad" element={<PostAd />} />
-              <Route path="edit-profile" element={<EditProfile />} />
-              <Route path="services" element={<History />} />
-            </Route>}
+            {user.isAuthenticated && (
+              <Route path="/" element={<User />}>
+                <Route path="dashboard" element={<UserDashboard />} />
+                <Route path="services" element={<CheckServices />} />
+                <Route path="book-service" element={<BookService />} />
+                <Route path="post-an-ad" element={<PostAd />} />
+                <Route path="edit-profile" element={<EditProfile />} />
+                <Route path="services" element={<History />} />
+              </Route>
+            )}
             <Route path="/landingpage" element={<Landingpage />} />
           </Routes>
         )}
