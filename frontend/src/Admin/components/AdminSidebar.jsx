@@ -80,7 +80,7 @@ export default function AdminSidebar() {
             &#x2630; {/* Hamburger icon */}
           </button>
           {showOptions && (
-            <div className="bg-cyan-400 w-60 p-3 flex flex-col text-black">
+            <div className="bg-white w-60 p-3 flex flex-col text-black">
               <div className="flex-1 py-8 flex flex-col gap-0.5">
                 {DASHBOARD_SIDEBAR_LINKS.map((item) => (
                   <SidebarLink key={item.key} item={item} />
