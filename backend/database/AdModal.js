@@ -11,53 +11,68 @@ const serviceCategory = [
     "Bathroom and Tiles cleaning",
     "Carpet, Sofa, and curtain cleaning",
     "Gardening"
-    ];
+];
 const AdSchema = new mongoose.Schema(
-  {
-    customerId: {
-      type: mongoose.Types.ObjectId,
-      required: true,
-      ref:'User'
-    },
-    expiresAt:{
-        type: Date
-    },
-    desc:{
-        type:String
-    },
-    location: {
-        pincode: Number,
-        state: String,
-        city: String,
-        address: String
-    },
-    images:[{
-        type:String
-    }],
-    services:{
+    {
+        customerId: {
+            type: mongoose.Types.ObjectId,
+            required: true,
+            ref: 'User'
+        },
+        expiresAt: {
+            type: Date
+        },
+        desc: {
+            type: String
+        },
+        location: {
+            pincode: Number,
+            state: String,
+            city: String,
+            address: String
+        },
+        images: [{
+            type: String
+        }],
+        services: {
             category: {
-                type:String,
-                enum:serviceCategory
+                type: String,
+                enum: serviceCategory
             },
-            expectedPrice:{
+            expectedPrice: {
                 type: mongoose.Types.Decimal128,
             }
         },
-    bidders:[
-        {
-            vendor : {
-                type:mongoose.Schema.ObjectId,
-                ref:'Vendor'
+        bidders: [
+            {
+                vendor: {
+                    type: mongoose.Schema.ObjectId,
+                    ref: 'Vendor'
+                },
+                cost: {
+                    type: mongoose.Types.Decimal128,
+                    required: true
+                },
+
+            }
+        ],
+        booking: {
+            status: {
+                type: Boolean,
+                default: false
             },
-            cost:{
+            vendor: {
+                type: mongoose.Schema.ObjectId,
+                ref: 'Vendor'
+            },
+            cost: {
                 type: mongoose.Types.Decimal128,
-                required:true
+                required: true
             },
-            
+
         }
-    ]
-  },
-  { timestamps: true }
+    },
+    { timestamps: true }
 );
 
 const ads = mongoose.model("Ads", AdSchema);
