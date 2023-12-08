@@ -19,6 +19,7 @@ import Profile from "./Vendor/Profile";
 import Ads from "./Vendor/Ads";
 import AdDetails from "./Vendor/AdDetails";
 import { Landingpage } from "./Landingpage/Landingpage";
+import AdminDashboard from "./Admin/AdminDashboard";
 
 function App() {
   const [user, setUser] = useState({
@@ -63,7 +64,6 @@ function App() {
             </Route>
             <Route path="/login" element={<LoginVendor />} />
             <Route path="/register" element={<RegisterVendor />} />
-            {/* <Route path="dashboard" element={<V_Dashboard />} /> */}
           </Routes>
         ) : (
           <Routes>
@@ -79,6 +79,7 @@ function App() {
                 <Route path="services" element={<History />} />
               </Route>
             )}
+            <Route path="/adminDash" element={<AdminDashboard />} />
             <Route path="/landingpage" element={<Landingpage />} />
           </Routes>
         )}
