@@ -1,4 +1,4 @@
-const ads = require('../../database/AdModal');
+const ads = require('../../database/AdModel');
 const createAd = async (req,res)=>{
     const customerId = req.user.id;
     const {desc, location, services,expiresAt} = req.body;

@@ -1,4 +1,4 @@
-const ads = require('../../database/AdModal');
+const ads = require('../../database/AdModel');
 const bidRequest = async (req, res) => {
     try {
         const vendorId = req.user.id;
@@ -31,22 +31,22 @@ const bidRequest = async (req, res) => {
 
 }
 
-const acceptBidRequest = (req, res) => {
-    try{
+const acceptBidRequest = async (req, res) => {
+    try {
         if (req.user.type !== 'user')
-        return res.status(403).json({ msg: 'restricted operation', success: false });
-    ads.updateOne({
-        _id: req.params.id
-    }, {
-        booking: {
-            status: true,
-            vendor: req.body.vendorId,
-            cost: req.body.cost
-        }
-    })
-    res.status(200).json({ msg: 'Done!', success: true});
+            return res.status(403).json({ msg: 'restricted operation', success: false });
+        await ads.updateOne({
+            _id: req.params.id
+        }, {
+            booking: {
+                status: true,
+                vendor: req.body.vendorId,
+                cost: req.body.cost
+            }
+        })
+        res.status(200).json({ msg: 'Done!', success: true });
     }
-    catch(err){
+    catch (err) {
         return res.status(400).json({ msg: 'Error !', success: false });
     }
 }
