@@ -62,7 +62,7 @@ function App() {
             <Route path="/" element={<VendorDashboard />}>
               <Route path="/ads" element={<Ads />} />
               <Route path="/profile" element={<Profile />} />
-              <Route path="/ad-details" element={<AdDetails />} />
+              <Route path="/ad-details/:adId" element={<AdDetails />} />
               <Route path="/orders" element={<VendorOrder />} />
             </Route>
             <Route path="/login" element={<LoginVendor />} />

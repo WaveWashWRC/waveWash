@@ -29,7 +29,7 @@ const Ads = () => {
                     key={String(Element._id)}
                   >
                     <Card
-                      key={Element._id}
+                      adId={Element._id}
                       desc={Element.desc}
                       images={Element.images}
                       category={Element.services.category}
