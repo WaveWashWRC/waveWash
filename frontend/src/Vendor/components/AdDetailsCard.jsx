@@ -3,11 +3,11 @@ import CustomButton from "../components/CustomButton";
 import AdDetailsCardCarousel from "../components/AdDetailsCarousel";
 
 const AdDetailsCard = ({ adDetails }) => {
-  if (!adDetails) {
+  if (!adDetails || adDetails.length === 0) {
     return <div>Loading...</div>;
   }
 
-  const { desc, services, images, location, bidders } = adDetails;
+  const { desc, services, images, location, bidders } = adDetails[0]; // Accessing various fields from the object inside the array
 
   const category = services ? services.category : "N/A";
 
