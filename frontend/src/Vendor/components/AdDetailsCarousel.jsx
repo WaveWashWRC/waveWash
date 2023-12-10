@@ -12,6 +12,9 @@ const AdDetailsCarousel = ({ images }) => {
     return <div>No images available</div>; // Display a message or placeholder for no images
   }
 
+  // Duplicate the images array to ensure enough slides for loop mode
+  const duplicatedImages = [...images, ...images]; // Change this based on the number of slides required
+
   return (
     <div className="z-0 md:w-[30rem]">
       <Swiper
@@ -28,7 +31,7 @@ const AdDetailsCarousel = ({ images }) => {
         navigation={true}
         modules={[Autoplay, Pagination, Navigation]}
       >
-        {images.map((image, index) => (
+        {duplicatedImages.map((image, index) => (
           <SwiperSlide key={index}>
             <img
               src={image}
