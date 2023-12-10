@@ -7,7 +7,7 @@ const AdDetailsCard = ({ adDetails }) => {
     return <div>Loading...</div>;
   }
 
-  const { desc, services, images, location, bidders } = adDetails[0]; // Accessing various fields from the object inside the array
+  const { desc, services, images, location, bidders } = adDetails[0];
 
   const category = services ? services.category : "N/A";
 
@@ -22,32 +22,30 @@ const AdDetailsCard = ({ adDetails }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 m-4">
-      <div className="mb-4">
+    <div className="bg-white rounded-lg shadow-md p-6 m-4 text-gray-900">
+      <div className="mb-6 md:mb-8">
         <AdDetailsCardCarousel images={images} />
       </div>
       <div className="mb-4">
-        <div className="mb-1">
-          <span className="font-semibold text-gray-700">Service:</span>{" "}
-          {category}
+        <div className="mb-2">
+          <span className="font-semibold">Service:</span> {category}
         </div>
-        <div className="mb-1">
-          <span className="font-semibold text-gray-700">Location:</span>{" "}
-          {locationInfo}
+        <div className="mb-2">
+          <span className="font-semibold">Location:</span> {locationInfo}
         </div>
       </div>
       <div className="mb-4">
-        <span className="font-semibold text-gray-700">Description:</span> {desc}
+        <span className="font-semibold">Description:</span> {desc}
       </div>
       <div className="mb-4">
-        <span className="font-semibold text-gray-700">Bidders:</span>{" "}
+        <span className="font-semibold">Bidders:</span>{" "}
         {bidders ? bidders.length : 0}
       </div>
       <div className="mb-4">
         <input
           type="text"
           placeholder="Add your bid price"
-          className="border border-gray-300 px-2 py-1 rounded-md w-full bg-white text-gray-600"
+          className="border border-gray-300 px-2 py-1 rounded-md w-full bg-white text-gray-900"
         />
       </div>
       <div>
