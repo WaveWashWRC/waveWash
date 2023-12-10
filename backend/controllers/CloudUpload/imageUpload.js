@@ -2,7 +2,7 @@
 require('dotenv').config()
 const cloudinary = require('cloudinary').v2;
 const vendor = require('../../database/VendorModel')
-const ads = require('../../database/AdModal')
+const ads = require('../../database/AdModel')
 const users = require('../../database/UserModel')
 require('dotenv').config();
 
