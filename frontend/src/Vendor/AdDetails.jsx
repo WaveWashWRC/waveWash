@@ -5,24 +5,20 @@ import PerformRequest from "../api/axios";
 import AdDetailsCard from "../Vendor/components/AdDetailsCard";
 
 const AdDetails = () => {
-  const { adId } = useParams();
+  const { adId } = useParams(); // Updated to adId
 
   const [loading, setLoading] = useState(true);
-  const [adDetails, setAdDetails] = useState(null); // Initialize adDetails as null
+  const [adDetails, setAdDetails] = useState(null);
 
   useEffect(() => {
     const fetchAdDetails = async () => {
       try {
-        const response = await PerformRequest(`/api/ad/get/${adId}`, "GET");
-        console.log(response); // Log the entire response object
-
-        // Check if the response data is valid
-        if (response && response.data) {
-          setAdDetails(response.data); // Set fetched ad details
-        } else {
-          console.error("Invalid response format or empty data:", response);
-        }
-        setLoading(false); // Set loading to false after fetching data
+        setLoading(true); // Set loading to true when fetching data
+        PerformRequest(`/api/ad/get/${adId}`, "GET").then((data) => {
+          console.log(data);
+          setAdDetails(data); // Set adDetails directly with fetched data
+          setLoading(false); // Set loading to false after data is fetched
+        });
       } catch (error) {
         console.error("Error fetching ad details:", error);
         setLoading(false); // Set loading to false in case of an error
@@ -43,7 +39,7 @@ const AdDetails = () => {
           aria-label="Loading Spinner"
         />
       ) : (
-        <AdDetailsCard adDetails={adDetails} /> // Pass adDetails as props
+        <AdDetailsCard adDetails={adDetails} />
       )}
     </div>
   );

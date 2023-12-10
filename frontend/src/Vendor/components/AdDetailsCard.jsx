@@ -4,12 +4,13 @@ import AdDetailsCardCarousel from "../components/AdDetailsCarousel";
 
 const AdDetailsCard = ({ adDetails }) => {
   if (!adDetails) {
-    return <div>Loading...</div>; // Placeholder for when adDetails is null or undefined
+    return <div>Loading...</div>;
   }
 
-  const { desc, category, images, location, bidders } = adDetails;
+  const { desc, services, images, location, bidders } = adDetails;
 
-  // Check if location exists before accessing its properties
+  const category = services ? services.category : "N/A";
+
   const locationInfo = location
     ? `${location.address || ""}, ${location.city || ""}, ${
         location.state || ""
