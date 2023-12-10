@@ -1,7 +1,7 @@
 import React from "react";
 import CustomButton from "../components/CustomButton";
 import AdDetailsCardCarousel from "../components/AdDetailsCarousel";
-//newcode
+
 const AdDetailsCard = ({ adDetails }) => {
   if (!adDetails) {
     return <div>Loading...</div>; // Placeholder for when adDetails is null or undefined

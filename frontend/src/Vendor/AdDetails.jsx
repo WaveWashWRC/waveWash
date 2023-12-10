@@ -1,54 +1,50 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { HashLoader } from "react-spinners";
+import PerformRequest from "../api/axios";
+import AdDetailsCard from "../Vendor/components/AdDetailsCard";
 
 const AdDetails = () => {
-  const { adId } = useParams(); // Get adId from route parameters
-  const [adDetails, setAdDetails] = React.useState(null); // State to store fetched ad details
+  const { adId } = useParams();
 
-  React.useEffect(() => {
-    // Fetch ad details based on adId
-    PerformRequest(`/api/ad/get/${adId}`, "GET").then((data) => {
-      setAdDetails(data);
-    });
-  }, [adId]); // Re-fetch data if adId changes
+  const [loading, setLoading] = useState(true);
+  const [adDetails, setAdDetails] = useState(null); // Initialize adDetails as null
 
-  if (!adDetails) {
-    return <p>Loading...</p>; // Show loading message while data is fetching
-  }
+  useEffect(() => {
+    const fetchAdDetails = async () => {
+      try {
+        const response = await PerformRequest(`/api/ad/get/${adId}`, "GET");
+        console.log(response); // Log the entire response object
 
-  const { desc, category, images, location, expectedPrice, bidders } =
-    adDetails;
+        // Check if the response data is valid
+        if (response && response.data) {
+          setAdDetails(response.data); // Set fetched ad details
+        } else {
+          console.error("Invalid response format or empty data:", response);
+        }
+        setLoading(false); // Set loading to false after fetching data
+      } catch (error) {
+        console.error("Error fetching ad details:", error);
+        setLoading(false); // Set loading to false in case of an error
+      }
+    };
 
-  // Check if location exists before accessing its properties
-  const locationInfo = location
-    ? `${location.address || ""}, ${location.city || ""}, ${
-        location.state || ""
-      } - ${location.pincode || ""}`
-    : "Location information not available";
+    fetchAdDetails();
+  }, [adId]);
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 m-4">
-      <div className="mb-4">
-        <img src={images[0]} alt={desc} className="w-full h-auto rounded" />
-      </div>
-      <div className="mb-4">
-        <div className="mb-1">
-          <span className="font-semibold text-gray-700">Service:</span>{" "}
-          {category}
-        </div>
-        <div className="mb-1">
-          <span className="font-semibold text-gray-700">Location:</span>{" "}
-          {locationInfo}
-        </div>
-      </div>
-      <div className="mb-4">
-        <span className="font-semibold text-gray-700">Description:</span> {desc}
-      </div>
-      <div className="mb-4">
-        <span className="font-semibold text-gray-700">Bidders:</span>{" "}
-        {bidders ? bidders.length : 0}
-      </div>
-      {/* Add more details or components to display additional information */}
+    <div>
+      {loading ? (
+        <HashLoader
+          className="absolute mt-[50%] md:mt-[150px] mx-auto align-middle "
+          color="#36d7b7"
+          loading={loading}
+          size={150}
+          aria-label="Loading Spinner"
+        />
+      ) : (
+        <AdDetailsCard adDetails={adDetails} /> // Pass adDetails as props
+      )}
     </div>
   );
 };
