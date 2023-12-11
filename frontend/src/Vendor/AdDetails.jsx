@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { HashLoader } from "react-spinners";
 import PerformRequest from "../api/axios";
 import AdDetailsCard from "../Vendor/components/AdDetailsCard";
+import BidComponent from "./components/BidComponent";
 
 const AdDetails = () => {
   const { adId } = useParams(); // Updated to adId
@@ -27,6 +28,26 @@ const AdDetails = () => {
 
     fetchAdDetails();
   }, [adId]);
+  const handleBidSubmit = async (bidData) => {
+    try {
+      // Log the bid data before performing the request
+      console.log("Bid data:", bidData);
+
+      // Perform the request to post a bid
+      const response = await PerformRequest(
+        `/api/ad/bid/create/${adId}`,
+        "PUT",
+        bidData
+      );
+
+      // Log the response to verify if the request is successful
+      console.log("Bid submission response:", response);
+
+      // Refresh the ad details after posting the bid
+    } catch (error) {
+      console.error("Error posting bid:", error);
+    }
+  };
 
   return (
     <div>
@@ -39,7 +60,10 @@ const AdDetails = () => {
           aria-label="Loading Spinner"
         />
       ) : (
-        <AdDetailsCard adDetails={adDetails} />
+        <>
+          <AdDetailsCard adDetails={adDetails} />
+          <BidComponent onBidSubmit={handleBidSubmit} />
+        </>
       )}
     </div>
   );
