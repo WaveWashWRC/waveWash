@@ -23,10 +23,10 @@ const AdDetailsCard = ({ adDetails }) => {
         <AdDetailsCardCarousel images={images} />
       </div>
       <div className="mb-4">
-        <div className="mb-2">
+        <div className="mb-4">
           <span className="font-semibold">Service:</span> {category}
         </div>
-        <div className="mb-2">
+        <div className="mb-4">
           <span className="font-semibold">Location:</span> {locationInfo}
         </div>
       </div>

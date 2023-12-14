@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PerformRequest from "../../api/axios";
+import CustomButton from "./CustomButton";
 
 const BidComponent = ({ adId }) => {
   const [bidAmount, setBidAmount] = useState("");
@@ -31,22 +32,29 @@ const BidComponent = ({ adId }) => {
   };
 
   return (
-    <div>
-      <h2>Place Bid</h2>
-      <div>
-        <label>Bid Amount:</label>
-        <input
-          type="number"
-          value={bidAmount}
-          onChange={handleBidAmountChange}
-          placeholder="Enter bid amount"
-        />
+    <div className="bg-white rounded-lg shadow-md p-6 m-4 text-gray-900">
+      <div className="mb-4">
+        <label className="font-semibold">Bid Amount:</label>
+        <div className="mb-4">{/* Empty div for spacing */}</div>
+        <div className="mb-4">
+          <input
+            className="border rounded-md p-2 w-full bg-white"
+            type="number"
+            value={bidAmount}
+            onChange={handleBidAmountChange}
+            placeholder="Enter bid amount"
+          />
+        </div>
       </div>
+      <div className="mb-4">{/* Empty div for spacing */}</div>
       <div>
-        <button onClick={handleBidSubmission}>Submit Bid</button>
+        <CustomButton
+          onClick={handleBidSubmission}
+          text="Submit Bid"
+          className="w-full"
+        />
       </div>
     </div>
   );
 };
-
 export default BidComponent;
