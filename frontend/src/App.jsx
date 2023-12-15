@@ -22,6 +22,8 @@ import { Landingpage } from "./Landingpage/Landingpage";
 import AdminDashboard from "./Admin/AdminDashboard";
 import ApproveVendor from "./Admin/ApproveVendor";
 import VendorOrder from "./Vendor/VendorOrder";
+import LoginAdmin from "./Admin/LoginAdmin";
+import RegisterAdmin from "./Admin/RegisterAdmin";
 
 function App() {
   const [user, setUser] = useState({
@@ -83,6 +85,8 @@ function App() {
               </Route>
             )}
 
+            <Route path="/admin/login" element={<LoginAdmin />} />
+            <Route path="/admin/register" element={<RegisterAdmin />} />
             <Route path="/landingpage" element={<Landingpage />} />
             <Route path="/admindash" element={<AdminDashboard />}>
               <Route path="approve_vendor" element={<ApproveVendor />} />
