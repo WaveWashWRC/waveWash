@@ -19,6 +19,11 @@ import Profile from "./Vendor/Profile";
 import Ads from "./Vendor/Ads";
 import AdDetails from "./Vendor/AdDetails";
 import { Landingpage } from "./Landingpage/Landingpage";
+import AdminDashboard from "./Admin/AdminDashboard";
+import ApproveVendor from "./Admin/ApproveVendor";
+import VendorOrder from "./Vendor/VendorOrder";
+import LoginAdmin from "./Admin/LoginAdmin";
+import RegisterAdmin from "./Admin/RegisterAdmin";
 
 function App() {
   const [user, setUser] = useState({
@@ -56,30 +61,36 @@ function App() {
       <Router>
         {window.location.host.split(".")[0] === "service" ? (
           <Routes>
-            
             <Route path="/" element={<VendorDashboard />}>
               <Route path="/ads" element={<Ads />} />
               <Route path="/profile" element={<Profile />} />
-              <Route path="/ad-details" element={<AdDetails />} />
+              <Route path="/ad-details/:adId" element={<AdDetails />} />
+              <Route path="/orders" element={<VendorOrder />} />
             </Route>
             <Route path="/login" element={<LoginVendor />} />
             <Route path="/register" element={<RegisterVendor />} />
-            {/* <Route path="dashboard" element={<V_Dashboard />} /> */}
           </Routes>
         ) : (
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            {user.isAuthenticated && 
-            <Route path="/" element={<User />}>
-              <Route path="dashboard" element={<UserDashboard />} />
-              <Route path="services" element={<CheckServices />} />
-              <Route path="book-service" element={<BookService />} />
-              <Route path="post-an-ad" element={<PostAd />} />
-              <Route path="edit-profile" element={<EditProfile />} />
-              <Route path="services" element={<History />} />
-            </Route>}
+            {user.isAuthenticated && (
+              <Route path="/" element={<User />}>
+                <Route path="dashboard" element={<UserDashboard />} />
+                <Route path="services" element={<CheckServices />} />
+                <Route path="book-service" element={<BookService />} />
+                <Route path="post-an-ad" element={<PostAd />} />
+                <Route path="edit-profile" element={<EditProfile />} />
+                <Route path="services" element={<History />} />
+              </Route>
+            )}
+
+            <Route path="/admin/login" element={<LoginAdmin />} />
+            <Route path="/admin/register" element={<RegisterAdmin />} />
             <Route path="/landingpage" element={<Landingpage />} />
+            <Route path="/admindash" element={<AdminDashboard />}>
+              <Route path="approve_vendor" element={<ApproveVendor />} />
+            </Route>
           </Routes>
         )}
       </Router>

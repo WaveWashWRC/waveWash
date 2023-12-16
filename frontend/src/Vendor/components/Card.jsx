@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Card = ({ desc, category, images, location, expectedPrice }) => {
+const Card = ({ adId, desc, category, images, location, expectedPrice }) => {
   return (
     <div className="bg-gray-100 relative w-full md:w-[400px] h-[340px] overflow-hidden cursor-pointer rounded-md border shadow-lg m-6 p-4">
-      <Link to={`/ad-details`}>
+      <Link to={`/ad-details/${adId}`}>
         <div className="">
           <div className="flex flex-wrap justify-center mb-2">
             <span className="bg-blue-100 inline-block text-blue-800 text-xs font-medium me-2 mb-1 px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300">

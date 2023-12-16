@@ -3,6 +3,7 @@ import Card from "./components/Card";
 import { useEffect, useState } from "react";
 import { HashLoader } from "react-spinners";
 import PerformRequest from "../api/axios";
+
 const Ads = () => {
   const [loading, setLoading] = useState(true);
   const [ads, setAds] = useState([]);
@@ -28,7 +29,7 @@ const Ads = () => {
                     key={String(Element._id)}
                   >
                     <Card
-                      key={Element._id}
+                      adId={Element._id}
                       desc={Element.desc}
                       images={Element.images}
                       category={Element.services.category}

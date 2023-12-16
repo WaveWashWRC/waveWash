@@ -28,7 +28,7 @@ const Navbar = () => {
 
         <div className="hidden md:flex gap-5 font-medium p-1 text-lg text-gray-950">
           <RouterLink
-            to="/become-vendor"
+            to="/login"
             className="hover:text-teal-600 transition-all cursor-pointer"
           >
             Be a Vendor

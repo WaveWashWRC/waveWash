@@ -1,14 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const authenticate = require("../../middleware/authenticate");
-const { approveVendor, getVendors } = require("../../controllers/Admin/approve");
+const {
+  approveVendor,
+  getVendors,
+} = require("../../controllers/Admin/approve");
 
+router.post("/approve/:vendorId", authenticate, approveVendor);
 
-
-
-router.get("/approve/:vendorId", authenticate, approveVendor);
-
-router.post("/vendors", getVendors); 
-
+router.get("/vendors", getVendors);
 
 module.exports = router;

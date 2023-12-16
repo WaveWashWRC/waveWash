@@ -4,44 +4,38 @@ import { Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import service from "../assets/service.jpg";
-import Statedropdown from "./components/Statedropdown";
-import Citydropdown from "./components/Citydropdown";
+import Statedropdown from "../Vendor/components/Statedropdown";
+import Citydropdown from "../Vendor/components/Citydropdown";
 
-const RegisterVendor = () => {
-  const [companyName, setCompanyName] = useState("");
-  const [ownerName, setOwnerName] = useState("");
+const RegisterAdmin = () => {
+  const [Name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [emailID, setEmailID] = useState("");
   const [password, setPassword] = useState("");
-  const [pincode, setPincode] = useState("");
-  const [state, setState] = useState("");
   const [city, setCity] = useState("");
-  const [address, setAddress] = useState("");
   const [cookies, setCookie, removeCookie] = useCookies(["session"]);
 
-  const handleStateChange = (selectedState) => {
-    setState(selectedState); // Update state value in RegisterVendor component
-  };
+  //   const handleStateChange = (selectedState) => {
+  //     setState(selectedState); // Update state value in RegisterAdmin component
+  //   };
 
   const handleCityChange = (selectedCity) => {
-    setCity(selectedCity); // Update city value in RegisterVendor component
+    setCity(selectedCity); // Update city value in RegisterAdmin component
   };
 
   const handleRegister = async (e) => {
     e.preventDefault();
 
     const newUser = {
-      companyName,
-      ownerName,
+      name: Name,
       phoneNumber,
       emailId: emailID,
       password,
-      location: { pincode, state, city, address },
+      city,
     };
 
     const response = await fetch(
-      "http://localhost:8000/api/auth/vendor/register",
+      "http://localhost:8000/api/auth/admin/register",
       {
         method: "POST",
         headers: {
@@ -60,7 +54,7 @@ const RegisterVendor = () => {
       });
     } else {
       setCookie("session", data?.token);
-      window.location.replace("/register");
+      window.location.replace("/admindash");
     }
   };
 
@@ -80,9 +74,7 @@ const RegisterVendor = () => {
             <h1 className="text-xl md:text-5xl font-bold sm:mb-0 md:mb-4">
               Hello There!
             </h1>
-            <h1 className="text-base md:text-2xl font-semibold ">
-              Register to become a vendor
-            </h1>
+            <h1 className="text-base md:text-2xl font-semibold ">Admin</h1>
           </div>
         </div>
         <div className="bg-base-400 m-2 md:m-0 p-2 md:py-2 flex items-center flex-wrap justify-center">
@@ -96,31 +88,16 @@ const RegisterVendor = () => {
             </h2>
             <div className="flex flex-col md:flex-row md:items-center justify-between md:space-x-2 md:pt-2 text-sm md:text-lg mt-1">
               <label
-                htmlFor="companyName"
+                htmlFor="Name"
                 className="text-sm md:text-base text-gray-200 mb-1 md:mb-2"
               >
-                Company Name
+                Name
               </label>
               <input
                 type="text"
-                id="companyname"
-                onChange={(e) => setCompanyName(e.target.value)}
-                value={companyName}
-                className="rounded-sm md:text-base p-2 text-xs bg-gray-300 md:py-2 md:px-3 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
-              />
-            </div>
-            <div className="flex flex-col md:flex-row md:items-center justify-between md:space-x-2 md:pt-2 text-sm md:text-lg mt-1">
-              <label
-                htmlFor="ownerName"
-                className="text-sm md:text-base text-gray-200 mb-1 md:mb-2"
-              >
-                Owner Name
-              </label>
-              <input
-                type="text"
-                id="ownerName"
-                onChange={(e) => setOwnerName(e.target.value)}
-                value={ownerName}
+                id="Name"
+                onChange={(e) => setName(e.target.value)}
+                value={Name}
                 className="rounded-sm md:text-base p-2 text-xs bg-gray-300 md:py-2 md:px-3 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
               />
             </div>
@@ -154,37 +131,9 @@ const RegisterVendor = () => {
                 className="rounded-sm md:text-base text-xs bg-gray-300 p-2 md:py-2 md:px-3 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
               />
             </div>
-            <div className="flex flex-col md:flex-row md:items-center justify-between md:space-x-2 md:pt-2 text-sm md:text-lg mt-1">
-              <label
-                htmlFor="address"
-                className="text-sm md:text-base text-gray-200 mb-1 md:mb-2"
-              >
-                Street Address
-              </label>
-              <textarea
-                id="address"
-                onChange={(e) => setAddress(e.target.value)}
-                value={address}
-                className="rounded-sm text-xs md:text-base bg-gray-300 p-2 md:mt-2 md:px-2 md:py-3 overflow-hidden resize-none h-12 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
-              />
-            </div>
+
             <div className="grid grid-cols-3 gap-3 md:mt-1">
-              <div className="flex flex-col items-left justify-between pt-2 text-lg">
-                <label
-                  htmlFor="pincode"
-                  className="text-sm md:text-base text-gray-200 mb-1 md:mb-2"
-                >
-                  Pincode
-                </label>
-                <input
-                  type="number"
-                  id="pincode"
-                  onChange={(e) => setPincode(e.target.value)}
-                  value={pincode}
-                  className="rounded-sm md:text-base text-xs bg-gray-300 p-2 md:py-2 md:px-3 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
-                />
-              </div>
-              <div className="flex flex-col items-left justify-between pt-2 text-lg">
+              {/* <div className="flex flex-col items-left justify-between pt-2 text-lg">
                 <label
                   htmlFor="state"
                   className="text-sm md:text-base text-gray-200 mb-1 md:mb-2"
@@ -192,14 +141,7 @@ const RegisterVendor = () => {
                   State
                 </label>
                 <Statedropdown onSelectChange={handleStateChange} />
-                {/* <input
-                  type="text"
-                  id="state"
-                  onChange={(e) => setState(e.target.value)}
-                  value={state}
-                  className="rounded-sm md:text-base text-xs bg-gray-300 p-2 md:py-2 md:px-3 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
-                /> */}
-              </div>
+              </div> */}
               <div className="flex flex-col items-left justify-between pt-2 text-lg">
                 <label
                   htmlFor="city"
@@ -208,13 +150,6 @@ const RegisterVendor = () => {
                   City
                 </label>
                 <Citydropdown onSelectChange={handleCityChange} />
-                {/* <input
-                  type="text"
-                  id="city"
-                  onChange={(e) => setCity(e.target.value)}
-                  value={city}
-                  className="rounded-sm md:text-base text-xs bg-gray-300 p-2 md:py-2 md:px-3 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
-                /> */}
               </div>
             </div>
 
@@ -263,4 +198,4 @@ const RegisterVendor = () => {
   );
 };
 
-export default RegisterVendor;
+export default RegisterAdmin;
