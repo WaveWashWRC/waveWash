@@ -9,7 +9,7 @@ const {
 
 router.get("/", authenticate, getAdmin); //responds with json only when Status is OK
 
-router.post("/register", registerAdmin); //post with body --> email & password
+router.post("/register", registerAdmin, loginAdmin); //post with body --> email & password
 
 router.post("/login", loginAdmin); //post with body --> email & password
 

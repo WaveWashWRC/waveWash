@@ -17,13 +17,21 @@ function getCookie(cname) {
 const PerformRequest = (url, method, body) => {
   // initializing the axios instance with custom configs
   const Token = getCookie('session');
-  const api = axios.create({
+  const api = (Token!== undefined || Token!==null)?
+  axios.create({
     baseURL: 'http://localhost:8000/',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `bearer ${Token}`,
     },
-  });
+  }):
+  axios.create({
+    baseURL: 'http://localhost:8000/',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+  })
+
 
   return new Promise((resolve, reject) => {
     api

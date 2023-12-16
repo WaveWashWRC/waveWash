@@ -54,7 +54,7 @@ const RegisterAdmin = () => {
       });
     } else {
       setCookie("session", data?.token);
-      window.location.replace("/admindash");
+      window.location.replace("/dashboard");
     }
   };
 

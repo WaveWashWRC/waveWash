@@ -32,12 +32,13 @@ function App() {
   const api = "http://localhost:8000";
   const [cookies, setCookie] = useCookies(["session"]);
   const token = cookies["session"];
+  console.log(token);
   //if (token === null || token === undefined) window.location.replace("/login");
   useEffect(() => {
-    !(token === undefined || token === null) &&
+    !(token === undefined || token === null || token === "undefined") &&
       fetch(
-        `${api}/api/auth/${
-          window.location.host.split(".")[0] === "service" ? "vendor" : "user"
+        `${api}/api/auth/${window.location.host.split(".")[0] === "service" ? "vendor" :
+          (window.location.host.split(".")[0] === "service" ? "user" : "admin")
         }`,
         {
           method: "GET",
@@ -59,6 +60,7 @@ function App() {
   return (
     <authContext.Provider value={user}>
       <Router>
+        
         {window.location.host.split(".")[0] === "service" ? (
           <Routes>
             <Route path="/" element={<VendorDashboard />}>
@@ -71,7 +73,8 @@ function App() {
             <Route path="/register" element={<RegisterVendor />} />
           </Routes>
         ) : (
-          <Routes>
+          window.location.host.split(".")[0]==='' ? 
+          (<Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             {user.isAuthenticated && (
@@ -84,14 +87,17 @@ function App() {
                 <Route path="services" element={<History />} />
               </Route>
             )}
-
-            <Route path="/admin/login" element={<LoginAdmin />} />
-            <Route path="/admin/register" element={<RegisterAdmin />} />
-            <Route path="/landingpage" element={<Landingpage />} />
-            <Route path="/admindash" element={<AdminDashboard />}>
-              <Route path="approve_vendor" element={<ApproveVendor />} />
-            </Route>
-          </Routes>
+          </Routes>) :
+          (
+            <Routes>
+              <Route path="/login" element={<LoginAdmin />} />
+              <Route path="/register" element={<RegisterAdmin />} />
+              <Route path="/landingpage" element={<Landingpage />} />
+              <Route path="/dashboard" element={<AdminDashboard />} />
+              <Route path="/vendors" element={<ApproveVendor />} />
+            </Routes>
+          )
+        
         )}
       </Router>
     </authContext.Provider>

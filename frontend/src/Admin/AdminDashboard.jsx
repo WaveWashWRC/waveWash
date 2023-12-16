@@ -1,7 +1,7 @@
 import React from "react";
 import authContext from "../context/AuthContext";
 import { useContext } from "react";
-import AdminSidebar from "./components/Adminsidebar";
+import AdminSidebar from "./components/AdminSidebar";
 import AdminHeader from "./components/AdminHeader";
 import { Outlet } from "react-router-dom";
 import ApproveVendor from "./ApproveVendor";

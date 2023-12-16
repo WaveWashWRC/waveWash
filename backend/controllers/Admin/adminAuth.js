@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 //register new users
-async function registerAdmin(req, res) {
+async function registerAdmin(req, res,next) {
   const { name, phoneNumber, emailId, city, password } = req.body;
   //generates a random username from the email id
   let user = await admin.findOne({ emailId });
@@ -25,7 +25,7 @@ async function registerAdmin(req, res) {
   newUser
     .save()
     .then(() =>
-      res.status(200).json({ msg: "new admin created", success: true })
+      next()
     )
     .catch((err) =>
       res.status(400).json({ msg: "something went wrong", err, success: false })
@@ -55,6 +55,7 @@ async function loginAdmin(req, res) {
         expiresIn: "30d",
       }
     );
+    console.log(token);
     return res.json({
       success: true,
       msg: "authenticated",
