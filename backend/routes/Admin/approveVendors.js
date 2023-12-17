@@ -8,6 +8,6 @@ const {
 
 router.post("/approve/:vendorId", authenticate, approveVendor);
 
-router.get("/vendors", getVendors);
+router.get("/vendors",authenticate, getVendors);
 
 module.exports = router;
