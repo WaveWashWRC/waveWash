@@ -9,7 +9,7 @@ const ApproveVendor = () => {
     const fetchVendors = async () => {
       try {
         setLoading(true);
-        PerformRequest("/vendors", "GET").then((data) => {
+        PerformRequest("/vendors/?verified=true", "GET").then((data) => {
           console.log(data);
           setVendors(data);
           setLoading(false);
