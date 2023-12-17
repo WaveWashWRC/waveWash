@@ -21,7 +21,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: ["http://service.localhost:5173", "http://localhost:5173"],
+    origin: ["http://admin.localhost:5173","http://service.localhost:5173", "http://localhost:5173"],
   })
 );
 app.use("/api/auth/", userAuthRouter);

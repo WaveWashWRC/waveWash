@@ -18,7 +18,7 @@ const LoginAdmin = () => {
       emailId: emailID,
       password,
     };
-
+    console.log(payload);
     const response = await fetch("http://localhost:8000/api/auth/admin/login", {
       method: "POST",
       headers: {
@@ -35,7 +35,7 @@ const LoginAdmin = () => {
       });
     } else {
       setCookie("session", data?.token);
-      window.location.replace("/admindash");
+      
     }
   };
   return (
