@@ -35,7 +35,7 @@ const LoginAdmin = () => {
       });
     } else {
       setCookie("session", data?.token);
-      
+      window.location.replace("/dashboard");
     }
   };
   return (
