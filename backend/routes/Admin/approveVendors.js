@@ -6,7 +6,7 @@ const {
   getVendors,
 } = require("../../controllers/Admin/approve");
 
-router.post("/approve/:vendorId", authenticate, approveVendor);
+router.put("/approve/:vendorId", authenticate, approveVendor);
 
 router.get("/vendors", getVendors);
 
