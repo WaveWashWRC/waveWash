@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import PerformRequest from "../api/axios"; // Assuming you have a function to make HTTP requests
+import PerformRequest from "../api/axios";
 
 const ApproveVendor = () => {
   const [vendors, setVendors] = useState([]);
