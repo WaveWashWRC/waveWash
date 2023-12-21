@@ -9,7 +9,7 @@ const ApproveVendor = () => {
     const fetchVendors = async () => {
       try {
         setLoading(true);
-        PerformRequest("/vendors", "GET").then((data) => {
+        PerformRequest("/api/admin/vendors?verify=false", "GET").then((data) => {
           console.log(data);
           setVendors(data);
           setLoading(false);
@@ -31,7 +31,7 @@ const ApproveVendor = () => {
       ) : (
         <ul>
           {vendors.map((vendor) => (
-            <li key={vendor.id}>{vendor.name}</li>
+            <li key={vendor._id}>{vendor.companyName}</li>
           ))}
         </ul>
       )}
