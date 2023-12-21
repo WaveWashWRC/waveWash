@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import PerformRequest from "../api/axios"; // Assuming you have a function to make HTTP requests
+import PerformRequest from "../api/axios";
 
 const ApproveVendor = () => {
   const [vendors, setVendors] = useState([]);
@@ -9,7 +9,7 @@ const ApproveVendor = () => {
     const fetchVendors = async () => {
       try {
         setLoading(true);
-        PerformRequest("/vendors", "GET").then((data) => {
+        PerformRequest("/api/admin/vendors", "GET").then((data) => {
           console.log(data);
           setVendors(data);
           setLoading(false);
