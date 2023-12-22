@@ -28,13 +28,13 @@ const ApproveVendor = () => {
     try {
       setLoading(true);
       await PerformRequest(`/api/admin/approve/${vendorId}`, "PUT");
-      // After approving, re-fetch the vendors
       fetchVendors();
     } catch (error) {
       console.error("Error approving vendor:", error);
       setLoading(false);
     }
   };
+
   return (
     <div>
       <div className="text-gray-900 text-xl font-bold py-4">
@@ -43,96 +43,37 @@ const ApproveVendor = () => {
       {loading ? (
         <p>Loading vendors...</p>
       ) : (
-        <table
-          style={{
-            borderCollapse: "collapse",
-            width: "100%",
-            border: "1px solid #000",
-          }}
-        >
+        <table className="border-collapse w-full border-2 border-black">
           <thead>
-            <tr>
-              <th
-                style={{
-                  border: "1px solid #000",
-                  padding: "8px",
-                  color: "#000",
-                }}
-              >
+            <tr className="border-2 border-black">
+              <th className="border-2 border-black p-2 text-gray-900">
                 Company Name
               </th>
-              <th
-                style={{
-                  border: "1px solid #000",
-                  padding: "8px",
-                  color: "#000",
-                }}
-              >
-                Email
-              </th>
-              <th
-                style={{
-                  border: "1px solid #000",
-                  padding: "8px",
-                  color: "#000",
-                }}
-              >
+              <th className="border-2 border-black p-2 text-gray-900">Email</th>
+              <th className="border-2 border-black p-2 text-gray-900">
                 Phone Number
               </th>
-              <th
-                style={{
-                  border: "1px solid #000",
-                  padding: "8px",
-                  color: "#000",
-                  textAlign: "center", // Align button content to center
-                }}
-              >
+              <th className="border-2 border-black p-2 text-gray-900 text-center">
                 Action
               </th>
             </tr>
           </thead>
           <tbody>
             {vendors.map((vendor, index) => (
-              <tr key={index}>
-                <td
-                  style={{
-                    border: "1px solid #000",
-                    padding: "8px",
-                    color: "#000",
-                  }}
-                >
+              <tr key={index} className="border-2 border-black">
+                <td className="border-2 border-black p-2 text-gray-900">
                   {vendor.companyName}
                 </td>
-                <td
-                  style={{
-                    border: "1px solid #000",
-                    padding: "8px",
-                    color: "#000",
-                  }}
-                >
+                <td className="border-2 border-black p-2 text-gray-900">
                   {vendor.emailId}
                 </td>
-                <td
-                  style={{
-                    border: "1px solid #000",
-                    padding: "8px",
-                    color: "#000",
-                  }}
-                >
+                <td className="border-2 border-black p-2 text-gray-900">
                   {vendor.phoneNumber}
                 </td>
-                <td
-                  style={{
-                    border: "1px solid #000",
-                    padding: "8px",
-                    color: "#000",
-                    textAlign: "center", // Align button to center within the cell
-                  }}
-                >
+                <td className="border-2 border-black p-2 text-gray-900 text-center">
                   <button
                     onClick={() => approveVendor(vendor._id)}
-                    className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
-                    style={{ width: "100%" }} // Set button width to 100% of cell
+                    className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded w-full"
                   >
                     Approve
                   </button>
