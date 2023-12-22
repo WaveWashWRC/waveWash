@@ -29,8 +29,8 @@ const Login = () => {
     }
     if (response.ok) {
       setCookie("session", json.token, {
-        path: "/",
-        maxAge: 3600 * 24 * 30*60,
+        path: "/dashboard",
+        maxAge: 3600 * 24 * 30 * 60,
         sameSite: true,
       });
       setEmailId("");

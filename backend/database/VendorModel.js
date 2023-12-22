@@ -1,16 +1,16 @@
 const mongoose = require("mongoose");
 const serviceCategory = [
   "Car wash - Hatchback",
-  "Car wash - Sedan)",
-  "Car wash - SUV)",
+  "Car wash - Sedan",
+  "Car wash - SUV",
   "Bike wash",
   "Tank and Sump wash",
   "Aquarium wash",
   "Pet wash",
   "Bathroom and Tiles cleaning",
   "Carpet, Sofa, and curtain cleaning",
-  "Gardening"
-  ];
+  "Gardening",
+];
 const VendorSchema = new mongoose.Schema(
   {
     companyName: {
@@ -19,7 +19,7 @@ const VendorSchema = new mongoose.Schema(
     },
     ownerName: {
       type: String,
-      required: true
+      required: true,
     },
     password: {
       type: String,
@@ -39,27 +39,28 @@ const VendorSchema = new mongoose.Schema(
       city: String,
       address: String,
       landmark: String,
-    }, 
-    images:[
+    },
+    images: [
       {
-        type:String
-      }
+        type: String,
+      },
     ],
-    services: [ //they provide
+    services: [
+      //they provide
       {
         category: {
           type: String,
-          enum: serviceCategory
+          enum: serviceCategory,
         },
         price: {
           type: mongoose.Types.Decimal128,
-        }
-      }
+        },
+      },
     ],
     verified: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   { timestamps: true }
 );
