@@ -21,16 +21,12 @@ const userSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
-    location: {
-      pincode: Number,
-      state: String,
+    region: {
       city: String,
-      address: String,
-      landmark: String,
     }
   },
   { timestamps: true }
 );
 
-const user = mongoose.model("User", userSchema);
+const user = mongoose.model("Admin", userSchema);
 module.exports = user;

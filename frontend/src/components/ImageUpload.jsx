@@ -3,20 +3,24 @@ import ImageUploading from "react-images-uploading";
 import def from '../assets/defaultimg.png'
 import bin from '../assets/bin.png'
 import PerformRequest from "../api/axios";
-function ImageUpload({ maxNumber, preSetImages }) {
+import uploadMultimedia from "../api/axios/multimedia";
+function ImageUpload({ maxNumber, preSetImages,hitUrl }) {
   let arrObjs = []
-  preSetImages.map((elem) => {
+  preSetImages &&
+  preSetImages?.map((elem) => {
     arrObjs.push({
       data_url: elem
     })
   })
   function upload() {
     var formdata = new FormData();
+    console.log(images);
     images.map(image => {
-    formdata.append("images",image.data_url);
+      if (image.file)
+        formdata.append("images", image.file);
     });
     console.log(formdata);
-    PerformRequest('/api/upload/image/3','POST',formdata)
+    uploadMultimedia(`${hitUrl}/${maxNumber}`, 'POST', formdata)
       .then(data => {
         if (data.success) {
           console.log('upload', data);

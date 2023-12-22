@@ -1,51 +1,50 @@
-import React from "react";
-import CustomButton from "./components/CustomButton";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { HashLoader } from "react-spinners";
+import PerformRequest from "../api/axios";
+import AdDetailsCard from "../Vendor/components/AdDetailsCard";
+import BidComponent from "./components/BidComponent";
 
-const AdDetails = ({ service, location, description, name }) => {
-  const handleButtonClick = () => {
-    alert("Bid posted!");
-  };
+const AdDetails = () => {
+  const { adId } = useParams(); // Updated to adId
 
-  const imageURL = "https://example.com/image.jpg"; // Replace this with your image URL
+  const [loading, setLoading] = useState(true);
+  const [adDetails, setAdDetails] = useState(null);
+
+  useEffect(() => {
+    const fetchAdDetails = async () => {
+      try {
+        setLoading(true);
+        PerformRequest(`/api/ad/get/${adId}`, "GET").then((data) => {
+          console.log(data);
+          setAdDetails(data);
+          setLoading(false);
+        });
+      } catch (error) {
+        console.error("Error fetching ad details:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchAdDetails();
+  }, [adId]);
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 m-4">
-      <div className="mb-4">
-        <img
-          src={imageURL}
-          alt="Service Image"
-          className="w-20 h-20 rounded-full"
+    <div>
+      {loading ? (
+        <HashLoader
+          className="absolute mt-[50%] md:mt-[150px] mx-auto align-middle "
+          color="#36d7b7"
+          loading={loading}
+          size={150}
+          aria-label="Loading Spinner"
         />
-      </div>
-      <div className="mb-4">
-        <h2 className="text-2xl font-semibold">{name}</h2>
-        <div className="mb-1">
-          <span className="font-semibold text-gray-700">Service:</span>{" "}
-          {service}
-        </div>
-        <div className="mb-1">
-          <span className="font-semibold text-gray-700">Location:</span>{" "}
-          {location}
-        </div>
-      </div>
-      <div className="mb-4">
-        <span className="font-semibold text-gray-700">Description:</span>{" "}
-        {description}
-      </div>
-      <div className="mb-4">
-        <input
-          type="text"
-          placeholder="Edit text..."
-          className="border border-gray-300 px-2 py-1 rounded-md w-full bg-white text-gray-600"
-        />
-      </div>
-      <div>
-        <CustomButton
-          onClick={handleButtonClick}
-          text="Post Bid"
-          additionalClasses="text-xs py-1 px-2"
-        />
-      </div>
+      ) : (
+        <>
+          <AdDetailsCard adDetails={adDetails} />
+          <BidComponent adId={adId} />
+        </>
+      )}
     </div>
   );
 };

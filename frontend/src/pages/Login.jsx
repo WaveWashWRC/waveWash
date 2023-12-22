@@ -24,10 +24,10 @@ const Login = () => {
 
     const json = await response.json();
 
-    if (!response.ok) {
+    if (!json.success) {
       setError(json.error);
     }
-    if (response.ok) {
+    if (json.success) {
       setCookie("session", json.token, {
         path: "/dashboard",
         maxAge: 3600 * 24 * 30 * 60,

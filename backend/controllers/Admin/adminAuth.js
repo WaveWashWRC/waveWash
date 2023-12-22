@@ -1,46 +1,45 @@
-const userModel = require("../../database/UserModel");
+const admin = require('../../database/AdminModel')
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 //register new users
-async function registerUser(req, res) {
-  const { name, phoneNumber, emailId, location, password } = req.body;
+async function registerAdmin(req, res,next) {
+  const { name, phoneNumber, emailId, city, password } = req.body;
   //generates a random username from the email id
-  let user = await userModel.findOne({ emailId });
+  let user = await admin.findOne({ emailId });
   if (user) {
     return res
       .status(400)
-      .json({ success: false, msg: "That user already exists!" });
+      .json({ success: false, msg: "That admin already exists!" });
   }
   const salt = bcrypt.genSaltSync(10);
   const encryptedPassword = bcrypt.hashSync(password, salt);
-  const newUser = new userModel({
+  const newUser = new admin({
     name,
     phoneNumber,
     emailId,
-    location,
+    region:{city : city},
     password: encryptedPassword,
   });
   newUser
     .save()
     .then(() =>
-      res.status(200).json({ msg: "new user created", success: true })
+      next()
     )
     .catch((err) =>
       res.status(400).json({ msg: "something went wrong", err, success: false })
     );
 }
-
 //create session for existing users
-async function loginUser(req, res) {
+async function loginAdmin(req, res) {
   const { emailId, password } = req.body;
-  const userData = await userModel.findOne({
+  const userData = await admin.findOne({
     emailId,
   });
   if (userData === null)
     return res.json({
-      msg: "user does not exist", //user not found
+      msg: "admin does not exist", //user not found
       success: false,
     });
   if (bcrypt.compareSync(password, userData.password)) {
@@ -49,21 +48,21 @@ async function loginUser(req, res) {
       {
         emailId: emailId,
         id: userData._id,
-        type: "user",
+        type:'admin'
       },
       process.env.JWT_SECRET_KEY,
       {
         expiresIn: "30d",
       }
     );
-    return res.redirect("/dashboard");
-    // return res.json({
-    //   success: true,
-    //   msg: "authenticated",
-    //   username: userData.name,
-    //   userId: userData._id,
-    //   token: token, //Needs to be stored in client cookies as token
-    // });
+    console.log(token);
+    return res.json({
+      success: true,
+      msg: "authenticated",
+      username: userData.name,
+      adiminId: userData._id,
+      token: token, //Needs to be stored in client cookies as token
+    });
   } else
     res.json({
       success: false,
@@ -71,13 +70,11 @@ async function loginUser(req, res) {
     });
 }
 //identifies the current user
-function getUser(req, res) {
+function getAdmin(req, res) {
   const { id } = req.user;
 
-  userModel
-    .findById(userId, {
-      $unset: "password",
-    })
+  admin
+    .findById(id)
     .then((data) => {
       res.status(200).json(data);
     })
@@ -85,7 +82,7 @@ function getUser(req, res) {
 }
 
 module.exports = {
-  registerUser,
-  loginUser,
-  getUser,
+  registerAdmin,
+  loginAdmin,
+  getAdmin,
 };

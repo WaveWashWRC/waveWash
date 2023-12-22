@@ -5,7 +5,7 @@ import { useCookies } from "react-cookie";
 import service from "../assets/service.jpg";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-const LoginVendor = () => {
+const LoginAdmin = () => {
   const [emailID, setEmailID] = useState("");
   const [password, setPassword] = useState("");
   const [cookies, setCookie, removeCookie] = useCookies(["session"]);
@@ -18,17 +18,14 @@ const LoginVendor = () => {
       emailId: emailID,
       password,
     };
-
-    const response = await fetch(
-      "http://localhost:8000/api/auth/vendor/login",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      }
-    );
+    console.log(payload);
+    const response = await fetch("http://localhost:8000/api/auth/admin/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
 
     const data = await response.json();
     console.log(data);
@@ -38,7 +35,7 @@ const LoginVendor = () => {
       });
     } else {
       setCookie("session", data?.token);
-      window.location.replace("/profile");
+      window.location.replace("/dashboard");
     }
   };
   return (
@@ -55,7 +52,7 @@ const LoginVendor = () => {
           />
           <div className="flex flex-col justify-center items-center text-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
             <h1 className="text-xl md:text-5xl text-base-400 font-bold sm:mb-0 md:mb-4">
-              WavesWash for Vendors
+              WavesWash Admin
             </h1>
             <h1 className="text-base md:text-2xl font-semibold">
               Log in to your account.
@@ -139,4 +136,4 @@ const LoginVendor = () => {
   );
 };
 
-export default LoginVendor;
+export default LoginAdmin;

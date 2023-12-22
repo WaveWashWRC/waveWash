@@ -19,6 +19,11 @@ import Profile from "./Vendor/Profile";
 import Ads from "./Vendor/Ads";
 import AdDetails from "./Vendor/AdDetails";
 import { Landingpage } from "./Landingpage/Landingpage";
+import AdminDashboard from "./Admin/AdminDashboard";
+import ApproveVendor from "./Admin/ApproveVendor";
+import VendorOrder from "./Vendor/VendorOrder";
+import LoginAdmin from "./Admin/LoginAdmin";
+import RegisterAdmin from "./Admin/RegisterAdmin";
 
 function App() {
   const [user, setUser] = useState({
@@ -27,12 +32,13 @@ function App() {
   const api = "http://localhost:8000";
   const [cookies, setCookie] = useCookies(["session"]);
   const token = cookies["session"];
-  if (token === null || token === undefined) window.location.replace("/login");
+  console.log(token);
+  //if (token === null || token === undefined) window.location.replace("/login");
   useEffect(() => {
-    !(token === undefined || token === null) &&
+    !(token === undefined || token === null || token === "undefined") &&
       fetch(
-        `${api}/api/auth/${
-          window.location.host.split(".")[0] === "service" ? "vendor" : "user"
+        `${api}/api/auth/${window.location.host.split(".")[0] === "service" ? "vendor" :
+          (window.location.host.split(".")[0] === "service" ? "user" : "admin")
         }`,
         {
           method: "GET",
@@ -51,25 +57,27 @@ function App() {
         })
         .catch((error) => console.log(error));
   }, []);
-
   return (
     <authContext.Provider value={user}>
       <Router>
+        
         {window.location.host.split(".")[0] === "service" ? (
           <Routes>
             <Route path="/" element={<VendorDashboard />}>
               <Route path="/ads" element={<Ads />} />
               <Route path="/profile" element={<Profile />} />
-              <Route path="/addetails/:category" element={<AdDetails />} />
+              <Route path="/ad-details/:adId" element={<AdDetails />} />
+              <Route path="/orders" element={<VendorOrder />} />
             </Route>
             <Route path="/login" element={<LoginVendor />} />
             <Route path="/register" element={<RegisterVendor />} />
-            {/* <Route path="dashboard" element={<V_Dashboard />} /> */}
           </Routes>
         ) : (
-          <Routes>
+          window.location.host.split(".")[0]==='' ? 
+          (<Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+<<<<<<< HEAD
             <Route path="/" element={<User />}>
               <Route path="dashboard" element={<UserDashboard />} />
               <Route path="services" element={<CheckServices />} />
@@ -80,6 +88,29 @@ function App() {
             </Route>
             <Route path="/landingpage" element={<Landingpage />} />
           </Routes>
+=======
+            {user.isAuthenticated && (
+              <Route path="/" element={<User />}>
+                <Route path="dashboard" element={<UserDashboard />} />
+                <Route path="services" element={<CheckServices />} />
+                <Route path="book-service" element={<BookService />} />
+                <Route path="post-an-ad" element={<PostAd />} />
+                <Route path="edit-profile" element={<EditProfile />} />
+                <Route path="services" element={<History />} />
+              </Route>
+            )}
+          </Routes>) :
+          (
+            <Routes>
+              <Route path="/login" element={<LoginAdmin />} />
+              <Route path="/register" element={<RegisterAdmin />} />
+              <Route path="/landingpage" element={<Landingpage />} />
+              <Route path="/dashboard" element={<AdminDashboard />} />
+              <Route path="/vendors" element={<ApproveVendor />} />
+            </Routes>
+          )
+        
+>>>>>>> 10db5f5e635615f4c6c412c3eef0178d44f527dc
         )}
       </Router>
     </authContext.Provider>

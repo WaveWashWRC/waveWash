@@ -14,24 +14,15 @@ function getCookie(cname) {
   }
   return null;
 }
-const PerformRequest = (url, method, body) => {
+const uploadMultimedia = (url, method, body) => {
   // initializing the axios instance with custom configs
   const Token = getCookie('session');
-  const api = (Token!== undefined || Token!==null)?
-  axios.create({
+  const api = axios.create({
     baseURL: 'http://localhost:8000/',
     headers: {
-      'Content-Type': 'application/json',
       Authorization: `bearer ${Token}`,
     },
-  }):
-  axios.create({
-    baseURL: 'http://localhost:8000/',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-  })
-
+  });
 
   return new Promise((resolve, reject) => {
     api
@@ -45,4 +36,4 @@ const PerformRequest = (url, method, body) => {
   });
 };
 
-export default PerformRequest;
+export default uploadMultimedia;

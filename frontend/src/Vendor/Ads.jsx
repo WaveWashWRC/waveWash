@@ -3,6 +3,7 @@ import Card from "./components/Card";
 import { useEffect, useState } from "react";
 import { HashLoader } from "react-spinners";
 import PerformRequest from "../api/axios";
+
 const Ads = () => {
   const [loading, setLoading] = useState(true);
   const [ads, setAds] = useState([]);
@@ -23,9 +24,12 @@ const Ads = () => {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 ">
               {ads.map((Element, key) => {
                 return (
-                  <div className="flex justify-center ">
+                  <div
+                    className="flex justify-center "
+                    key={String(Element._id)}
+                  >
                     <Card
-                      key={key}
+                      adId={Element._id}
                       desc={Element.desc}
                       images={Element.images}
                       category={Element.services.category}

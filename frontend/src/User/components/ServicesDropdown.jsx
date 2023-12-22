@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { HiOutlineSearch } from "react-icons/hi";
+
 
 const ServicesDropdown = ({ onSelectChange }) => {
   const washes = [
@@ -46,7 +46,7 @@ const ServicesDropdown = ({ onSelectChange }) => {
           ))}
         </select>
         <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-700">
-          <HiOutlineSearch className="text-base-200" size={24} />
+          
         </div>
       </div>
     </div>
