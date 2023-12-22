@@ -22,13 +22,12 @@ export const DASHBOARD_SIDEBAR_LINKS = [
   //   path: "/orders",
   //   icon: <HiOutlineShoppingCart />,
   // },
-
-  {
-    key: "approve_vendor",
-    label: "Approve Vendor",
-    path: "/approve_vendor",
-    icon: <HiOutlineAnnotation />,
-  },
+  // {
+  //   key: "approve_vendor",
+  //   label: "Approve Vendor",
+  //   path: "/approve_vendor",
+  //   icon: <HiOutlineAnnotation />,
+  // },
 ];
 
 export const DASHBOARD_SIDEBAR_BOTTOM_LINKS = [
