@@ -4,24 +4,19 @@ const ApproveTable = ({ vendors }) => {
   return (
     <div>
       <h2>List of Vendors</h2>
-      {/* <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Location</th>
-           
-          </tr>
-        </thead>
-        <tbody>
-          {vendors.map((vendor) => (
-            <tr key={vendor._id}>
-              <td>{vendor.name}</td>
-              <td>{vendor.location}</td>
-              
+      {vendors.length > 0 ? (
+        <table>
+          {/* Mapping through all vendors */}
+          {vendors.map((vendor, index) => (
+            <tr key={index}>
+              <td>{vendor.companyName}</td>
+              {/* Display other vendor details as needed */}
             </tr>
           ))}
-        </tbody>
-      </table> */}
+        </table>
+      ) : (
+        <p>No vendors found</p>
+      )}
     </div>
   );
 };
