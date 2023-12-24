@@ -1,11 +1,12 @@
 const express = require("express");
 const router = express.Router();
 
-
-const { registerUser, loginUser, getUser } = require("../../controllers/User/userAuth");
+const {
+  registerUser,
+  loginUser,
+  getUser,
+} = require("../../controllers/User/userAuth");
 const authenticate = require("../../middleware/authenticate");
-
-
 
 router.get("/user", authenticate, getUser); //responds with json only when Status is OK
 
