@@ -1,7 +1,7 @@
 const Booking = require("../../database/BookingModel");
 
 // Function to handle vendor acceptance of bookings
-exports.acceptBooking = async (req, res) => {
+const acceptBooking = async (req, res) => {
   const { bookingId } = req.params;
 
   try {
