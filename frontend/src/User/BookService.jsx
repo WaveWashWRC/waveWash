@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import VendorCard from "../components/VendorCard";
 import ServicesDropdown from "./components/ServicesDropdown";
-import PerformRequest from "../api/axios"; // Import your custom request function
+import PerformRequest from "../api/axios";
 
 const BookService = () => {
   const [selectedService, setSelectedService] = useState("");
@@ -20,12 +20,11 @@ const BookService = () => {
         .then((response) => {
           console.log("API Response:", response); // Log the entire response
 
-          // Check if the response has a 'vendors' property and it's an array
           if (response && Array.isArray(response.vendors)) {
-            setVendors(response.vendors); // Set the vendors in state if the structure is as expected
+            setVendors(response.vendors);
           } else {
             console.error("Unexpected response structure:", response);
-            setVendors([]); // Reset the vendors if the structure isn't as expected
+            setVendors([]);
           }
           setLoading(false);
         })
@@ -44,7 +43,7 @@ const BookService = () => {
       </div>
       <hr className="bg-base-400/60 h-0.5" />
       {loading ? (
-        <div className="text-center mt-5">Loading...</div> // Simple loading text
+        <div className="text-center mt-5">Loading...</div>
       ) : (
         <div className="my-2 md:my-4 md:mx-5">
           <h1 className="text-base md:text-2xl font-bold text-center md:mt-5 uppercase">

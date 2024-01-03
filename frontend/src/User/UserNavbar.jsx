@@ -58,6 +58,12 @@ const UserNavbar = () => {
                 >
                   Post an Ad
                 </Link>
+                <Link
+                  to="/book-ad"
+                  className="hover:text-base-300 transition-colors px-4 py-2 rounded-md hover:bg-base-400/10"
+                >
+                  Book from Bids
+                </Link>
               </ul>
             )}
           </div>
@@ -91,6 +97,12 @@ const UserNavbar = () => {
               className="hover:text-base-100 transition-colors px-4 py-2 rounded-md hover:bg-base-400/20"
             >
               Post an Ad
+            </Link>
+            <Link
+              to="/book-ad"
+              className="hover:text-base-100 transition-colors px-4 py-2 rounded-md hover:bg-base-400/20"
+            >
+              Book from Bids
             </Link>
           </ul>
         </div>

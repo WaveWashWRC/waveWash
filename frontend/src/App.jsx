@@ -8,6 +8,7 @@ import User from "./pages/User";
 import authContext from "./context/AuthContext";
 import { useContext, useDeferredValue, useEffect, useState } from "react";
 import UserDashboard from "./User/UserDashboard";
+import BookAd from "./User/BookAd";
 import BookService from "./User/BookService";
 import PostAd from "./User/PostAd";
 import { useCookies } from "react-cookie";
@@ -95,6 +96,7 @@ function App() {
                 <Route path="dashboard" element={<UserDashboard />} />
                 <Route path="services" element={<CheckServices />} />
                 <Route path="book-service" element={<BookService />} />
+                <Route path="book-ad" element={<BookAd />} />
                 <Route path="post-an-ad" element={<PostAd />} />
                 <Route path="edit-profile" element={<EditProfile />} />
                 <Route path="services" element={<History />} />

@@ -23,11 +23,9 @@ const VendorCard = ({ vendor }) => {
     PerformRequest("/api/booking/bookings", "POST", bookingData)
       .then((response) => {
         console.log("Booking response:", response);
-        // Handle successful booking
       })
       .catch((error) => {
         console.error("Error creating booking:", error);
-        // Handle errors
       });
   };
 
