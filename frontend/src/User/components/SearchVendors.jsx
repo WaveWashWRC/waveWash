@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import ServicesDropdown from "./ServicesDropdown";
 
-const handleServiceChange = (selectedValue) => {
-  setSelectedService(selectedValue);
-};
-
 const SearchVendors = () => {
+  const [selectedService, setSelectedService] = useState(null);
+
+  const handleServiceChange = (selectedValue) => {
+    setSelectedService(selectedValue);
+  };
+
   return (
     <div>
       <div className="text-sm md:text-xl text-base-400 font-bold">

@@ -5,35 +5,83 @@ const ApproveVendor = () => {
   const [vendors, setVendors] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchVendors = async () => {
-      try {
-        setLoading(true);
-        PerformRequest("/api/admin/vendors?verify=false", "GET").then((data) => {
-          console.log(data);
-          setVendors(data);
-          setLoading(false);
-        });
-      } catch (error) {
-        console.error("Error fetching vendors:", error);
-        setLoading(false);
-      }
-    };
+  const fetchVendors = async () => {
+    try {
+      setLoading(true);
+      const response = await PerformRequest(
+        "/api/admin/vendors?verify=false",
+        "GET"
+      );
+      setVendors(response);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching vendors:", error);
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchVendors();
   }, []);
 
+  const approveVendor = async (vendorId) => {
+    try {
+      setLoading(true);
+      await PerformRequest(`/api/admin/approve/${vendorId}`, "PUT");
+      fetchVendors();
+    } catch (error) {
+      console.error("Error approving vendor:", error);
+      setLoading(false);
+    }
+  };
+
   return (
     <div>
-      <h2>List of Vendors</h2>
+      <div className="text-gray-900 text-xl font-bold py-4">
+        List of Vendors
+      </div>
       {loading ? (
         <p>Loading vendors...</p>
       ) : (
-        <ul>
-          {vendors.map((vendor) => (
-            <li key={vendor._id}>{vendor.companyName}</li>
-          ))}
-        </ul>
+        <table className="border-collapse w-full border-2 border-black">
+          <thead>
+            <tr className="border-2 border-black">
+              <th className="border-2 border-black p-2 text-gray-900">
+                Company Name
+              </th>
+              <th className="border-2 border-black p-2 text-gray-900">Email</th>
+              <th className="border-2 border-black p-2 text-gray-900">
+                Phone Number
+              </th>
+              <th className="border-2 border-black p-2 text-gray-900 text-center">
+                Action
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {vendors.map((vendor, index) => (
+              <tr key={index} className="border-2 border-black">
+                <td className="border-2 border-black p-2 text-gray-900">
+                  {vendor.companyName}
+                </td>
+                <td className="border-2 border-black p-2 text-gray-900">
+                  {vendor.emailId}
+                </td>
+                <td className="border-2 border-black p-2 text-gray-900">
+                  {vendor.phoneNumber}
+                </td>
+                <td className="border-2 border-black p-2 text-gray-900 text-center">
+                  <button
+                    onClick={() => approveVendor(vendor._id)}
+                    className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded w-full"
+                  >
+                    Approve
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       )}
     </div>
   );

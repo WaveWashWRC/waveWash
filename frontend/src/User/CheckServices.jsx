@@ -1,10 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import PerformRequest from "../api/axios";
 
 const CheckServices = () => {
-  const [isChecked, setIsChecked] = useState(true);
+  const [bookings, setBookings] = useState([]);
 
-  const handleInputChange = () => {
-    setIsChecked(!isChecked);
+  useEffect(() => {
+    PerformRequest("/api/booking/bookings", "GET")
+      .then((data) => {
+        setBookings(data);
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching bookings:", error);
+      });
+  }, []);
+
+  const handleCancel = (bookingId) => {
+    PerformRequest(`/api/booking/bookings/${bookingId}`, "DELETE")
+      .then((response) => {
+        console.log("Booking cancelled:", response);
+        setBookings(bookings.filter((booking) => booking._id !== bookingId));
+      })
+      .catch((error) => {
+        console.error("Error cancelling booking:", error);
+      });
   };
 
   return (
@@ -12,36 +31,54 @@ const CheckServices = () => {
       <h2 className="flex items-center justify-center font-bold text-lg md:text-3xl mb-2">
         Your Bookings
       </h2>
-      <div className="my-2">
-        <div className="my-1 md:text-lg">Current</div>
+      <div className="my-2 flex justify-center">
+        {/* <div className="my-1 md:text-lg">Current</div> */}
         <ul>
-          <li className="text-xs md:text-base border-2 border-gray-400 hover:border-base-300 rounded-md p-2 md:w-96">
-            <h1 className="font-bold md:text-base">CAR WASH</h1>
-            <div className="flex flex-col md:flex-row justify-between mt-1">
-              <h2>
-                Status: <span className="text-green-900 font-bold">Booked</span>
-              </h2>
-              <p>Vendor: -</p>
-            </div>
-          </li>
-        </ul>
-      </div>
-      <hr className="h-0.5 bg-base-400 my-3 md:my-5" />
-      <div>
-        <div className="my-1 md:text-lg">History</div>
-        <ul>
-          <li className="text-xs md:text-base border-2 border-gray-400 hover:border-base-300 rounded-md p-2 md:w-96">
-            <h1 className="font-bold md:text-base">CAR WASH</h1>
-            <div className="flex flex-col md:flex-row justify-between mt-1">
-              <h2>
-                Status: <span className="text-green-900 font-bold">Booked</span>
-              </h2>
-              <p>Vendor: -</p>
-            </div>
-            <div>
-              Date: <span></span>
-            </div>
-          </li>
+          {bookings.map((booking) => (
+            <li
+              key={booking._id}
+              className="text-xs md:text-base border-2 border-gray-400 hover:border-base-300 rounded-md p-2 md:w-96 mb-4 flex flex-col justify-between" // Use flex-col for column direction
+            >
+              <div>
+                <h1 className="font-bold md:text-base">
+                  {booking.serviceCategory} by {booking.vendorName}
+                </h1>
+                <div className="flex flex-col md:flex-row justify-between mt-1">
+                  <h2>
+                    Status:{" "}
+                    <span
+                      className={`text-${
+                        booking.status === "Pending" ? "yellow" : "green"
+                      }-600 font-bold`}
+                    >
+                      {booking.status}
+                    </span>
+                  </h2>
+                </div>
+                <div>
+                  Date:{" "}
+                  <span>
+                    {new Date(booking.bookingDate).toLocaleDateString()}
+                  </span>
+                </div>
+                <div>
+                  Cost:{" "}
+                  <span>
+                    Rs.{parseFloat(booking.cost.$numberDecimal).toFixed(2)}
+                  </span>
+                </div>
+              </div>
+              <div className="mt-2 flex justify-end">
+                {" "}
+                <button
+                  onClick={() => handleCancel(booking._id)}
+                  className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-700 transition"
+                >
+                  Cancel
+                </button>
+              </div>
+            </li>
+          ))}
         </ul>
       </div>
     </div>

@@ -37,8 +37,12 @@ function App() {
   useEffect(() => {
     !(token === undefined || token === null || token === "undefined") &&
       fetch(
-        `${api}/api/auth/${window.location.host.split(".")[0] === "service" ? "vendor" :
-          (window.location.host.split(".")[0] === "service" ? "user" : "admin")
+        `${api}/api/auth/${
+          window.location.host.split(".")[0] === "service"
+            ? "vendor"
+            : window.location.host.split(".")[0] === "service"
+            ? "user"
+            : "admin"
         }`,
         {
           method: "GET",
@@ -60,9 +64,9 @@ function App() {
   return (
     <authContext.Provider value={user}>
       <Router>
-        
         {window.location.host.split(".")[0] === "service" ? (
           <Routes>
+            {/* Vendor Routes */}
             <Route path="/" element={<VendorDashboard />}>
               <Route path="/ads" element={<Ads />} />
               <Route path="/profile" element={<Profile />} />
@@ -72,11 +76,20 @@ function App() {
             <Route path="/login" element={<LoginVendor />} />
             <Route path="/register" element={<RegisterVendor />} />
           </Routes>
+        ) : window.location.host.split(".")[0] === "admin" ? (
+          <Routes>
+            {/* Admin Routes */}
+            <Route path="/login" element={<LoginAdmin />} />
+            <Route path="/register" element={<RegisterAdmin />} />
+            <Route path="/dashboard" element={<AdminDashboard />} />
+            <Route path="/vendors" element={<ApproveVendor />} />
+          </Routes>
         ) : (
-          window.location.host.split(".")[0]==='' ? 
-          (<Routes>
+          <Routes>
+            {/* User Routes */}
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/landingpage" element={<Landingpage />} />
             {user.isAuthenticated && (
               <Route path="/" element={<User />}>
                 <Route path="dashboard" element={<UserDashboard />} />
@@ -87,17 +100,7 @@ function App() {
                 <Route path="services" element={<History />} />
               </Route>
             )}
-          </Routes>) :
-          (
-            <Routes>
-              <Route path="/login" element={<LoginAdmin />} />
-              <Route path="/register" element={<RegisterAdmin />} />
-              <Route path="/landingpage" element={<Landingpage />} />
-              <Route path="/dashboard" element={<AdminDashboard />} />
-              <Route path="/vendors" element={<ApproveVendor />} />
-            </Routes>
-          )
-        
+          </Routes>
         )}
       </Router>
     </authContext.Provider>
