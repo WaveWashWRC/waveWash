@@ -12,7 +12,6 @@ const getAllBookings = async (req, res) => {
 const createBooking = async (req, res) => {
   const {
     vendorId,
-    customerId,
     serviceCategory,
     bookingDate,
     status,
@@ -20,9 +19,13 @@ const createBooking = async (req, res) => {
     additionalDetails,
     // rating,
   } = req.body;
+
+  // Use the authenticated user's ID for customerId
+  const customerId = req.user.id;
+
   const booking = new Booking({
     vendorId,
-    customerId,
+    customerId, // Now using the authenticated user's ID
     serviceCategory,
     bookingDate,
     status,
@@ -35,7 +38,7 @@ const createBooking = async (req, res) => {
     const newBooking = await booking.save();
     res.status(201).json(newBooking);
   } catch (error) {
-    res.status(400).json({ message: "Bad Request" });
+    res.status(400).json({ message: "Bad Request", error: error.message });
   }
 };
 
