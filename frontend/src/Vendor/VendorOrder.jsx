@@ -1,31 +1,58 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import PerformRequest from "../api/axios";
 
 const VendorOrder = () => {
-  // Dummy data
-  const dummyData = [
-    {
-      id: 1,
-      customerName: "John Doe",
-      address: "123 Main Street",
-      phoneNumber: "+1234567890",
-      serviceType: "Standard Wash",
-      time: "2023-12-15 10:00 AM",
-    },
-    {
-      id: 2,
-      customerName: "Alice Smith",
-      address: "456 Elm Street",
-      phoneNumber: "+1987654321",
-      serviceType: "Premium Wash",
-      time: "2023-12-16 11:30 AM",
-    },
-    // Add more dummy data items as needed
-  ];
+  const [bookings, setBookings] = useState([]);
 
-  const handleDone = (orderId) => {
-    // Logic for marking order as done
-    console.log(`Order ${orderId} marked as done`);
-    // Add logic to handle marking orders as done
+  useEffect(() => {
+    const fetchBookings = () => {
+      PerformRequest("/api/booking/bookings/vendor", "GET")
+        .then((response) => {
+          if (response && response.length > 0) {
+            setBookings(response);
+          } else {
+            console.log("No bookings found for this vendor");
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching bookings:", error);
+        });
+    };
+
+    fetchBookings();
+  }, []);
+  const handleAccept = (bookingId) => {
+    PerformRequest(`/api/booking/bookings/accept/${bookingId}`, "PUT")
+      .then((response) => {
+        if (response && response.message === "Booking accepted by the vendor") {
+          // Refresh the bookings or update the status in the state
+          console.log("Booking accepted:", response);
+          // Trigger a re-fetch or update local state here
+        } else {
+          alert("Failed to accept booking");
+        }
+      })
+      .catch((error) => {
+        console.error("Error accepting booking:", error);
+        alert("Failed to accept booking");
+      });
+  };
+
+  const handleCancel = (bookingId) => {
+    PerformRequest(`/api/booking/bookings/cancel/${bookingId}`, "PUT")
+      .then((response) => {
+        if (response && response.message === "Booking cancelled successfully") {
+          // Refresh the bookings or update the status in the state
+          console.log("Booking cancelled:", response);
+          // Trigger a re-fetch or update local state here
+        } else {
+          alert("Failed to cancel booking");
+        }
+      })
+      .catch((error) => {
+        console.error("Error cancelling booking:", error);
+        alert("Failed to cancel booking");
+      });
   };
 
   return (
@@ -34,22 +61,35 @@ const VendorOrder = () => {
         Vendor Orders
       </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {dummyData.map((order) => (
+        {bookings.map((booking) => (
           <div
-            key={order.id}
+            key={booking._id}
             className="bg-gray-100 text-gray-900 p-4 rounded-lg shadow-md"
           >
-            <h2 className="text-lg font-semibold">{order.customerName}</h2>
-            <p className="text-gray-900 mb-2">{order.address}</p>
-            <p className="text-gray-900 mb-2">{order.phoneNumber}</p>
-            <p className="text-gray-900 mb-2">{order.serviceType}</p>
-            <p className="text-gray-900 mb-2">{order.time}</p>
-            <button
-              className="bg-green-600 text-white px-3 py-1 rounded mr-2"
-              onClick={() => handleDone(order.id)}
-            >
-              Done
-            </button>
+            <h2 className="text-lg font-semibold">{booking.serviceCategory}</h2>
+            <p className="text-gray-900 mb-2">{booking.customerName}</p>
+            <p className="text-gray-900 mb-2">
+              {new Date(booking.bookingDate).toLocaleString()}
+            </p>
+            <p className="text-gray-900 mb-2">
+              Cost: Rs.{parseFloat(booking.cost.$numberDecimal).toFixed(2)}
+            </p>
+            <p className="text-gray-900 mb-4">Address: {booking.address}</p>
+            <p className="text-gray-900 mb-4">Phone: {booking.phoneNumber}</p>
+            <div className="flex justify-between">
+              <button
+                className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700"
+                onClick={() => handleAccept(booking._id)}
+              >
+                Accept
+              </button>
+              <button
+                className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-700"
+                onClick={() => handleCancel(booking._id)}
+              >
+                Cancel
+              </button>
+            </div>
           </div>
         ))}
       </div>
