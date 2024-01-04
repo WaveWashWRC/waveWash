@@ -25,9 +25,8 @@ const VendorOrder = () => {
     PerformRequest(`/api/booking/bookings/accept/${bookingId}`, "PUT")
       .then((response) => {
         if (response && response.message === "Booking accepted by the vendor") {
-          // Refresh the bookings or update the status in the state
           console.log("Booking accepted:", response);
-          // Trigger a re-fetch or update local state here
+          alert("Booking has been successfully accepted.");
         } else {
           alert("Failed to accept booking");
         }
@@ -44,6 +43,7 @@ const VendorOrder = () => {
         if (response && response.message === "Booking cancelled successfully") {
           // Refresh the bookings or update the status in the state
           console.log("Booking cancelled:", response);
+          alert("Booking has been successfully cancelled.");
           // Trigger a re-fetch or update local state here
         } else {
           alert("Failed to cancel booking");
