@@ -1,13 +1,13 @@
 import React, { useContext, useState } from "react";
-import DatePicker from "react-datepicker"; // Make sure to install react-datepicker package
-import "react-datepicker/dist/react-datepicker.css"; // Import CSS for datepicker
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import AdDetailsCarousel from "../Vendor/components/AdDetailsCarousel";
 import authContext from "../context/AuthContext";
 import PerformRequest from "../api/axios";
 
 const VendorCard = ({ vendor }) => {
   const currentUser = useContext(authContext);
-  const [selectedDate, setSelectedDate] = useState(new Date()); // State to hold the selected date
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
   const handleBooking = async () => {
     const selectedService = vendor.services[0];
@@ -55,8 +55,8 @@ const VendorCard = ({ vendor }) => {
             <DatePicker
               selected={selectedDate}
               onChange={(date) => setSelectedDate(date)}
-              className="bg-gray-200 border border-gray-300 text-gray-700" // Tailwind classes for the input
-              calendarClassName="bg-white border-gray-300" // Tailwind classes for the calendar
+              className="bg-gray-200 border border-gray-300 text-gray-700"
+              calendarClassName="bg-white border-gray-300"
             />
           </div>
 
