@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import ServicesDropdown from "./components/ServicesDropdown";
-import uploadMultimedia from '../api/axios/multimedia'
+import uploadMultimedia from "../api/axios/multimedia";
 import authContext from "../context/AuthContext";
 import { useContext } from "react";
-import def from '../assets/defaultimg.png'
-import bin from '../assets/bin.png'
+import def from "../assets/defaultimg.png";
+import bin from "../assets/bin.png";
 import ImageUploading from "react-images-uploading";
 import PerformRequest from "../api/axios";
 import AdDetails from "../Vendor/AdDetails";
@@ -17,16 +17,16 @@ function addHours(date, hours) {
 const PostAd = () => {
   const maxNumber = 3;
   const currentUser = useContext(authContext);
-  const [images, setImages] = useState([])
+  const [images, setImages] = useState([]);
   const [selectedService, setSelectedService] = useState("");
   const [adDescription, setAdDescription] = useState("");
   const [expiry, setExpiry] = useState("30min");
   const [file, setFile] = useState(null);
-  const [pincode, setPincode] = useState(currentUser?.location?.pincode);
-  const [state, setState] = useState(currentUser?.location?.state);
-  const [price, setPrice] = useState();
-  const [city, setCity] = useState(currentUser.location?.city);
-  const [address, setAddress] = useState(currentUser.location?.address);
+  const [pincode, setPincode] = useState(currentUser?.location?.pincode || "");
+  const [state, setState] = useState(currentUser?.location?.state || "");
+  const [price, setPrice] = useState("");
+  const [city, setCity] = useState(currentUser.location?.city || "");
+  const [address, setAddress] = useState(currentUser.location?.address || "");
 
   const duration = ["0.5", "1", "2", "4", "6", "12"];
 
@@ -34,7 +34,6 @@ const PostAd = () => {
     setSelectedService(selectedValue);
   };
   const onChange = (imageList, addUpdateIndex) => {
-
     console.log(imageList, addUpdateIndex);
     setImages(imageList);
   };
@@ -50,7 +49,7 @@ const PostAd = () => {
   };
 
   const handlePostAd = () => {
-    const expiresAt = addHours(new Date(), expiry)
+    const expiresAt = addHours(new Date(), expiry);
     const adData = {
       desc: adDescription,
       services: {
@@ -62,41 +61,39 @@ const PostAd = () => {
         pincode,
         state,
         city,
-        address
+        address,
       },
     };
-    PerformRequest('/api/ad/create', 'POST', adData)
+    PerformRequest("/api/ad/create", "POST", adData)
       .then((data) => {
         if (data.success) {
           let formdata = new FormData();
           console.log(images);
-          images.map(image => {
-            if (image.file)
-              formdata.append("images", image.file);
+          images.map((image) => {
+            if (image.file) formdata.append("images", image.file);
           });
-          uploadMultimedia(`/api/upload/ad/${data.AdId}`, 'PATCH', formdata)
-            .then(data => {
+          uploadMultimedia(`/api/upload/ad/${data.AdId}`, "PATCH", formdata)
+            .then((data) => {
               if (data.success) {
-                console.log('upload', data);
+                console.log("upload", data);
               }
             })
-            .catch((err) => console.log(err))
+            .catch((err) => console.log(err));
         }
       })
-      .catch(err => console.log(err))
-
+      .catch((err) => console.log(err));
   };
   if (currentUser?.isAuthenticated === true && currentUser)
     return (
       <div className="">
-
         <div className="bg-base-100 text-base-400 px-4 py-6 sm:px-7 sm:py-10 md:px-24 md:py-12">
           <h1 className="text-xl md:text-2xl font-bold">Post an Ad!</h1>
           <p className="text-sm md:text-base tracking-wider py-2 md:pt-2">
-            Are you in need of top-notch washing services? Look no further! Share
-            the details of your washing needs, from residential laundry to
-            specialized cleaning projects.Take the first step to a cleaner space –
-            post your job today and let the experts bid for your washing project!
+            Are you in need of top-notch washing services? Look no further!
+            Share the details of your washing needs, from residential laundry to
+            specialized cleaning projects.Take the first step to a cleaner space
+            – post your job today and let the experts bid for your washing
+            project!
           </p>
           <ImageUploading
             multiple
@@ -113,9 +110,9 @@ const PostAd = () => {
               onImageUpdate,
               onImageRemove,
               isDragging,
-              dragProps
+              dragProps,
             }) => {
-              imageList = [...images]
+              imageList = [...images];
               return (
                 <div className=" border  mx-8 p-2">
                   <button
@@ -128,23 +125,39 @@ const PostAd = () => {
                   </button>
                   &nbsp;
                   <div className="flex justify-evenly flex-wrap max-h-[300px]">
-                    {
-                      (imageList.length === 0) &&
+                    {imageList.length === 0 && (
                       <img className="max-h-[180px] " src={def} alt="" />
-                    }
+                    )}
                     {imageList.map((image, index) => (
                       <div key={index} className="inline]">
-                        <img className="max-h-[200px] " src={image.data_url} alt="" />
+                        <img
+                          className="max-h-[200px] "
+                          src={image.data_url}
+                          alt=""
+                        />
                         <div className="flex justify-center">
-                          <button className="p-1 hover:border-black m-2" onClick={() => onImageUpdate(index)}><img src="https://www.freeiconspng.com/uploads/edit-new-icon-22.png" width="30" alt="Edit, new, icon" /></button>
-                          <button className="p-1 hover:border-black m-2 " onClick={() => onImageRemove(index)}><img width={"30px"} src={bin} /></button>
-
+                          <button
+                            className="p-1 hover:border-black m-2"
+                            onClick={() => onImageUpdate(index)}
+                          >
+                            <img
+                              src="https://www.freeiconspng.com/uploads/edit-new-icon-22.png"
+                              width="30"
+                              alt="Edit, new, icon"
+                            />
+                          </button>
+                          <button
+                            className="p-1 hover:border-black m-2 "
+                            onClick={() => onImageRemove(index)}
+                          >
+                            <img width={"30px"} src={bin} />
+                          </button>
                         </div>
                       </div>
                     ))}
                   </div>
                 </div>
-              )
+              );
             }}
           </ImageUploading>
           <div className="flex justify-center">
@@ -176,7 +189,6 @@ const PostAd = () => {
                   className="input mb-4 border-base-400 input-accent h-7 md:w-full bg-base-100 rounded-md md:text-base text-sm p-2 md:py-2 md:px-3"
                 />
               </div>
-
 
               <div className="w-full my-3">
                 <div className="flex flex-col text-sm md:text-lg">
