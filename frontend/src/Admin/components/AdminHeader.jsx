@@ -13,6 +13,7 @@ export const AdminHeader = () => {
 
       <div className="flex items-center">
         {/* Profile Menu */}
+        <h1 className="font-bold text-black">Welcome, admin!</h1>
         <Menu as="div" className="relative">
           <div>
             <Menu.Button className="ml-2 bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-neutral-400">

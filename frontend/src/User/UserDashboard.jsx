@@ -1,10 +1,11 @@
 import React from "react";
 import Carousel from "./components/Carousel";
 import { Link } from "react-router-dom";
+
 const UserDashboard = () => {
   return (
     <div className="p-5 bg-base-100">
-      <div>
+      <div className="px-24">
         <div className="flex md:flex-row flex-col md:space-x-5 space-y-2">
           <Carousel />
           <Link

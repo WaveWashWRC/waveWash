@@ -57,6 +57,31 @@ const getAllBookings = async (req, res) => {
     res.status(500).json({ message: "Server Error", error: error.message });
   }
 };
+
+// GET - Confirmed bookings
+const getConfirmedBookings = async (req, res) => {
+  try {
+    // Fetch all confirmed bookings and populate the 'customerId' and 'vendorId' fields
+    const confirmedBookings = await Booking.find({
+      status: "Confirmed",
+      vendorId: { $exists: true }, // Assuming vendorId is present for vendor bookings
+    }).populate("customerId vendorId");
+
+    if (confirmedBookings.length === 0) {
+      // If there are no confirmed bookings, send a response to the client
+      return res
+        .status(404)
+        .json({ message: "No confirmed bookings found for vendors" });
+    }
+
+    // Send the confirmed bookings back to the admin dashboard
+    res.json(confirmedBookings);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error", error: error.message });
+  }
+};
+
 // POST - Create a new booking
 const createBooking = async (req, res) => {
   const {
@@ -108,6 +133,7 @@ const deleteBookingById = async (req, res) => {
 
 module.exports = {
   getAllBookings,
+  getConfirmedBookings,
   createBooking,
   deleteBookingById,
 };

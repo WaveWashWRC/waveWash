@@ -45,6 +45,23 @@ const getAllBookingsForVendor = async (req, res) => {
   }
 };
 
+//function to fetch all confirmed bookings
+const getConfirmedBookings = async (req, res) => {
+  try {
+    const confirmedBookings = await Booking.find({
+      status: "Confirmed",
+    }).populate("customerId");
+    if (confirmedBookings.length === 0) {
+      // If there are no confirmed bookings, you can send an appropriate response
+      return res.status(404).json({ message: "No confirmed bookings found" });
+    }
+    res.json(confirmedBookings);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error", error: error.message });
+  }
+};
+
 // Function to handle vendor acceptance of bookings
 const acceptBooking = async (req, res) => {
   const { bookingId } = req.params;
@@ -78,12 +95,10 @@ const cancelBooking = async (req, res) => {
     });
 
     if (!booking) {
-      return res
-        .status(404)
-        .json({
-          message:
-            "Booking not found or you do not have permission to cancel this booking",
-        });
+      return res.status(404).json({
+        message:
+          "Booking not found or you do not have permission to cancel this booking",
+      });
     }
 
     // Update the booking status to 'Cancelled'
@@ -98,6 +113,7 @@ const cancelBooking = async (req, res) => {
 };
 module.exports = {
   acceptBooking,
+  getConfirmedBookings,
   getAllBookingsForVendor,
   cancelBooking,
 };

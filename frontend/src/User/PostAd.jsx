@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import ServicesDropdown from "./components/ServicesDropdown";
 import uploadMultimedia from "../api/axios/multimedia";
 import authContext from "../context/AuthContext";
@@ -76,12 +78,18 @@ const PostAd = () => {
             .then((data) => {
               if (data.success) {
                 console.log("upload", data);
+                toast.success("Posted Ad Successfully!", {
+                  position: toast.POSITION.TOP_RIGHT,
+                });
               }
             })
             .catch((err) => console.log(err));
         }
       })
       .catch((err) => console.log(err));
+    toast.error("Ad not posted!", {
+      position: toast.POSITION.TOP_RIGHT,
+    });
   };
   if (currentUser?.isAuthenticated === true && currentUser)
     return (
@@ -294,6 +302,7 @@ const PostAd = () => {
             </div>
           </div>
         </div>
+        <ToastContainer autoClose={3000} />
       </div>
     );
 };

@@ -1,4 +1,6 @@
 import React, { useContext, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import AdDetailsCarousel from "../Vendor/components/AdDetailsCarousel";
@@ -10,23 +12,33 @@ const VendorCard = ({ vendor }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const handleBooking = async () => {
-    const selectedService = vendor.services[0];
+    try {
+      const selectedService = vendor.services[0];
 
-    const bookingData = {
-      vendorId: vendor._id,
-      serviceCategory: selectedService.category,
-      bookingDate: selectedDate.toISOString(),
-      status: "Pending",
-      cost: selectedService.price,
-    };
+      const bookingData = {
+        vendorId: vendor._id,
+        serviceCategory: selectedService.category,
+        bookingDate: selectedDate.toISOString(),
+        status: "Pending",
+        cost: selectedService.price,
+      };
 
-    PerformRequest("/api/booking/bookings", "POST", bookingData)
-      .then((response) => {
-        console.log("Booking response:", response);
-      })
-      .catch((error) => {
-        console.error("Error creating booking:", error);
+      const response = await PerformRequest(
+        "/api/booking/bookings",
+        "POST",
+        bookingData
+      );
+
+      console.log("Booking response:", response);
+      toast.success("Service Booked!", {
+        position: toast.POSITION.TOP_RIGHT,
       });
+    } catch (error) {
+      console.error("Error creating booking:", error);
+      toast.error("Service Not Booked!", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    }
   };
 
   const { companyName, services, location, images } = vendor;
@@ -67,6 +79,7 @@ const VendorCard = ({ vendor }) => {
             Book
           </button>
         </div>
+        <ToastContainer autoClose={3000} />
       </div>
     );
   }

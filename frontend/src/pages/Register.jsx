@@ -1,6 +1,11 @@
 import React, { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import loginImg from "/images/login.jpg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Statedropdown from "../Vendor/components/Statedropdown";
+import Citydropdown from "../Vendor/components/Citydropdown";
+
 const Register = () => {
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -10,9 +15,34 @@ const Register = () => {
   const [state, setState] = useState("");
   const [city, setCity] = useState("");
   const [address, setAddress] = useState("");
+  const navigate = useNavigate();
+
+  const handleStateChange = (state) => {
+    setState(state);
+  };
+
+  const handleCityChange = (city) => {
+    setCity(city);
+  };
 
   const handleRegister = async (e) => {
     e.preventDefault();
+
+    if (
+      !name ||
+      !phoneNumber ||
+      !emailID ||
+      !password ||
+      !pincode ||
+      !state ||
+      !city ||
+      !address
+    ) {
+      toast.error("Please fill in all the details!", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      return;
+    }
 
     const newUser = {
       name,
@@ -32,6 +62,7 @@ const Register = () => {
 
     const data = await response.json();
     console.log(data);
+    navigate("/dashboard");
   };
 
   return (
@@ -146,13 +177,7 @@ const Register = () => {
                 >
                   State
                 </label>
-                <input
-                  type="text"
-                  id="state"
-                  onChange={(e) => setState(e.target.value)}
-                  value={state}
-                  className="rounded-sm md:text-base text-xs bg-gray-300 p-2 md:py-2 md:px-3 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
-                />
+                <Statedropdown onSelectChange={handleStateChange} />
               </div>
               <div className="flex flex-col items-left justify-between pt-2 text-lg">
                 <label
@@ -161,13 +186,7 @@ const Register = () => {
                 >
                   City
                 </label>
-                <input
-                  type="text"
-                  id="city"
-                  onChange={(e) => setCity(e.target.value)}
-                  value={city}
-                  className="rounded-sm md:text-base text-xs bg-gray-300 p-2 md:py-2 md:px-3 focus:text-gray-300 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
-                />
+                <Citydropdown onSelectChange={handleCityChange} />
               </div>
             </div>
 
@@ -201,6 +220,7 @@ const Register = () => {
           </div>
         </div>
       </div>
+      <ToastContainer autoClose={3000} />
     </div>
   );
 };

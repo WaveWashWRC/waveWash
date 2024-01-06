@@ -5,6 +5,7 @@ import AdminSidebar from "./components/AdminSidebar";
 import AdminHeader from "./components/AdminHeader";
 import { Outlet } from "react-router-dom";
 import ApproveVendor from "./ApproveVendor";
+import DisplayBookedServices from "./DisplayBookedServices";
 
 const AdminDashboard = () => {
   const admin = useContext(authContext);
@@ -17,6 +18,7 @@ const AdminDashboard = () => {
           <AdminHeader />
           <div className="flex-1 overflow-y-auto">
             <ApproveVendor />
+            <DisplayBookedServices />
             <Outlet />
           </div>
         </div>

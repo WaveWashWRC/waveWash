@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import PerformRequest from "../api/axios";
 
 const VendorOrder = () => {
@@ -26,14 +28,20 @@ const VendorOrder = () => {
       .then((response) => {
         if (response && response.message === "Booking accepted by the vendor") {
           console.log("Booking accepted:", response);
-          alert("Booking has been successfully accepted.");
+          toast.success("Booking has been successfully accepted!", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
         } else {
-          alert("Failed to accept booking");
+          toast.error("Failed to accept booking.", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
         }
       })
       .catch((error) => {
         console.error("Error accepting booking:", error);
-        alert("Failed to accept booking");
+        toast.error("Failed to accept booking.", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
       });
   };
 
