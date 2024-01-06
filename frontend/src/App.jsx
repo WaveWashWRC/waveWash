@@ -90,7 +90,6 @@ function App() {
             {/* User Routes */}
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/landingpage" element={<Landingpage />} />
             {user.isAuthenticated && (
               <Route path="/" element={<User />}>
                 <Route path="dashboard" element={<UserDashboard />} />
@@ -103,6 +102,15 @@ function App() {
               </Route>
             )}
           </Routes>
+          ) : (
+            <Routes>
+              <Route path="/login" element={<LoginAdmin />} />
+              <Route path="/register" element={<RegisterAdmin />} />
+              <Route path="/landingpage" element={<Landingpage />} />
+              <Route path="/dashboard" element={<AdminDashboard />} />
+              <Route path="/vendors" element={<ApproveVendor />} />
+            </Routes>
+          )
         )}
       </Router>
     </authContext.Provider>
