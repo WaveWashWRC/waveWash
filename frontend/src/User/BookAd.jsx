@@ -85,28 +85,37 @@ const BookAd = () => {
                       className="flex items-start gap-4 mb-4"
                     >
                       <div className="flex-shrink-0">
-                        <AdDetailsCarousel images={bidder.vendor.images} />
+                        <AdDetailsCarousel
+                          images={bidder.vendor?.images || []}
+                        />
                       </div>
                       <div className="flex-grow">
                         <p>
                           <strong>Company Name:</strong>{" "}
-                          {bidder.vendor.companyName}
+                          {bidder.vendor?.companyName || "No company name"}
                         </p>
                         <p>
                           <strong>Phone Number:</strong>{" "}
-                          {bidder.vendor.phoneNumber}
+                          {bidder.vendor && bidder.vendor.phoneNumber
+                            ? bidder.vendor.phoneNumber
+                            : "Phone number not available"}
                         </p>
                         <p>
-                          <strong>Email ID:</strong> {bidder.vendor.emailId}
+                          <strong>Email ID:</strong>{" "}
+                          {bidder.vendor?.emailId || "Email ID not available"}
                         </p>
                         <p>
-                          <strong>Bid:</strong> Rs.
-                          {parseFloat(bidder.cost.$numberDecimal).toFixed(2)}
+                          <strong>Bid:</strong> Rs.{" "}
+                          {parseFloat(bidder.cost?.$numberDecimal || 0).toFixed(
+                            2
+                          )}
                         </p>
                         <p>
                           <strong>Location:</strong>{" "}
-                          {bidder.vendor.location.city},{" "}
-                          {bidder.vendor.location.state}
+                          {bidder.vendor?.location.city || "City not available"}
+                          ,{" "}
+                          {bidder.vendor?.location.state ||
+                            "State not available"}
                         </p>
                         <div className="my-4">
                           <DatePicker
