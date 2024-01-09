@@ -5,19 +5,26 @@ import AdDetailsCarousel from "../Vendor/components/AdDetailsCarousel";
 import authContext from "../context/AuthContext";
 import PerformRequest from "../api/axios";
 
-const VendorCard = ({ vendor }) => {
+const VendorCard = ({ vendor, selectedService }) => {
   const currentUser = useContext(authContext);
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const handleBooking = async () => {
-    const selectedService = vendor.services[0];
+    const serviceToBook = vendor.services.find(
+      (service) => service.category === selectedService
+    );
+
+    if (!serviceToBook) {
+      console.error("Selected service not found in vendor services");
+      return;
+    }
 
     const bookingData = {
       vendorId: vendor._id,
-      serviceCategory: selectedService.category,
+      serviceCategory: serviceToBook.category,
       bookingDate: selectedDate.toISOString(),
       status: "Pending",
-      cost: selectedService.price,
+      cost: serviceToBook.price,
     };
 
     PerformRequest("/api/booking/bookings", "POST", bookingData)

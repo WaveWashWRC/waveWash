@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PerformRequest from "../api/axios";
 
-const CheckServices = () => {
+const CheckBooking = () => {
   const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
@@ -32,7 +32,6 @@ const CheckServices = () => {
         Your Bookings
       </h2>
       <div className="my-2 flex justify-center">
-        {/* <div className="my-1 md:text-lg">Current</div> */}
         <ul>
           {bookings.map((booking) => (
             <li
@@ -85,4 +84,4 @@ const CheckServices = () => {
   );
 };
 
-export default CheckServices;
+export default CheckBooking;
