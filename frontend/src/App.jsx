@@ -14,7 +14,7 @@ import PostAd from "./User/PostAd";
 import { useCookies } from "react-cookie";
 import History from "./User/History";
 import EditProfile from "./User/EditProfile";
-import CheckServices from "./User/CheckServices";
+import CheckBookings from "./User/CheckBookings";
 import VendorDashboard from "./Vendor/VendorDashboard";
 import Profile from "./Vendor/Profile";
 import Ads from "./Vendor/Ads";
@@ -34,9 +34,9 @@ function App() {
   const [cookies, setCookie] = useCookies(["session"]);
   const token = cookies["session"];
   console.log(token);
-  //if (token === null || token === undefined) window.location.replace("/login");
+
   useEffect(() => {
-    !(token === undefined || token === null || token === "undefined") &&
+    if (!(token === undefined || token === null || token === "undefined")) {
       fetch(
         `${api}/api/auth/${
           window.location.host.split(".")[0] === "service"
@@ -61,7 +61,9 @@ function App() {
           });
         })
         .catch((error) => console.log(error));
+    }
   }, []);
+
   return (
     <authContext.Provider value={user}>
       <Router>
@@ -93,7 +95,7 @@ function App() {
             {user.isAuthenticated && (
               <Route path="/" element={<User />}>
                 <Route path="dashboard" element={<UserDashboard />} />
-                <Route path="services" element={<CheckServices />} />
+                <Route path="services" element={<CheckBookings />} />
                 <Route path="book-service" element={<BookService />} />
                 <Route path="book-ad" element={<BookAd />} />
                 <Route path="post-an-ad" element={<PostAd />} />
@@ -102,15 +104,6 @@ function App() {
               </Route>
             )}
           </Routes>
-          ) : (
-            <Routes>
-              <Route path="/login" element={<LoginAdmin />} />
-              <Route path="/register" element={<RegisterAdmin />} />
-              <Route path="/landingpage" element={<Landingpage />} />
-              <Route path="/dashboard" element={<AdminDashboard />} />
-              <Route path="/vendors" element={<ApproveVendor />} />
-            </Routes>
-          )
         )}
       </Router>
     </authContext.Provider>

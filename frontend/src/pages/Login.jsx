@@ -39,7 +39,6 @@ const Login = () => {
       setError(null);
       console.log("New user added", json);
       navigate("/dashboard");
-      console.log("Redirected to the dashboard");
     }
   };
 

@@ -51,8 +51,9 @@ const PostAd = () => {
   };
 
   const handlePostAd = () => {
-    const expiresAt = addHours(new Date(), expiry);
+    const expiresAt = addHours(new Date(), parseInt(expiry));
     const adData = {
+      customerId: currentUser._id,
       desc: adDescription,
       services: {
         category: selectedService,

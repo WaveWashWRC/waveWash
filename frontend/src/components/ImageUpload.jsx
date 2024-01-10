@@ -1,36 +1,34 @@
 import React from "react";
 import ImageUploading from "react-images-uploading";
-import def from '../assets/defaultimg.png'
-import bin from '../assets/bin.png'
+import def from "../assets/defaultimg.png";
+import bin from "../assets/bin.png";
 import PerformRequest from "../api/axios";
 import uploadMultimedia from "../api/axios/multimedia";
-function ImageUpload({ maxNumber, preSetImages,hitUrl }) {
-  let arrObjs = []
+function ImageUpload({ maxNumber, preSetImages, hitUrl }) {
+  let arrObjs = [];
   preSetImages &&
-  preSetImages?.map((elem) => {
-    arrObjs.push({
-      data_url: elem
-    })
-  })
+    preSetImages?.map((elem) => {
+      arrObjs.push({
+        data_url: elem,
+      });
+    });
   function upload() {
     var formdata = new FormData();
     console.log(images);
-    images.map(image => {
-      if (image.file)
-        formdata.append("images", image.file);
+    images.map((image) => {
+      if (image.file) formdata.append("images", image.file);
     });
     console.log(formdata);
-    uploadMultimedia(`${hitUrl}/${maxNumber}`, 'POST', formdata)
-      .then(data => {
+    uploadMultimedia(`${hitUrl}/${maxNumber}`, "POST", formdata)
+      .then((data) => {
         if (data.success) {
-          console.log('upload', data);
+          console.log("upload", data);
         }
       })
-      .catch((err) => console.log(err))
+      .catch((err) => console.log(err));
   }
   const [images, setImages] = React.useState([...arrObjs]);
   const onChange = (imageList, addUpdateIndex) => {
-
     console.log(imageList, addUpdateIndex);
     setImages(imageList);
   };
@@ -52,11 +50,11 @@ function ImageUpload({ maxNumber, preSetImages,hitUrl }) {
           onImageUpdate,
           onImageRemove,
           isDragging,
-          dragProps
+          dragProps,
         }) => {
-          imageList = [...images]
+          imageList = [...images];
           return (
-            <div className=" border  mx-8 p-2">
+            <div className="border mx-8 p-2">
               <button
                 className="bg-sky-400 text-white p-2 rounded-md hover:bg-sky-700"
                 style={isDragging ? { color: "red" } : null}
@@ -68,25 +66,44 @@ function ImageUpload({ maxNumber, preSetImages,hitUrl }) {
               &nbsp;
               <button
                 className="bg-green-400 text-white p-2 rounded-md hover:bg-green-700"
-                onClick={upload}>Upload profile picture</button>
-              <div className="flex justify-evenly flex-wrap max-h-[300px]">
-                {
-                  (imageList.length === 0) &&
+                onClick={upload}
+              >
+                Upload profile picture
+              </button>
+              <div className="flex justify-evenly flex-wrap my-5 max-h-[300px]">
+                {imageList.length === 0 && (
                   <img className="max-h-[180px] " src={def} alt="" />
-                }
+                )}
                 {imageList.map((image, index) => (
                   <div key={index} className="inline]">
-                    <img className="max-h-[200px] " src={image.data_url} alt="" />
+                    <img
+                      className="max-h-[200px] "
+                      src={image.data_url}
+                      alt=""
+                    />
                     <div className="flex justify-center">
-                      <button className="p-1 hover:border-black m-2" onClick={() => onImageUpdate(index)}><img src="https://www.freeiconspng.com/uploads/edit-new-icon-22.png" width="30" alt="Edit, new, icon" /></button>
-                      <button className="p-1 hover:border-black m-2 " onClick={() => onImageRemove(index)}><img width={"30px"} src={bin} /></button>
-
+                      <button
+                        className="p-1 hover:border-black m-2"
+                        onClick={() => onImageUpdate(index)}
+                      >
+                        <img
+                          src="https://www.freeiconspng.com/uploads/edit-new-icon-22.png"
+                          width="30"
+                          alt="Edit, new, icon"
+                        />
+                      </button>
+                      <button
+                        className="p-1 hover:border-black m-2 "
+                        onClick={() => onImageRemove(index)}
+                      >
+                        <img width={"30px"} src={bin} />
+                      </button>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
-          )
+          );
         }}
       </ImageUploading>
     </div>

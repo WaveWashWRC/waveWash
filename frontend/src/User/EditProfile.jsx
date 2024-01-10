@@ -99,10 +99,18 @@ const EditProfile = () => {
               id="email"
               name="emailId"
               value={profileData.emailId}
-              onChange={handleInputChange}
-              className="input input-sm p-2 mt-2 bg-gray-300 text-base-400 md:input-md w-full"
+              style={{
+                backgroundColor: "#CBD5DB",
+                color: "#333333",
+                border: "1px solid #cccccc",
+                borderRadius: "5px",
+                padding: "8px",
+                marginTop: "8px",
+                width: "100%",
+              }}
             />
           </div>
+
           <div>
             <label
               htmlFor="phone"
@@ -130,7 +138,7 @@ const EditProfile = () => {
               type="text"
               id="address"
               name="location.address"
-              value={profileData.location.address}
+              value={profileData.location ? profileData.location.address : ""}
               onChange={handleInputChange}
               className="input input-sm p-2 mt-2 bg-gray-300 text-base-400 md:input-md w-full"
             />
@@ -146,7 +154,7 @@ const EditProfile = () => {
               type="text"
               id="state"
               name="location.state"
-              value={profileData.location.state}
+              value={profileData.location ? profileData.location.state : ""}
               onChange={handleInputChange}
               className="input input-sm p-2 mt-2 bg-gray-300 text-base-400 md:input-md w-full"
             />
@@ -162,7 +170,7 @@ const EditProfile = () => {
               type="text"
               id="city"
               name="location.city"
-              value={profileData.location.city}
+              value={profileData.location ? profileData.location.city : ""}
               onChange={handleInputChange}
               className="input input-sm p-2 mt-2 bg-gray-300 text-base-400 md:input-md w-full"
             />
