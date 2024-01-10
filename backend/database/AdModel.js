@@ -68,7 +68,6 @@ const AdSchema = new mongoose.Schema(
       },
       cost: {
         type: mongoose.Types.Decimal128,
-        required: true,
       },
     },
   },
