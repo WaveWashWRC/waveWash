@@ -13,7 +13,7 @@ const authenticate = require("../../middleware/authenticate");
 
 router.get("/user", authenticate, getUser); //responds with json only when Status is OK
 
-router.get("/vendors/:service", getVendorsByService); // to fetch vendors by service
+router.get("/vendors/by-service/:service", getVendorsByService); // to fetch vendors by service
 
 router.post("/register", registerUser); //post with body --> email & password
 
