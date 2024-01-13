@@ -11,19 +11,36 @@ const EditProfile = () => {
   // State to manage form data
   const [profileData, setProfileData] = useState(initialProfileData);
 
-  // Handle form input changes
   const handleInputChange = (e) => {
-    if (e.target.name.split('.')[0] === 'location') {
-      let { location } = profileData;
-      location[e.target.name.split('.')[1]] = e.target.value;
-      setProfileData({ ...profileData, location });
-    }
-    else
-      setProfileData({
-        ...profileData, ...{
-          [e.target.name]: e.target.value
+    const { name, value } = e.target;
+
+    // Function to update nested properties
+    const updateNestedProperty = (obj, path, value) => {
+      const pathArray = path.split(".");
+      const lastKey = pathArray.pop();
+
+      let current = obj;
+      pathArray.forEach((key) => {
+        if (!current[key]) {
+          current[key] = {};
         }
-      })
+        current = current[key];
+      });
+
+      current[lastKey] = value;
+    };
+
+    // Update nested property or single property
+    if (name.includes(".")) {
+      setProfileData((prevData) => {
+        const newData = { ...prevData };
+        updateNestedProperty(newData, name, value);
+        return newData;
+      });
+    } else {
+      setProfileData((prevData) => ({ ...prevData, [name]: value }));
+    }
+
     console.log(profileData);
   };
 
@@ -32,16 +49,22 @@ const EditProfile = () => {
     e.preventDefault();
     // Add logic to submit the updated profileData to the server
     console.log("Profile updated:", profileData);
-    PerformRequest(`/api/profile/user`,'PUT',profileData).then(data =>{
-      console.log((data))
-    })
-    .catch(err => console.log(err))
+    PerformRequest(`/api/profile/user`, "PUT", profileData)
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
     <div className="p-5 bg-base-100 min-h-screen flex justify-center items-center">
       <div className="flex flex-col justify-center items-center bg-gray-200 rounded-lg p-5 md:w-[700px] w-full">
-      <ImageUpload preSetImages={profileData.images} hitUrl={'/api/upload/image'} className='block' maxNumber={1} />
+        <ImageUpload
+          preSetImages={profileData.images}
+          hitUrl={"/api/upload/image"}
+          className="block"
+          maxNumber={1}
+        />
         <h2 className="text-lg md:text-2xl font-bold mb-5 text-base-400">
           Edit Profile
         </h2>
@@ -76,10 +99,18 @@ const EditProfile = () => {
               id="email"
               name="emailId"
               value={profileData.emailId}
-              onChange={handleInputChange}
-              className="input input-sm p-2 mt-2 bg-gray-300 text-base-400 md:input-md w-full"
+              style={{
+                backgroundColor: "#CBD5DB",
+                color: "#333333",
+                border: "1px solid #cccccc",
+                borderRadius: "5px",
+                padding: "8px",
+                marginTop: "8px",
+                width: "100%",
+              }}
             />
           </div>
+
           <div>
             <label
               htmlFor="phone"
@@ -107,7 +138,7 @@ const EditProfile = () => {
               type="text"
               id="address"
               name="location.address"
-              value={profileData.location.address}
+              value={profileData.location ? profileData.location.address : ""}
               onChange={handleInputChange}
               className="input input-sm p-2 mt-2 bg-gray-300 text-base-400 md:input-md w-full"
             />
@@ -123,7 +154,7 @@ const EditProfile = () => {
               type="text"
               id="state"
               name="location.state"
-              value={profileData.location.state}
+              value={profileData.location ? profileData.location.state : ""}
               onChange={handleInputChange}
               className="input input-sm p-2 mt-2 bg-gray-300 text-base-400 md:input-md w-full"
             />
@@ -139,7 +170,7 @@ const EditProfile = () => {
               type="text"
               id="city"
               name="location.city"
-              value={profileData.location.city}
+              value={profileData.location ? profileData.location.city : ""}
               onChange={handleInputChange}
               className="input input-sm p-2 mt-2 bg-gray-300 text-base-400 md:input-md w-full"
             />

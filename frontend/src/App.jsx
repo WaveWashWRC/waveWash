@@ -34,9 +34,9 @@ function App() {
   const [cookies, setCookie] = useCookies(["session"]);
   const token = cookies["session"];
   console.log(token);
-  //if (token === null || token === undefined) window.location.replace("/login");
+
   useEffect(() => {
-    !(token === undefined || token === null || token === "undefined") &&
+    if (!(token === undefined || token === null || token === "undefined")) {
       fetch(
         `${api}/api/auth/${
           window.location.host.split(".")[0] === "service"
@@ -61,7 +61,9 @@ function App() {
           });
         })
         .catch((error) => console.log(error));
+    }
   }, []);
+
   return (
     <authContext.Provider value={user}>
       <Router>
@@ -90,7 +92,6 @@ function App() {
             {/* User Routes */}
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/landingpage" element={<Landingpage />} />
             {user.isAuthenticated && (
               <Route path="/" element={<User />}>
                 <Route path="dashboard" element={<UserDashboard />} />

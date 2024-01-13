@@ -3,6 +3,7 @@ const router = express.Router();
 const authenticate = require("../../middleware/authenticate");
 const {
   getAllBookings,
+  getConfirmedBookings,
   createBooking,
   deleteBookingById,
 } = require("../../controllers/Booking/booking");
@@ -20,6 +21,7 @@ router.delete("/bookings/:bookingId", authenticate, deleteBookingById);
 
 //for vendor
 router.get("/bookings/vendor", authenticate, getAllBookingsForVendor);
+router.get("/bookings/confirmed/vendor", authenticate, getConfirmedBookings);
 router.put("/bookings/accept/:bookingId", authenticate, acceptBooking);
 router.put("/bookings/cancel/:bookingId", authenticate, cancelBooking);
 

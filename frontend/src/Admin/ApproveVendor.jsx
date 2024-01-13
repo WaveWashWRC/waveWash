@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import PerformRequest from "../api/axios";
 
 const ApproveVendor = () => {
@@ -28,9 +30,15 @@ const ApproveVendor = () => {
     try {
       setLoading(true);
       await PerformRequest(`/api/admin/approve/${vendorId}`, "PUT");
+      toast.success("Vendor approved!", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
       fetchVendors();
     } catch (error) {
       console.error("Error approving vendor:", error);
+      toast.error("Vendor not approved.", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
       setLoading(false);
     }
   };

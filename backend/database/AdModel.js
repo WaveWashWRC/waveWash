@@ -19,6 +19,10 @@ const AdSchema = new mongoose.Schema(
       required: true,
       ref: "User",
     },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
     expiresAt: {
       type: Date,
     },
@@ -73,6 +77,8 @@ const AdSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+AdSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 });
 
 const ads = mongoose.model("Ads", AdSchema);
 /* ads.createIndex( { location.city: "text", desc: "text" } ) */

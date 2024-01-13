@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import PerformRequest from "../../api/axios";
 import CustomButton from "./CustomButton";
 
@@ -24,14 +26,20 @@ const BidComponent = ({ adId }) => {
       );
 
       if (response && response.success) {
-        window.alert("Bid submitted successfully!");
         setBidAmount("");
+        toast.success("Bid submitted successfully!", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
       } else {
-        window.alert("Failed to submit bid");
+        toast.error("Failed to submit bid.", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
       }
     } catch (error) {
       console.error("Error submitting bid:", error);
-      window.alert("Failed to submit bid");
+      toast.error("Failed to submit bid.", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     } finally {
       setIsSubmitting(false); // Reset submission state
     }

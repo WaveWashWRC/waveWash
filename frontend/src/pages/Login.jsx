@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import loginImg from "/images/login.jpg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
 const Login = () => {
@@ -8,6 +8,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [cookie, setCookie] = useCookies(["session"]);
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -30,13 +31,14 @@ const Login = () => {
     if (json.success) {
       setCookie("session", json.token, {
         path: "/",
-        maxAge: 3600 * 24 * 30*60,
+        maxAge: 3600 * 24 * 30 * 60,
         sameSite: true,
       });
       setEmailId("");
       setPassword("");
       setError(null);
       console.log("New user added", json);
+      navigate("/dashboard");
     }
   };
 
