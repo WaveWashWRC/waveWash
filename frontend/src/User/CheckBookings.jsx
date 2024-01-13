@@ -3,7 +3,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PerformRequest from "../api/axios";
 
-const CheckServices = () => {
+const CheckBooking = () => {
   const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
@@ -93,4 +93,4 @@ const CheckServices = () => {
   );
 };
 
-export default CheckServices;
+export default CheckBooking;
