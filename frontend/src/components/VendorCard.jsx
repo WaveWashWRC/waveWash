@@ -1,44 +1,39 @@
 import React, { useContext, useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import AdDetailsCarousel from "../Vendor/components/AdDetailsCarousel";
 import authContext from "../context/AuthContext";
 import PerformRequest from "../api/axios";
 
-const VendorCard = ({ vendor }) => {
+const VendorCard = ({ vendor, selectedService }) => {
   const currentUser = useContext(authContext);
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const handleBooking = async () => {
-    try {
-      const selectedService = vendor.services[0];
+    const serviceToBook = vendor.services.find(
+      (service) => service.category === selectedService
+    );
 
-      const bookingData = {
-        vendorId: vendor._id,
-        serviceCategory: selectedService.category,
-        bookingDate: selectedDate.toISOString(),
-        status: "Pending",
-        cost: selectedService.price,
-      };
-
-      const response = await PerformRequest(
-        "/api/booking/bookings",
-        "POST",
-        bookingData
-      );
-
-      console.log("Booking response:", response);
-      toast.success("Service Booked!", {
-        position: toast.POSITION.TOP_RIGHT,
-      });
-    } catch (error) {
-      console.error("Error creating booking:", error);
-      toast.error("Service Not Booked!", {
-        position: toast.POSITION.TOP_RIGHT,
-      });
+    if (!serviceToBook) {
+      console.error("Selected service not found in vendor services");
+      return;
     }
+
+    const bookingData = {
+      vendorId: vendor._id,
+      serviceCategory: serviceToBook.category,
+      bookingDate: selectedDate.toISOString(),
+      status: "Pending",
+      cost: serviceToBook.price,
+    };
+
+    PerformRequest("/api/booking/bookings", "POST", bookingData)
+      .then((response) => {
+        console.log("Booking response:", response);
+      })
+      .catch((error) => {
+        console.error("Error creating booking:", error);
+      });
   };
 
   const { companyName, services, location, images } = vendor;
@@ -79,7 +74,6 @@ const VendorCard = ({ vendor }) => {
             Book
           </button>
         </div>
-        <ToastContainer autoClose={3000} />
       </div>
     );
   }

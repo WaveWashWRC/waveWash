@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import PerformRequest from "../api/axios";
 
 const VendorOrder = () => {
   const [bookings, setBookings] = useState([]);
+  const [acceptedBookings, setAcceptedBookings] = useState([]); // Track accepted bookings
 
   useEffect(() => {
+    // Load accepted bookings from localStorage on initial render
+    const savedAcceptedBookings =
+      JSON.parse(localStorage.getItem("acceptedBookings")) || [];
+    setAcceptedBookings(savedAcceptedBookings);
+
     const fetchBookings = () => {
       PerformRequest("/api/booking/bookings/vendor", "GET")
         .then((response) => {
@@ -23,25 +27,27 @@ const VendorOrder = () => {
 
     fetchBookings();
   }, []);
+
   const handleAccept = (bookingId) => {
     PerformRequest(`/api/booking/bookings/accept/${bookingId}`, "PUT")
       .then((response) => {
         if (response && response.message === "Booking accepted by the vendor") {
           console.log("Booking accepted:", response);
-          toast.success("Booking has been successfully accepted!", {
-            position: toast.POSITION.TOP_RIGHT,
-          });
+          alert("Booking has been successfully accepted.");
+          const updatedAcceptedBookings = [...acceptedBookings, bookingId];
+          setAcceptedBookings(updatedAcceptedBookings);
+
+          localStorage.setItem(
+            "acceptedBookings",
+            JSON.stringify(updatedAcceptedBookings)
+          );
         } else {
-          toast.error("Failed to accept booking.", {
-            position: toast.POSITION.TOP_RIGHT,
-          });
+          alert("Failed to accept booking");
         }
       })
       .catch((error) => {
         console.error("Error accepting booking:", error);
-        toast.error("Failed to accept booking.", {
-          position: toast.POSITION.TOP_RIGHT,
-        });
+        alert("Failed to accept booking");
       });
   };
 
@@ -49,10 +55,22 @@ const VendorOrder = () => {
     PerformRequest(`/api/booking/bookings/cancel/${bookingId}`, "PUT")
       .then((response) => {
         if (response && response.message === "Booking cancelled successfully") {
-          // Refresh the bookings or update the status in the state
           console.log("Booking cancelled:", response);
           alert("Booking has been successfully cancelled.");
-          // Trigger a re-fetch or update local state here
+          const updatedBookings = bookings.filter(
+            (booking) => booking._id !== bookingId
+          );
+          setBookings(updatedBookings);
+
+          const updatedAcceptedBookings = acceptedBookings.filter(
+            (id) => id !== bookingId
+          );
+          setAcceptedBookings(updatedAcceptedBookings);
+
+          localStorage.setItem(
+            "acceptedBookings",
+            JSON.stringify(updatedAcceptedBookings)
+          );
         } else {
           alert("Failed to cancel booking");
         }
@@ -75,9 +93,11 @@ const VendorOrder = () => {
             className="bg-gray-100 text-gray-900 p-4 rounded-lg shadow-md"
           >
             <h2 className="text-lg font-semibold">{booking.serviceCategory}</h2>
-            <p className="text-gray-900 mb-2">{booking.customerName}</p>
+            <p className="text-gray-900 mb-2 font-medium">
+              {booking.customerName}
+            </p>
             <p className="text-gray-900 mb-2">
-              {new Date(booking.bookingDate).toLocaleString()}
+              Date: {new Date(booking.bookingDate).toLocaleString()}
             </p>
             <p className="text-gray-900 mb-2">
               Cost: Rs.{parseFloat(booking.cost.$numberDecimal).toFixed(2)}
@@ -85,12 +105,18 @@ const VendorOrder = () => {
             <p className="text-gray-900 mb-4">Address: {booking.address}</p>
             <p className="text-gray-900 mb-4">Phone: {booking.phoneNumber}</p>
             <div className="flex justify-between">
-              <button
-                className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700"
-                onClick={() => handleAccept(booking._id)}
-              >
-                Accept
-              </button>
+              {!acceptedBookings.includes(booking._id) ? (
+                <button
+                  className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700"
+                  onClick={() => handleAccept(booking._id)}
+                >
+                  Accept
+                </button>
+              ) : (
+                <button className="bg-green-500 text-white px-3 py-1 rounded">
+                  Confirmed
+                </button>
+              )}
               <button
                 className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-700"
                 onClick={() => handleCancel(booking._id)}

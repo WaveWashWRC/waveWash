@@ -14,7 +14,7 @@ import PostAd from "./User/PostAd";
 import { useCookies } from "react-cookie";
 import History from "./User/History";
 import EditProfile from "./User/EditProfile";
-import CheckBookings from "./User/CheckBookings";
+import CheckBooking from "./User/CheckBooking";
 import VendorDashboard from "./Vendor/VendorDashboard";
 import Profile from "./Vendor/Profile";
 import Ads from "./Vendor/Ads";
@@ -95,7 +95,7 @@ function App() {
             {user.isAuthenticated && (
               <Route path="/" element={<User />}>
                 <Route path="dashboard" element={<UserDashboard />} />
-                <Route path="services" element={<CheckBookings />} />
+                <Route path="services" element={<CheckBooking />} />
                 <Route path="book-service" element={<BookService />} />
                 <Route path="book-ad" element={<BookAd />} />
                 <Route path="post-an-ad" element={<PostAd />} />

@@ -52,7 +52,11 @@ const BookService = () => {
           <div className="flex flex-col space-y-4">
             {" "}
             {vendors.map((vendor, index) => (
-              <VendorCard key={index} vendor={vendor} />
+              <VendorCard
+                key={index}
+                vendor={vendor}
+                selectedService={selectedService}
+              />
             ))}
           </div>
         </div>
