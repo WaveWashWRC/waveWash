@@ -29,8 +29,8 @@ const createAd = async (req, res) => {
 const getAllAds = async (req, res) => {
   const allAds = await ads.find({
     expiresAt: {
-      $lte: Date.now()
-    }
+      $gte: Date.now(),
+    },
   });
   res.json(allAds);
 };
@@ -54,7 +54,7 @@ const getAdById = async (req, res) => {
   const ad = await ads.find({ _id: req.params.id });
   res.json(ad);
 };
-const getFilteredAds = async (req, res) => { };
+const getFilteredAds = async (req, res) => {};
 const updateAd = async (req, res) => {
   const _id = req.params.id;
   const customerId = req.user.id;
