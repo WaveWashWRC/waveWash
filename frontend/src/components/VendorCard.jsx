@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import AdDetailsCarousel from "../Vendor/components/AdDetailsCarousel";
@@ -10,6 +10,24 @@ import "react-toastify/dist/ReactToastify.css";
 const VendorCard = ({ vendor, selectedService }) => {
   const currentUser = useContext(authContext);
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedServicePrice, setSelectedServicePrice] =
+    useState("Not available");
+
+  useEffect(() => {
+    const serviceToBook = vendor.services.find(
+      (service) => service.category === selectedService
+    );
+
+    if (serviceToBook) {
+      const price =
+        typeof serviceToBook.price === "object"
+          ? serviceToBook.price.$numberDecimal
+          : serviceToBook.price;
+      setSelectedServicePrice(price);
+    } else {
+      setSelectedServicePrice("Not available");
+    }
+  }, [vendor, selectedService]);
 
   const handleBooking = async () => {
     const serviceToBook = vendor.services.find(
@@ -29,28 +47,28 @@ const VendorCard = ({ vendor, selectedService }) => {
       serviceCategory: serviceToBook.category,
       bookingDate: selectedDate.toISOString(),
       status: "Pending",
-      cost: serviceToBook.price,
+      cost: selectedServicePrice,
     };
 
-    PerformRequest("/api/booking/bookings", "POST", bookingData)
-      .then((response) => {
-        console.log("Booking response:", response);
-        toast.success("Booking successful!", {
-          position: toast.POSITION.TOP_RIGHT,
-        });
-      })
-      .catch((error) => {
-        console.error("Error creating booking:", error);
-        toast.error("Booking failed. Please try again.", {
-          position: toast.POSITION.TOP_RIGHT,
-        });
+    try {
+      const response = await PerformRequest(
+        "/api/booking/bookings",
+        "POST",
+        bookingData
+      );
+      console.log("Booking response:", response);
+      toast.success("Booking successful!", {
+        position: toast.POSITION.TOP_RIGHT,
       });
+    } catch (error) {
+      console.error("Error creating booking:", error);
+      toast.error("Booking failed. Please try again.", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    }
   };
 
-  const { companyName, services, location, images } = vendor;
-  const service = services.length > 0 ? services[0] : null;
-  const price =
-    service && service.price ? service.price.$numberDecimal : "Not available";
+  const { companyName, location, images } = vendor;
   const address = location
     ? `${location.address}, ${location.city}, ${location.state}, ${location.pincode}`
     : "Location not available";
@@ -63,12 +81,13 @@ const VendorCard = ({ vendor, selectedService }) => {
           <div className="font-bold text-base md:text-xl md:mb-2 text-gray-900">
             {companyName}
           </div>
-          <p className="text-gray-600 text-sm md:text-base">Price: {price}</p>
+          <p className="text-gray-600 text-sm md:text-base">
+            Price: {selectedServicePrice}
+          </p>
           <p className="text-gray-600 text-sm md:text-base">
             Address: {address}
           </p>
 
-          {/* Date Picker */}
           <div className="my-4">
             <DatePicker
               selected={selectedDate}
