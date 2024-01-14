@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import PerformRequest from "../api/axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const VendorOrder = () => {
   const [bookings, setBookings] = useState([]);
-  const [acceptedBookings, setAcceptedBookings] = useState([]); // Track accepted bookings
+  const [acceptedBookings, setAcceptedBookings] = useState([]);
 
   useEffect(() => {
-    // Load accepted bookings from localStorage on initial render
     const savedAcceptedBookings =
       JSON.parse(localStorage.getItem("acceptedBookings")) || [];
     setAcceptedBookings(savedAcceptedBookings);
@@ -22,6 +23,7 @@ const VendorOrder = () => {
         })
         .catch((error) => {
           console.error("Error fetching bookings:", error);
+          toast.error("Error fetching bookings");
         });
     };
 
@@ -33,21 +35,20 @@ const VendorOrder = () => {
       .then((response) => {
         if (response && response.message === "Booking accepted by the vendor") {
           console.log("Booking accepted:", response);
-          alert("Booking has been successfully accepted.");
+          toast.success("Booking has been successfully accepted.");
           const updatedAcceptedBookings = [...acceptedBookings, bookingId];
           setAcceptedBookings(updatedAcceptedBookings);
-
           localStorage.setItem(
             "acceptedBookings",
             JSON.stringify(updatedAcceptedBookings)
           );
         } else {
-          alert("Failed to accept booking");
+          toast.warn("Failed to accept booking");
         }
       })
       .catch((error) => {
         console.error("Error accepting booking:", error);
-        alert("Failed to accept booking");
+        toast.error("Failed to accept booking");
       });
   };
 
@@ -56,7 +57,7 @@ const VendorOrder = () => {
       .then((response) => {
         if (response && response.message === "Booking cancelled successfully") {
           console.log("Booking cancelled:", response);
-          alert("Booking has been successfully cancelled.");
+          toast.info("Booking has been successfully cancelled.");
           const updatedBookings = bookings.filter(
             (booking) => booking._id !== bookingId
           );
@@ -66,18 +67,17 @@ const VendorOrder = () => {
             (id) => id !== bookingId
           );
           setAcceptedBookings(updatedAcceptedBookings);
-
           localStorage.setItem(
             "acceptedBookings",
             JSON.stringify(updatedAcceptedBookings)
           );
         } else {
-          alert("Failed to cancel booking");
+          toast.warn("Failed to cancel booking");
         }
       })
       .catch((error) => {
         console.error("Error cancelling booking:", error);
-        alert("Failed to cancel booking");
+        toast.error("Failed to cancel booking");
       });
   };
 
@@ -127,6 +127,7 @@ const VendorOrder = () => {
           </div>
         ))}
       </div>
+      <ToastContainer autoClose={3000} />
     </div>
   );
 };

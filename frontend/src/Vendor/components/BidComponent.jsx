@@ -13,16 +13,14 @@ const BidComponent = ({ adId }) => {
   };
 
   const handleBidSubmission = async () => {
-    if (isSubmitting) return; // Prevent multiple submissions
+    if (isSubmitting) return;
     setIsSubmitting(true);
 
     try {
       const response = await PerformRequest(
         `/api/ad/bid/create/${adId}`,
         "PUT",
-        {
-          cost: bidAmount,
-        }
+        { cost: bidAmount }
       );
 
       if (response && response.success) {
@@ -31,17 +29,17 @@ const BidComponent = ({ adId }) => {
           position: toast.POSITION.TOP_RIGHT,
         });
       } else {
-        toast.error("Failed to submit bid.", {
+        toast.error(response.message || "Failed to submit bid.", {
           position: toast.POSITION.TOP_RIGHT,
         });
       }
     } catch (error) {
       console.error("Error submitting bid:", error);
-      toast.error("Failed to submit bid.", {
+      toast.error("Failed to submit bid. Please try again.", {
         position: toast.POSITION.TOP_RIGHT,
       });
     } finally {
-      setIsSubmitting(false); // Reset submission state
+      setIsSubmitting(false);
     }
   };
 
@@ -68,7 +66,9 @@ const BidComponent = ({ adId }) => {
           disabled={isSubmitting}
         />
       </div>
+      <ToastContainer autoClose={3000} />
     </div>
   );
 };
+
 export default BidComponent;

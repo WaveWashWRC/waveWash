@@ -7,6 +7,7 @@ const getVendorsByService = async (req, res) => {
 
     const vendors = await vendorModel.find({
       "services.category": service,
+      verified: true,
     });
 
     console.log("Found vendors:", vendors);
