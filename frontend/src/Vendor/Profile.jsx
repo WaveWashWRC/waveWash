@@ -299,7 +299,7 @@ const Profile = () => {
                 <input
                   type="text"
                   placeholder="Price"
-                  value={service.price ? service.price.toString() : ""}
+                  value={service.price["$numberDecimal"]}
                   className="border p-1 text-xs text-gray-900 w-20 mr-2 bg-gray-100"
                   onChange={(e) => handlePriceChange(e, key)}
                 />
