@@ -56,6 +56,7 @@ const BookAd = () => {
       });
     }
   };
+
   if (currentUser?.isAuthenticated) {
     return (
       <div className="max-w-5xl mx-auto">
@@ -76,11 +77,11 @@ const BookAd = () => {
                   <strong>Service:</strong> {ad.services.category}
                 </p>
                 <p>
-                  <strong>Location:</strong>{" "}
+                  <strong>Location:</strong>
                   {`${ad.location.address}, ${ad.location.city}`}
                 </p>
                 <p>
-                  <strong>Expires At:</strong>{" "}
+                  <strong>Expires At:</strong>
                   {new Date(ad.expiresAt).toLocaleString()}
                 </p>
               </div>
@@ -99,29 +100,28 @@ const BookAd = () => {
                       </div>
                       <div className="flex-grow">
                         <p>
-                          <strong>Company Name:</strong>{" "}
+                          <strong>Company Name:</strong>
                           {bidder.vendor?.companyName || "No company name"}
                         </p>
                         <p>
-                          <strong>Phone Number:</strong>{" "}
-                          {bidder.vendor && bidder.vendor.phoneNumber
-                            ? bidder.vendor.phoneNumber
-                            : "Phone number not available"}
+                          <strong>Phone Number:</strong>
+                          {bidder.vendor?.phoneNumber ||
+                            "Phone number not available"}
                         </p>
                         <p>
-                          <strong>Email ID:</strong>{" "}
+                          <strong>Email ID:</strong>
                           {bidder.vendor?.emailId || "Email ID not available"}
                         </p>
                         <p>
-                          <strong>Bid:</strong> Rs.{" "}
+                          <strong>Bid:</strong> Rs.
                           {parseFloat(bidder.cost?.$numberDecimal || 0).toFixed(
                             2
                           )}
                         </p>
                         <p>
-                          <strong>Location:</strong>{" "}
+                          <strong>Location:</strong>
                           {bidder.vendor?.location.city || "City not available"}
-                          ,{" "}
+                          ,
                           {bidder.vendor?.location.state ||
                             "State not available"}
                         </p>
@@ -149,8 +149,11 @@ const BookAd = () => {
             </div>
           ))}
         </div>
+        <ToastContainer autoClose={3000} />
       </div>
     );
+  } else {
+    return <div>Please log in to view and book ads.</div>;
   }
 };
 

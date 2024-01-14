@@ -4,6 +4,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import AdDetailsCarousel from "../Vendor/components/AdDetailsCarousel";
 import authContext from "../context/AuthContext";
 import PerformRequest from "../api/axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const VendorCard = ({ vendor, selectedService }) => {
   const currentUser = useContext(authContext);
@@ -16,6 +18,9 @@ const VendorCard = ({ vendor, selectedService }) => {
 
     if (!serviceToBook) {
       console.error("Selected service not found in vendor services");
+      toast.error("Service not available for booking.", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
       return;
     }
 
@@ -30,9 +35,15 @@ const VendorCard = ({ vendor, selectedService }) => {
     PerformRequest("/api/booking/bookings", "POST", bookingData)
       .then((response) => {
         console.log("Booking response:", response);
+        toast.success("Booking successful!", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
       })
       .catch((error) => {
         console.error("Error creating booking:", error);
+        toast.error("Booking failed. Please try again.", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
       });
   };
 
@@ -74,8 +85,11 @@ const VendorCard = ({ vendor, selectedService }) => {
             Book
           </button>
         </div>
+        <ToastContainer autoClose={3000} />
       </div>
     );
+  } else {
+    return <div>Authentication is required to make a booking.</div>;
   }
 };
 

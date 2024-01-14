@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import PerformRequest from "../api/axios";
 
 const CheckBooking = () => {
@@ -20,9 +22,15 @@ const CheckBooking = () => {
       .then((response) => {
         console.log("Booking cancelled:", response);
         setBookings(bookings.filter((booking) => booking._id !== bookingId));
+        toast.success("Booking cancelled!", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
       })
       .catch((error) => {
         console.error("Error cancelling booking:", error);
+        toast.error("Error cancelling booking!", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
       });
   };
 
@@ -80,6 +88,7 @@ const CheckBooking = () => {
           ))}
         </ul>
       </div>
+      <ToastContainer autoClose={3000} />
     </div>
   );
 };
