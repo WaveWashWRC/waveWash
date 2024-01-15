@@ -5,12 +5,14 @@ import { useCookies } from "react-cookie";
 import service from "../assets/service.jpg";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 const LoginVendor = () => {
   const [emailID, setEmailID] = useState("");
   const [password, setPassword] = useState("");
   const [cookies, setCookie, removeCookie] = useCookies(["session"]);
 
   const navigate = useNavigate();
+
   const handleRegister = async (e) => {
     e.preventDefault();
 
@@ -32,11 +34,14 @@ const LoginVendor = () => {
 
     const data = await response.json();
     console.log(data);
-    if (data.err) {
-      toast.error(data.msg, {
+
+    if (!data.success) {
+      // If authentication is not successful
+      toast.error(data.msg || "Authentication failed.", {
         position: toast.POSITION.TOP_RIGHT,
       });
     } else {
+      // If authentication is successful
       setCookie("session", data?.token);
       window.location.replace("/profile");
     }
@@ -135,6 +140,7 @@ const LoginVendor = () => {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
