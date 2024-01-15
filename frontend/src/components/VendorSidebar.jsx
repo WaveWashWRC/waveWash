@@ -61,7 +61,10 @@ export default function VendorSidebar() {
               {DASHBOARD_SIDEBAR_BOTTOM_LINKS.map((item) => (
                 <SidebarLink className={linkClass} key={item.key} item={item} />
               ))}
-              <Link to={"/"} className={classNames("text-red-800", linkClass)}>
+              <Link
+                to={"/login"}
+                className={classNames("text-red-800", linkClass)}
+              >
                 <span className="text-xl">
                   <HiOutlineLogout />
                 </span>

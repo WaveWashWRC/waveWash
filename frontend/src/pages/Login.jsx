@@ -36,6 +36,7 @@ const Login = () => {
       window.location.replace("/dashboard");
     } else {
       setError(json.error || "Login failed");
+      window.location.replace("/login");
     }
   };
 
@@ -133,7 +134,6 @@ const Login = () => {
           </div>
         </div>
       </div>
-      {error && <div className="error-message">{error}</div>}
     </div>
   );
 };

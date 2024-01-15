@@ -49,17 +49,17 @@ export const VendorHeader = () => {
               <Menu.Item>
                 {({ active }) => (
                   <div
-                    onClick={() => navigate("/settings")}
+                    onClick={() => navigate("/login")}
                     className={classNames(
                       active && "bg-gray-100",
                       "active:bg-gray-200 rounded-sm px-4 py-2 text-gray-700 cursor-pointer focus:bg-gray-200"
                     )}
                   >
-                    Settings
+                    Signout
                   </div>
                 )}
               </Menu.Item>
-              <Menu.Item>
+              {/* <Menu.Item>
                 {({ active }) => (
                   <div
                     className={classNames(
@@ -70,7 +70,7 @@ export const VendorHeader = () => {
                     Sign out
                   </div>
                 )}
-              </Menu.Item>
+              </Menu.Item> */}
             </Menu.Items>
           </Transition>
         </Menu>

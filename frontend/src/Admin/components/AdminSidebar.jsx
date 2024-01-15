@@ -58,7 +58,7 @@ export default function AdminSidebar() {
                 <SidebarLink key={item.key} item={item} />
               ))}
               <Link
-                to={"/"}
+                to={"/login"}
                 className="text-red-800 flex items-center gap-2 font-light px-3 py-2 hover:no-underline rounded-sm text-base"
               >
                 <span className="text-xl">

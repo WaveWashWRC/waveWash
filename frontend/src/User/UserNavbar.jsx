@@ -41,10 +41,10 @@ const UserNavbar = () => {
                 tabIndex={0}
               >
                 <Link
-                  to="/dashboard"
+                  to="/services"
                   className="hover:text-base-300 transition-colors px-4 py-2 rounded-md hover:bg-base-400/10"
                 >
-                  Dashboard
+                  Bookings
                 </Link>
                 <Link
                   to="/book-service"
@@ -81,10 +81,10 @@ const UserNavbar = () => {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1 flex text-lg items-center gap-10">
             <Link
-              to="/dashboard"
+              to="/services"
               className="hover:text-base-100 transition-colors px-4 py-2 rounded-md hover:bg-base-400/20"
             >
-              Dashboard
+              Bookings
             </Link>
             <Link
               to="/book-service"

@@ -31,7 +31,6 @@ async function registerUser(req, res) {
       res.status(400).json({ msg: "something went wrong", err, success: false })
     );
 }
-
 //create session for existing users
 async function loginUser(req, res) {
   const { emailId, password } = req.body;
@@ -56,14 +55,13 @@ async function loginUser(req, res) {
         expiresIn: "30d",
       }
     );
-    return res.redirect("/dashboard");
-    // return res.json({
-    //   success: true,
-    //   msg: "authenticated",
-    //   username: userData.name,
-    //   userId: userData._id,
-    //   token: token, //Needs to be stored in client cookies as token
-    // });
+    return res.json({
+      success: true,
+      msg: "authenticated",
+      username: userData.name,
+      userId: userData._id,
+      token: token, //Needs to be stored in client cookies as token
+    });
   } else
     res.json({
       success: false,
@@ -75,9 +73,7 @@ function getUser(req, res) {
   const { id } = req.user;
 
   userModel
-    .findById(userId, {
-      $unset: "password",
-    })
+    .findById(id)
     .then((data) => {
       res.status(200).json(data);
     })
