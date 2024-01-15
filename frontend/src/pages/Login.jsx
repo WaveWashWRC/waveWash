@@ -24,19 +24,19 @@ const Login = () => {
 
     const json = await response.json();
 
-    if (!json.success) {
-      setError(json.error);
-    }
     if (json.success) {
       setCookie("session", json.token, {
         path: "/",
-        maxAge: 3600 * 24 * 30*60,
+        maxAge: 3600 * 24 * 30 * 60,
         sameSite: true,
       });
       setEmailId("");
       setPassword("");
       setError(null);
-      console.log("New user added", json);
+      window.location.replace("/dashboard");
+    } else {
+      setError(json.error || "Login failed");
+      window.location.replace("/login");
     }
   };
 
