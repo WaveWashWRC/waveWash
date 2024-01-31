@@ -4,7 +4,7 @@ const { mongoConnect } = require("./database/connect");
 const cors = require("cors");
 const express = require("express");
 const mongoose = require("mongoose");
-
+const path = require('path')
 const port = process.env.PORT || 3300;
 
 const userAuthRouter = require("./routes/User/auth");
@@ -43,7 +43,10 @@ app.use("/api/ad/", adRouter);
 app.use("/api/upload", cloudRouter);
 
 app.use("/api/booking", bookingRouter);
-
+app.use(express.static(path.join(__dirname,"..","frontend","dist")));
+app.get("*",(req,res) => {
+  res.sendFile(path.join(__dirname,"..","frontend","dist","index.html"));
+})
 app.listen(port, () => {
   console.log("Server is live at port " + port);
 });
