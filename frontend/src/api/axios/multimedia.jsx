@@ -18,7 +18,7 @@ const uploadMultimedia = (url, method, body) => {
   // initializing the axios instance with custom configs
   const Token = getCookie('session');
   const api = axios.create({
-    baseURL: 'http://localhost:8000/',
+    baseURL: '/',
     headers: {
       Authorization: `bearer ${Token}`,
     },
