@@ -22,7 +22,7 @@ const LoginVendor = () => {
     };
 
     const response = await fetch(
-      "http://localhost:8000/api/auth/vendor/login",
+      "/api/auth/vendor/login",
       {
         method: "POST",
         headers: {

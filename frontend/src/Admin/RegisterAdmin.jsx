@@ -35,7 +35,7 @@ const RegisterAdmin = () => {
     };
 
     const response = await fetch(
-      "http://localhost:8000/api/auth/admin/register",
+      "/api/auth/admin/register",
       {
         method: "POST",
         headers: {

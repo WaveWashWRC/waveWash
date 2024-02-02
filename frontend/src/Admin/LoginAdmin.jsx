@@ -19,7 +19,7 @@ const LoginAdmin = () => {
       password,
     };
     console.log(payload);
-    const response = await fetch("http://localhost:8000/api/auth/admin/login", {
+    const response = await fetch("/api/auth/admin/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

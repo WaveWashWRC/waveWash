@@ -41,7 +41,7 @@ const RegisterVendor = () => {
     };
 
     const response = await fetch(
-      "http://localhost:8000/api/auth/vendor/register",
+      "/api/auth/vendor/register",
       {
         method: "POST",
         headers: {
