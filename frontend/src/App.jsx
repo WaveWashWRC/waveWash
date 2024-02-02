@@ -30,7 +30,7 @@ function App() {
   const [user, setUser] = useState({
     isAuthenticated: false,
   });
-  const api = "http://localhost:8000";
+  const api = "/";
   const [cookies, setCookie] = useCookies(["session"]);
   const token = cookies["session"];
   console.log(token);
@@ -38,7 +38,7 @@ function App() {
   useEffect(() => {
     if (!(token === undefined || token === null || token === "undefined")) {
       fetch(
-        `${api}/api/auth/${
+        `/api/auth/${
           window.location.host.split(".")[0] === "service"
             ? "vendor"
             : window.location.host.split(".")[0] === "service"
