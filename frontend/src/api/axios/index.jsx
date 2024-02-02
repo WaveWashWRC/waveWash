@@ -19,14 +19,14 @@ const PerformRequest = (url, method, body) => {
   const Token = getCookie('session');
   const api = (Token!== undefined || Token!==null)?
   axios.create({
-    baseURL: 'http://localhost:8000/',
+    baseURL: '/',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `bearer ${Token}`,
     },
   }):
   axios.create({
-    baseURL: 'http://localhost:8000/',
+    baseURL: '/',
     headers: {
       'Content-Type': 'application/json'
     },
